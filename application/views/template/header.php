@@ -55,15 +55,14 @@
                         </div>
                     </div>
                     <ul class="side-nav-menu scrollable mrg-top-30">
-                        <li class="nav-item <?= $atv == 'home' ? 'active' : ''; ?>">
+                        <li class="nav-item ">
                             <a href="<?= site_url('dashboard') ?>">
                                 <span class="icon-holder"><i class="ei-bank"></i></span>
                                 <span class="title">DASHBOARD</span>
                             </a>
                         </li>
 
-                        <?php $arr_master = ['jenis_barang']; ?>
-                        <li class="nav-item dropdown <?= in_array('jenis_barang', $arr_master) ? 'active' : ''; ?>">
+                        <li class="nav-item dropdown">
                             <a class='dropdown-toggle' href='javascript:void(0);'>
                                 <span class='icon-holder'><i class='ei-business-card'></i></span>
                                 <span class='title'>MASTER DATA</span>
