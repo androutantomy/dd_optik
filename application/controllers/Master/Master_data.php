@@ -12,14 +12,17 @@ class Master_data extends CI_Controller {
   function data_jenis_barang()
   {
     $data['barang'] = $this->db->get("master_jenis_barang")->result();
-    $data['atv'] = 'jenis_barang';
 
     $this->template->load("master/list_jenis_barang", $data);
   }
 
-  function simpan_jenis_barang()
+  function simpan_jenis_barang($jenis)
   {
-    $i = $this->db->set("nama_kategori", $this->input->post('nama'))->insert("master_jenis_barang");
+    if($jenis == 'jenis_barang') {
+      $i = $this->db->set("nama_kategori", $this->input->post('nama'))->insert("master_jenis_barang");
+    } elseif($jenis == 'frame') {
+      $i = $this->db->set("nama", $this->input->post('nama'))->insert("master_frame");
+    }
 
     if($i) {
       $json = ['s' => 'sukses', 'm' => 'Berhasil simpan data'];
@@ -30,12 +33,18 @@ class Master_data extends CI_Controller {
     echo json_encode($json);exit;
   }
 
-  function get_data_jenis($id)
+  function get_data_jenis($jenis, $id)
   {
-    $g = $this->db->get_where("master_jenis_barang", array("md5(id)" => $id))->row();
+    if($jenis == 'jenis_barang') {
+      $g = $this->db->get_where("master_jenis_barang", array("md5(id)" => $id))->row();
+      $nama = $g->nama_kategori;
+    } elseif ($jenis == 'frame') {
+      $g = $this->db->get_where("master_frame", array("md5(id)" => $id))->row();
+      $nama = $g->nama;
+    }
 
     if($g) {
-      $json = ['s' => 'sukses', 'nama' => $g->nama_kategori, 'id' => $g->id];
+      $json = ['s' => 'sukses', 'nama' => $nama, 'id' => $g->id];
     } else {
       $json = ['s' => 'gagal', 'm' => 'Gagal simpan data'];
     }
@@ -43,10 +52,13 @@ class Master_data extends CI_Controller {
     echo json_encode($json);exit;
   }
 
-  function update_jenis_barang()
+  function update_jenis_barang($jenis)
   {
-    $i = $this->db->set("nama_kategori", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->update("master_jenis_barang");
-
+    if($jenis == 'jenis_barang') {
+      $i = $this->db->set("nama_kategori", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->update("master_jenis_barang");
+    } elseif($jenis == 'frame') {
+      $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->update("master_frame");
+    }
     if($i) {
       $json = ['s' => 'sukses', 'm' => 'Berhasil update data'];
     } else {
@@ -56,9 +68,13 @@ class Master_data extends CI_Controller {
     echo json_encode($json);exit;
   }
 
-  function hapus_jenis_barang($id)
+  function hapus_jenis_barang($jenis, $id)
   {
-    $d = $this->db->where("md5(id)", $id)->delete("master_jenis_barang");
+    if($jenis == 'jenis_barang') {
+      $d = $this->db->where("md5(id)", $id)->delete("master_jenis_barang");
+    } elseif($jenis == 'frame') {
+      $d = $this->db->where("md5(id)", $id)->delete("master_frame");
+    }
 
     if($d) {
       $json = ['s' => 'sukses', 'm' => 'Berhasil hapus data'];
@@ -69,4 +85,11 @@ class Master_data extends CI_Controller {
     echo json_encode($json);exit;
   }
 
+  // master frame
+  function data_frame()
+  {
+    $data['barang'] = $this->db->get("master_frame")->result();
+
+    $this->template->load("master/list_frame", $data);
+  }
 }

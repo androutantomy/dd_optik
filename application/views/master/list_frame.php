@@ -1,23 +1,23 @@
 <div class="page-title text-right">
-	<h4>Master Data <i class="ti-angle-right"></i> Master Jenis Barang</h4>
+	<h4>Master Data <i class="ti-angle-right"></i> Master Frame</h4>
 </div>
 <div class="container">
 	<div class="card">
 		<div class="card-block text-dark">
-			<h4 class="card-title">Master Jenis Barang</h4>
+			<h4 class="card-title">Master Frame</h4>
 			<div class="card-body">
 				<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_tambah" >Tambah Barang</button>
 				<table class="table-overflow table table-striped">
 					<thead>
 						<th width="5%">No</th>
-						<th width="40%">Nama Jenis</th>
+						<th width="40%">Merk Frame</th>
 						<th width="10%">Aksi</th>
 					</thead>
 					<tbody>
 						<?php $no=0; foreach($barang as $val) { ?>
 							<tr>
 								<td><?= $no+=1; ?></td>
-								<td><?= $val->nama_kategori ?></td>
+								<td><?= $val->nama ?></td>
 								<td>
 									<button class="btn btn-sm btn-info edit" id="<?= md5($val->id) ?>" data-toggle="modal" data-target="#modal_edit" id="">Edit</button>
 									<button class="btn btn-sm btn-danger hapus" id="<?= md5($val->id) ?>">Hapus</button>
@@ -36,7 +36,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Master Jenis Barang</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah Master Frame</h5>
 				<button type="button" class="close keluar_" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -66,7 +66,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Master Jenis Barang</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah Master Frame</h5>
 				<button type="button" class="close keluar_" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -103,7 +103,7 @@
 		var conf = confirm("Apakah anda yakin");
 
 		if(conf == true) {
-			$.post("<?= site_url('master/master_data/hapus_jenis_barang/jenis_barang/') ?>"+id, '', function(d) {
+			$.post("<?= site_url('master/master_data/hapus_jenis_barang/frame/') ?>"+id, '', function(d) {
 				if(d.s == 'sukses') {
 					alert(d.m);
 					location.reload();
@@ -117,7 +117,7 @@
 	$(document).on('click', '.edit', function() {
 		var id  = $(this).attr('id');
 
-		$.post("<?= site_url('master/master_data/get_data_jenis/jenis_barang/') ?>"+id, '', function(d) {
+		$.post("<?= site_url('master/master_data/get_data_jenis/frame/') ?>"+id, '', function(d) {
 			if(d.s == 'sukses') {
 				$("#nama_edit").val(d.nama)
 				$("#id_edit").val(d.id)
@@ -129,7 +129,7 @@
 		e.preventDefault();
 
 		$.ajax({
-			url: "<?= site_url('master/master_data/update_jenis_barang/jenis_barang') ?>",
+			url: "<?= site_url('master/master_data/update_jenis_barang/frame') ?>",
 			type: "POST",
 			data:  $("#xyy").serialize(),
 			cache: false,
@@ -154,7 +154,7 @@
 		e.preventDefault();
 
 		$.ajax({
-			url: "<?= site_url('master/master_data/simpan_jenis_barang/jenis_barang') ?>",
+			url: "<?= site_url('master/master_data/simpan_jenis_barang/frame') ?>",
 			type: "POST",
 			data:  $("#xyz").serialize(),
 			cache: false,

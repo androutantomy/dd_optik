@@ -68,11 +68,20 @@
                                 <span class='title'>MASTER DATA</span>
                                 <span class='arrow'><i class='ti-angle-right'></i></span>
                             </a>
-                            <ul class='dropdown-menu <?= in_array('jenis_barang', $arr_master) ? 'active' : ''; ?>'>
+                            <ul class='dropdown-menu'>
                                 <li class="nav-item">
                                     <a href="<?= site_url('master-data-jenis-barang') ?>">
                                         <span class='arrow'><i class='ti-angle-left'></i></span>
-                                        <span class='title'>Master Jenis Barang</span></a>
+                                        <span class='title'>Master Jenis Barang</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class='dropdown-menu'>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('master-frame') ?>">
+                                        <span class='arrow'><i class='ti-angle-left'></i></span>
+                                        <span class='title'>Master Frame</span>
+                                    </a>
                                 </li>
                             </ul>
                         </li>
