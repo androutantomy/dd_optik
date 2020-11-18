@@ -22,6 +22,8 @@ class Master_data extends CI_Controller {
       $i = $this->db->set("nama_kategori", $this->input->post('nama'))->insert("master_jenis_barang");
     } elseif($jenis == 'frame') {
       $i = $this->db->set("nama", $this->input->post('nama'))->insert("master_frame");
+    } elseif($jenis == 'cairan') {
+      $i = $this->db->set("nama", $this->input->post('nama'))->insert("master_cairan");
     }
 
     if($i) {
@@ -41,6 +43,9 @@ class Master_data extends CI_Controller {
     } elseif ($jenis == 'frame') {
       $g = $this->db->get_where("master_frame", array("md5(id)" => $id))->row();
       $nama = $g->nama;
+    } elseif ($jenis == 'cairan') {
+      $g = $this->db->get_where("master_cairan", array("md5(id)" => $id))->row();
+      $nama = $g->nama;
     }
 
     if($g) {
@@ -58,7 +63,10 @@ class Master_data extends CI_Controller {
       $i = $this->db->set("nama_kategori", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->update("master_jenis_barang");
     } elseif($jenis == 'frame') {
       $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->update("master_frame");
+    } elseif($jenis == 'cairan') {
+      $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->update("master_cairan");
     }
+
     if($i) {
       $json = ['s' => 'sukses', 'm' => 'Berhasil update data'];
     } else {
@@ -74,6 +82,8 @@ class Master_data extends CI_Controller {
       $d = $this->db->where("md5(id)", $id)->delete("master_jenis_barang");
     } elseif($jenis == 'frame') {
       $d = $this->db->where("md5(id)", $id)->delete("master_frame");
+    } elseif($jenis == 'cairan') {
+      $d = $this->db->where("md5(id)", $id)->delete("master_cairan");
     }
 
     if($d) {
@@ -91,5 +101,13 @@ class Master_data extends CI_Controller {
     $data['barang'] = $this->db->get("master_frame")->result();
 
     $this->template->load("master/list_frame", $data);
+  }
+
+  // master cairan
+  function data_cairan()
+  {
+    $data['barang'] = $this->db->get("master_cairan")->result();
+
+    $this->template->load("master/list_cairan", $data);
   }
 }

@@ -52,5 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth';
 $route['master-data-jenis-barang'] = 'master/Master_data/data_jenis_barang/';
 $route['master-frame'] = 'master/Master_data/data_frame/';
+$route['master-cairan'] = 'master/Master_data/data_cairan/';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
