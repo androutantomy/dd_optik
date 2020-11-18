@@ -50,5 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'auth';
+$route['master-data-jenis-barang'] = 'master/Master_data/data_jenis_barang/';
+$route['master-frame'] = 'master/Master_data/data_frame/';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
