@@ -22,7 +22,7 @@ class Toko extends CI_Controller {
         $this->form_validation->set_rules('logo','logo','required');
         if(isset($_POST['submit'])){
             if($this->form_validation->run()!=FALSE) {
-                $this->M_toko->save();
+                $this->M_Toko->save();
                 $this->session->set_flashdata('message','Berhasil Menambahkan Toko');
             }else{
                 $this->session->set_flashdata('pesan','Mohon Isi Data Dengan Benar');
@@ -36,7 +36,7 @@ class Toko extends CI_Controller {
 
     function edit() {
         if (isset($_POST['submit'])) {
-            $this->M_toko->edit();
+            $this->M_Toko->edit();
             redirect('Toko');
         } else {
             $id= $this->uri->segment(3);
