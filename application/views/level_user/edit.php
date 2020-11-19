@@ -1,8 +1,8 @@
+<div class="container">
+<div class="card">
 <div class="card border-info text-dark">
-    <div class="card-heading bg-info border bottom">
         <h4 class="card-title">Form Edit Level User</h4>
-    </div>
-    <div class="card-block">
+    <div class="card-body">
         <div class="card-block">
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
@@ -15,7 +15,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nama Level <small class="text-normal">*Minimum 20 characters</small></label>
-                                    <input type="text" value="<?php echo $edit['nama_level'] ?>" id="nama" onkeyup="checkLetter()"  class="form-control" maxlength="20" name="nama_level" placeholder="nama level" required="" minlength="8" aria-required="true">
+                                    <input type="text" value="<?php echo $edit['nama_level'] ?>" id="nama" onkeyup="checkLetter()"  class="form-control" maxlength="20" name="nama_level" placeholder="nama level" required=""  aria-required="true">
                                 </div>
                             </div>
                         <button type="submit" name="submit" class="btn btn-success btn-rounded swal-success">UPDATE</button>

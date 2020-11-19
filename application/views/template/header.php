@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <title>Konco.co </title>
+    <title>SI-POS OPTIK DD </title>
 
     <!-- Favicon -->
 
@@ -61,6 +61,13 @@
                                 <span class="title">DASHBOARD</span>
                             </a>
                         </li>
+                        
+                        <li class="nav-item ">
+                            <a href="<?= site_url('toko') ?>">
+                                <span class="icon-holder"><i class="ei-store"></i></span>
+                                <span class="title">TOKO</span>
+                            </a>
+                        </li>
 
                         <li class="nav-item dropdown">
                             <a class='dropdown-toggle' href='javascript:void(0);'>
@@ -92,6 +99,30 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class='dropdown-toggle' href='javascript:void(0);'>
+                                <span class='icon-holder'><i class='ei-users'></i></span>
+                                <span class='title'>USER</span>
+                                <span class='arrow'><i class='ti-angle-right'></i></span>
+                            </a>
+                            <ul class='dropdown-menu'>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('master-level-user') ?>">
+                                        <span class='arrow'><i class='ti-angle-left'></i></span>
+                                        <span class='title'>Master User Level</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class='dropdown-menu'>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('master-frame') ?>">
+                                        <span class='arrow'><i class='ti-angle-left'></i></span>
+                                        <span class='title'>Master User</span>
+                                    </a>
+                                </li>
+                            </ul>       
                         </li>
                         
                     </ul>
