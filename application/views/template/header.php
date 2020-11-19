@@ -111,7 +111,6 @@
                             </ul>
                         </li>
 
-<<<<<<< HEAD
                         <li class="nav-item dropdown">
                             <a class='dropdown-toggle' href='javascript:void(0);'>
                                 <span class='icon-holder'><i class='ei-users'></i></span>
@@ -136,15 +135,12 @@
                             </ul>       
                         </li>
                         
-=======
                         <li class="nav-item ">
                             <a href="<?= site_url('dashboard') ?>">
                                 <span class="icon-holder"><i class="ei-diamond"></i></span>
                                 <span class="title">RE-STOK TOKO</span>
                             </a>
                         </li>
-
->>>>>>> c377f5df22b5cf67461a02fbc0953b8f7c663d5b
                     </ul>
                 </div>
             </div>

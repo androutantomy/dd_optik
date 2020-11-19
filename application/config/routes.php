@@ -53,10 +53,7 @@ $route['default_controller'] = 'auth';
 $route['master-data-jenis-barang'] = 'master/Master_data/data_jenis_barang/';
 $route['master-frame'] = 'master/Master_data/data_frame/';
 $route['master-cairan'] = 'master/Master_data/data_cairan/';
-<<<<<<< HEAD
 $route['master-level-user'] = 'master/Master_level/data_jenis_level/';
-=======
 $route['master-data-gudang'] = 'master/Master_data/data_gudang/';
->>>>>>> c377f5df22b5cf67461a02fbc0953b8f7c663d5b
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
