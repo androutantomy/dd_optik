@@ -15,6 +15,8 @@
 
     <!-- plugins css -->
     <script src="<?php echo base_url() ?>assets/jquery.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/bootstrap.css" />
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/PACE/themes/red/pace-theme-minimal.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" />
@@ -77,6 +79,14 @@
                             </a>
                             <ul class='dropdown-menu'>
                                 <li class="nav-item">
+                                    <a href="<?= site_url('master-data-gudang') ?>">
+                                        <span class='arrow'><i class='ti-angle-left'></i></span>
+                                        <span class='title'>Master Gudang</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class='dropdown-menu'>
+                                <li class="nav-item">
                                     <a href="<?= site_url('master-data-jenis-barang') ?>">
                                         <span class='arrow'><i class='ti-angle-left'></i></span>
                                         <span class='title'>Master Jenis Barang</span>
@@ -101,6 +111,7 @@
                             </ul>
                         </li>
 
+<<<<<<< HEAD
                         <li class="nav-item dropdown">
                             <a class='dropdown-toggle' href='javascript:void(0);'>
                                 <span class='icon-holder'><i class='ei-users'></i></span>
@@ -125,6 +136,15 @@
                             </ul>       
                         </li>
                         
+=======
+                        <li class="nav-item ">
+                            <a href="<?= site_url('dashboard') ?>">
+                                <span class="icon-holder"><i class="ei-diamond"></i></span>
+                                <span class="title">RE-STOK TOKO</span>
+                            </a>
+                        </li>
+
+>>>>>>> c377f5df22b5cf67461a02fbc0953b8f7c663d5b
                     </ul>
                 </div>
             </div>
