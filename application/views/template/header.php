@@ -100,7 +100,15 @@
                                         <span class='title'>Master Frame</span>
                                     </a>
                                 </li>
-                            </ul>                            
+                            </ul>       
+                            <ul class='dropdown-menu'>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('master-frame') ?>">
+                                        <span class='arrow'><i class='ti-angle-left'></i></span>
+                                        <span class='title'>Master Lensa</span>
+                                    </a>
+                                </li>
+                            </ul>                         
                             <ul class='dropdown-menu'>
                                 <li class="nav-item">
                                     <a href="<?= site_url('master-cairan') ?>">
