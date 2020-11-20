@@ -1,4 +1,4 @@
-<table id="table" class="table-overflow table table-striped">
+<table id="table" class="table-overflow table table-striped" width="100%">
 	<thead>
 		<th>No</th>
 		<th>Nama</th>
