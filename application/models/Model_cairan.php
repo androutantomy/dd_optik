@@ -13,12 +13,15 @@ class Model_cairan extends CI_Model {
             $this->load->database();
         }
 
-        private function _get_datatables_query($level='-')
+        private function _get_datatables_query($id='-')
         {   
       
             $this->db->select("data_cairan.*, master_cairan.nama")->from($this->table)
-            ->join("master_cairan", "master_cairan.id = data_cairan.id_cairan")
-            ;
+            ->join("master_cairan", "master_cairan.id = data_cairan.id_cairan");
+            if($id != "-") {
+                $this->db->where("status", 2);
+                $this->db->where("md5(id_toko)", $id);
+            }
             
             $i = 0; 
             foreach ($this->column_search as $item) // loop column 
@@ -52,23 +55,23 @@ class Model_cairan extends CI_Model {
             }  
         }
 
-        function get_datatables($level='-')
+        function get_datatables($id='-')
         {       
-            $this->_get_datatables_query($level);   
+            $this->_get_datatables_query($id);   
             if($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
             $query = $this->db->get();
             return $query->result();
         }
 
-        function count_filtered($level='-')
+        function count_filtered($id='-')
         {
-            $this->_get_datatables_query($level);
+            $this->_get_datatables_query($id);
             $query = $this->db->get();
             return $query->num_rows();
         }
 
-        public function count_all($level='-')
+        public function count_all($id='-')
         {
             $this->db->from($this->table);
             return $this->db->count_all_results();

@@ -26,11 +26,13 @@
 		<div class="col-md-4 maxMin">
 			<select class="form-control emptyy" name="type" id="type">
 				<option value="">Pilih Tipe Lensa</option>
-				<option value="1">Minus & Additional</option>
-				<option value="2">Minus & Plus</option>
+				<option value="1">Minus & Plus</option>
+				<option value="2">Minus & Additional</option>
+				<option value="3">Plus & Additional</option>
 			</select>
 		</div>
 		<div class="col-md-2 maxMin">
+			<input type="hidden" name="id_update" id="id_update">
 			<input type="number" name="minus" class="form-control form-control-sm emptyy" id="minus" placeholder="Isikan nilai minus" >
 		</div>
 		<div class="col-md-2 maxMin">
@@ -38,13 +40,77 @@
 		</div>
 	</div>
 	<div id="message" style="color: green;"></div>
-	<button class="btn btn-sm btn-success pull-right">Simpan</button>
+	<button class="btn btn-sm btn-success pull-right" value="<?= $type == 'tambah_data' ? 'simpan' : 'update' ?>"><?= $type == 'tambah_data' ? 'Simpan' : 'Update'; ?></button>
 </form>
 
 <script>
 	$(document).ready(function() {
 		$(".maxMin").hide();
 		$("#message").html("");
+		var type = "<?= $type ?>";
+		var id  = "<?= $id ?>";
+
+		if(type == "frame") {
+			var idy = "<?= isset($data) && $type == 'frame' ?  $data->id : ''; ?>";
+			var idx = "<?= isset($data) && $type == 'frame' ?  $data->id_frame : ''; ?>";
+			setTimeout(function(){
+				$("#selectJenis").val(1);
+				$("#selectJenis").trigger("change");
+			},500)
+
+			setTimeout(function(){
+				$("#frame").val(idx);;
+			},800)
+
+			var stok = "<?= isset($data) ?  $data->stok : ''; ?>";
+
+			$("#id_update").val(idy);
+			$("#stok").val(stok);
+		} else if(type == "lensa") {
+			var idy = "<?= isset($data) && $type == 'lensa' ?  $data->id : ''; ?>";
+			var idx = "<?= isset($data) && $type == 'lensa' ?  $data->id_lensa : ''; ?>";
+			var stok = "<?= isset($data) && $type == 'lensa' ?  $data->stok : ''; ?>";
+			var max_min = "<?= isset($data) && $type == 'lensa' ?  $data->min_max : ''; ?>";
+			var type = "<?= isset($data) && $type == 'lensa' ?  $data->type_lensa : ''; ?>";
+			var split = max_min.split(",");
+
+			setTimeout(function(){
+				$("#selectJenis").val(2);
+				$("#selectJenis").trigger("change");
+			},500)
+
+			setTimeout(function(){
+				$("#type").val(type);
+				$("#selectJenis").trigger("change");
+			},700)	
+
+			setTimeout(function(){
+				$("#lensa").val(idx);
+			},900)
+		
+
+			$("#id_update").val(idy);
+			$("#minus").val(split[0]);
+			$("#plus").val(split[1]);
+			$("#stok").val(stok);
+		} else if(type == "cairan") {
+			var idy = "<?= isset($data) && $type == 'cairan' ?  $data->id : ''; ?>";
+			var idx = "<?= isset($data) && $type == 'cairan' ?  $data->id_cairan : ''; ?>";			
+			setTimeout(function(){
+				$("#selectJenis").val(3);
+				$("#selectJenis").trigger("change");
+			},500)
+
+			setTimeout(function(){
+				$("#cairan").val(idx);
+			},800)
+
+			var stok = "<?= isset($data) ?  $data->stok : ''; ?>";
+
+			$("#id_update").val(idy);
+			$("#stok").val(stok);
+		}
+
 	});
 
 	$(document).on("change", "#selectJenis", function() {
@@ -80,9 +146,12 @@
 	$('#xxy').on('submit', function(e) {
 		e.preventDefault();
 		$("#message").html("");
+		var type = "<?= $type ?>";
+		var url = "";
+		type == "tambah_data" ? url = "<?= site_url('master/master_data/simpan_data_gudang') ?>" : url = "<?= site_url('master/master_data/update_data_gudang') ?>";
 
 		$.ajax({
-			url: "<?= site_url('master/master_data/simpan_data_gudang') ?>",
+			url: url,
 			type: "POST",
 			data:  $("#xxy").serialize(),
 			cache: false,
