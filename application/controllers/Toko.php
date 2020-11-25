@@ -15,43 +15,124 @@ class Toko extends CI_Controller {
     }
 
     function add() {
-        
-         $data = array(
+
+        $data = array(
             'nama_toko' => $this->input->post("nama_toko"),
             'alamat' => $this->input->post("alamat"),
             'telp' => $this->input->post("telp")
-    );
-    
-    if ($this->input->post("logo") != ""){
-        $path = FCPATH.'/uploads/logo/';
-        $config['upload_path']          = $path;
-        $config['allowed_types']        = 'gif|jpg|png|jpeg';
-    $this->load->library('upload', $config);
-    $this->upload->initialize($config);
-    
-        $lolos = 0;
-        if (!$this->upload->do_upload('logo')){
-            $lolos = 1;
-            echo $this->upload->display_errors();
-            // $data['logo'] = $path.$this->upload->data('file_name');
-        }else{
-            $lolos = 1;
+        );
+
+        if(!empty($_FILES["logo_edit"]["name"])){
+            $mkdir = "uploads/logo/";
+
+            if(!is_dir($mkdir)){ 
+                mkdir($mkdir,0777,TRUE); 
+                // echo "tidak ada ";exit;
+            }
+            $tgl = date("d");
+            $jam = date("His");
+
+            $nama_file = $this->input->post("nama_toko").'_'.$jam;
+
+            $config['upload_path']          = $mkdir;
+            $config['allowed_types']        = 'pdf|jpg|png|jpeg|zip|rar';
+            $config['file_name']            = $nama_file;
+            $this->load->library('upload',$config);
+            $this->upload->initialize($config);
+            if(!empty($_FILES['logo']['name'])){
+
+                $_FILES['file']['name'] = $_FILES['logo']['name'];
+                $_FILES['file']['type'] = $_FILES['logo']['type'];
+                $_FILES['file']['tmp_name'] = $_FILES['logo']['tmp_name'];
+                $_FILES['file']['error'] = $_FILES['logo']['error'];
+                $_FILES['file']['size'] = $_FILES['logo']['size'];
+
+                if($this->upload->do_upload('file')){
+                    $uploadData = $this->upload->data();
+
+                    $name = $uploadData['file_name'];
+                    $link = base_url().$mkdir.$name;
+
+                    $data['logo'] = $link;
+                }else{
+                    $errors = $this->upload->display_errors();
+                    $json['alert']  = $errors;
+                    echo json_encode($json);
+                    exit;
+                }
+            }
         }
-    }
-    
+
+        $i = $this->db->insert("master_toko", $data);
+
+        if($i) {
+            $json = ['s' => 'sukses', 'm' => 'Berhasil simpan data'];
+        } else {
+            $json = ['s' => 'gagal', 'm' => 'Gagal simpan data'];
+        }
+
+        echo json_encode($json);exit;
     }
 
     function edit() {
-        if (isset($_POST['submit'])) {
-            $this->M_Toko->edit();
-            redirect('Toko');
-        } else {
-            $id= $this->uri->segment(3);
-            $data['edit']=$this->db->get_where('master_toko',array('id'=>$id))->row_Array();
-            $this->template->load('toko/edit',$data);
+        $data = array(
+            'nama_toko' => $this->input->post("nama_toko_edit"),
+            'alamat' => $this->input->post("alamat_edit"),
+            'telp' => $this->input->post("telp_edit")
+        );
+
+        if(!empty($_FILES["logo_edit"]["name"])){
+            $mkdir = "uploads/logo/";
+
+            if(!is_dir($mkdir)){ 
+                mkdir($mkdir,0777,TRUE); 
+                // echo "tidak ada ";exit;
+            }
+            $tgl = date("d");
+            $jam = date("His");
+
+            $nama_file = $this->input->post("nama_toko").'_'.$jam;
+
+            $config['upload_path']          = $mkdir;
+            $config['allowed_types']        = 'pdf|jpg|png|jpeg|zip|rar';
+            $config['file_name']            = $nama_file;
+            $this->load->library('upload',$config);
+            $this->upload->initialize($config);
+            if(!empty($_FILES['logo_edit']['name'])){
+
+                $_FILES['file']['name'] = $_FILES['logo_edit']['name'];
+                $_FILES['file']['type'] = $_FILES['logo_edit']['type'];
+                $_FILES['file']['tmp_name'] = $_FILES['logo_edit']['tmp_name'];
+                $_FILES['file']['error'] = $_FILES['logo_edit']['error'];
+                $_FILES['file']['size'] = $_FILES['logo_edit']['size'];
+
+                if($this->upload->do_upload('file')){
+                    $uploadData = $this->upload->data();
+
+                    $name = $uploadData['file_name'];
+                    $link = base_url().$mkdir.$name;
+
+                    $data['logo'] = $link;
+                }else{
+                    $errors = $this->upload->display_errors();
+                    $json['alert']  = $errors;
+                    echo json_encode($json);
+                    exit;
+                }
+            }
         }
+
+        $i = $this->db->where("id", $this->input->post("id_edit"))->update("master_toko", $data);
+
+        if($i) {
+            $json = ['s' => 'sukses', 'm' => 'Berhasil update data'];
+        } else {
+            $json = ['s' => 'gagal', 'm' => 'Gagal update data'];
+        }
+
+        echo json_encode($json);exit;
     }
-    
+
     function hapus(){
         $id= $this->uri->segment(3);
         $this->db->where('id',$id);
@@ -223,6 +304,19 @@ class Toko extends CI_Controller {
         }
 
         return $stok;
+    }
+
+    function get_data_toko($id)
+    {
+        $g = $this->db->get_where("master_toko", array("md5(id)" => $id));
+
+        if($g->num_rows() > 0) {
+            $json = ["s" => "sukses", "m" => $g->row()];
+        } else {
+            $json = ["s" => "gagal", "m" => 'Data tidak ditemukan'];
+        }
+
+        echo json_encode($json);exit;
     }
 }
 
