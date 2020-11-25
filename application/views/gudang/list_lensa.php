@@ -3,6 +3,7 @@
 		<th>No</th>
 		<th>Nama</th>
 		<th>Stok</th>
+        <th>Type Lensa</th>
 		<th>Harga Beli</th>
 		<th>Harga Jual</th>
 		<th>Aksi</th>

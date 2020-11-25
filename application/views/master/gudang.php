@@ -26,9 +26,11 @@
 		<div class="col-md-4 maxMin">
 			<select class="form-control emptyy" name="type" id="type">
 				<option value="">Pilih Tipe Lensa</option>
-				<option value="1">Minus & Plus</option>
-				<option value="2">Minus & Additional</option>
-				<option value="3">Plus & Additional</option>
+				<option value="1">Minus</option>
+				<option value="2">Plus</option>
+				<option value="3">Minus & Plus</option>
+				<option value="4">Minus & Additional</option>
+				<option value="5">Plus & Additional</option>
 			</select>
 		</div>
 		<div class="col-md-2 maxMin">

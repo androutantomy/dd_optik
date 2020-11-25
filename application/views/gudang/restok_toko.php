@@ -10,10 +10,10 @@
 					<button class="btn btn-sm btn-success" id="tambah_data_toko">Tambah Barang</button>
 					<ul class="nav nav-tabs">
 						<?php $no = 0; foreach($toko as $val) { ?>
-							<li class=""><a data-toggle="tab" id="<?= md5($val->id) ?>" href="#toko_<?= $val->id ?>"><?= $val->nama_toko; ?></a></li>
+							<li class="daftar_toko"><a data-toggle="tab" id="<?= md5($val->id) ?>" href="#toko_<?= $val->id ?>"><?= $val->nama_toko; ?></a></li>
 						<?php $no++; } ?>
 					</ul>
-					<div class="tab-content">
+					<div class="tab-content" id="list_daftar_toko">
 						<?php $no = 0; foreach($toko as $val) { ?>
 							<div id="toko_<?= $val->id ?>" class="tab-pane fade in ">
 								<h3>Data Barang <?= $val->nama_toko?></h3>

@@ -16,7 +16,7 @@ class Model_cairan extends CI_Model {
         private function _get_datatables_query($id='-')
         {   
       
-            $this->db->select("data_cairan.*, master_cairan.nama")->from($this->table)
+            $this->db->select("data_cairan.*, master_cairan.nama, master_cairan.harga_jual, master_cairan.harga_beli")->from($this->table)
             ->join("master_cairan", "master_cairan.id = data_cairan.id_cairan");
             if($id != "-") {
                 $this->db->where("status", 2);

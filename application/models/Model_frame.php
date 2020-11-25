@@ -16,7 +16,7 @@ class Model_frame extends CI_Model {
         private function _get_datatables_query($id='-')
         {   
       
-            $this->db->select("data_frame.*, master_frame.nama")->from($this->table)
+            $this->db->select("data_frame.*, master_frame.nama, master_frame.harga_jual, master_frame.harga_beli")->from($this->table)
             ->join("master_frame", "master_frame.id = data_frame.id_frame");
             if($id != "-") {
                 $this->db->where("status", 2);

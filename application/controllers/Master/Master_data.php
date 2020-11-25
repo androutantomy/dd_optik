@@ -24,9 +24,9 @@ class Master_data extends CI_Controller {
     if($jenis == 'jenis_barang') {
       $i = $this->db->set("nama_kategori", $this->input->post('nama'))->insert("master_jenis_barang");
     } elseif($jenis == 'frame') {
-      $i = $this->db->set("nama", $this->input->post('nama'))->insert("master_frame");
+      $i = $this->db->set("nama", $this->input->post('nama'))->set("harga_beli", $this->input->post("harga_beli"))->set("harga_jual", $this->input->post("harga_jual"))->insert("master_frame");
     } elseif($jenis == 'cairan') {
-      $i = $this->db->set("nama", $this->input->post('nama'))->insert("master_cairan");
+      $i = $this->db->set("nama", $this->input->post('nama'))->set("harga_beli", $this->input->post("harga_beli"))->set("harga_jual", $this->input->post("harga_jual"))->insert("master_cairan");
     }
 
     if($i) {
@@ -52,7 +52,7 @@ class Master_data extends CI_Controller {
     }
 
     if($g) {
-      $json = ['s' => 'sukses', 'nama' => $nama, 'id' => $g->id];
+      $json = ['s' => 'sukses', 'nama' => $nama, 'id' => $g->id, 'harga_jual' => $g->harga_jual, 'harga_beli' => $g->harga_beli];
     } else {
       $json = ['s' => 'gagal', 'm' => 'Gagal simpan data'];
     }
@@ -65,9 +65,9 @@ class Master_data extends CI_Controller {
     if($jenis == 'jenis_barang') {
       $i = $this->db->set("nama_kategori", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->update("master_jenis_barang");
     } elseif($jenis == 'frame') {
-      $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->update("master_frame");
+      $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->set("harga_beli", $this->input->post("harga_beli_edit"))->set("harga_jual", $this->input->post("harga_jual_edit"))->update("master_frame");
     } elseif($jenis == 'cairan') {
-      $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->update("master_cairan");
+      $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->set("harga_beli", $this->input->post("harga_beli_edit"))->set("harga_jual", $this->input->post("harga_jual_edit"))->update("master_cairan");
     }
 
     if($i) {
@@ -201,13 +201,21 @@ class Master_data extends CI_Controller {
         "stok" => $status["stok"] > 0 ? $this->input->post("stok") + $status["stok"] : $this->input->post("stok"),
       ];
     } elseif($this->input->post("jenis") == 2) {
-      $status = $this->cek_lensa($this->input->post("lensa"), 1, $this->input->post("minus").",".$this->input->post("plus"), $this->input->post("type"));
+      if($this->input->post("type") == 1) {
+        $minMax_val = $this->input->post("minus");
+      } elseif($this->input->post("type") == 2) {
+        $minMax_val = $this->input->post("plus");
+      } else {
+        $minMax_val = $this->input->post("minus").",".$this->input->post("plus");
+      }
+
+      $status = $this->cek_lensa($this->input->post("lensa"), 1, $minMax_val, $this->input->post("type"));
       $data = [
         "id_lensa" => $this->input->post("lensa"),
         "status" => 1,
         "id_toko" => 0,
         "stok" => $status["stok"] > 0 ? $this->input->post("stok") + $status["stok"] : $this->input->post("stok"),
-        "min_max" => $this->input->post("minus").",".$this->input->post("plus"),
+        "min_max" => $minMax_val,
         "type_lensa" => $this->input->post("type"),
       ];
     } else {
@@ -259,12 +267,21 @@ class Master_data extends CI_Controller {
         "stok" => $this->input->post("stok"),
       ];
     } elseif($this->input->post("jenis") == 2) {
+
+      if($this->input->post("type") == 1) {
+        $minMax_val = $this->input->post("minus");
+      } elseif($this->input->post("type") == 2) {
+        $minMax_val = $this->input->post("plus");
+      } else {
+        $minMax_val = $this->input->post("minus").",".$this->input->post("plus");
+      }
+
       $data = [
         "id_lensa" => $this->input->post("lensa"),
         "status" => 1,
         "id_toko" => 0,
         "stok" => $this->input->post("stok"),
-        "min_max" => $this->input->post("minus").",".$this->input->post("plus"),
+        "min_max" => $minMax_val,
         "type_lensa" => $this->input->post("type"),
       ];
     } else {
@@ -360,8 +377,8 @@ class Master_data extends CI_Controller {
       $row[] = $no;
       $row[] = $field->nama;
       $row[] = $field->stok;
-      $row[] = "";
-      $row[] = "";
+      $row[] = $field->harga_beli;
+      $row[] = $field->harga_jual;
       if($id == "-") {
         $row[] = "<button class='btn btn-sm btn-warning tambah_data' id='".md5($field->id)."' type='frame'>EDIT</button>
         <button class='btn btn-sm btn-danger hapus' id='".md5($field->id)."' type='frame'>HAPUS</button>";
@@ -393,11 +410,23 @@ class Master_data extends CI_Controller {
       $row[] = $no;
       $row[] = $field->nama_lensa;
       $row[] = $field->stok;
+      if($field->type_lensa == 1) {
+        $type_lensa = "[ - ] ".$field->min_max;;
+      } elseif($field->type_lensa == 2) {
+        $type_lensa = "[ + ] ".$field->min_max;;
+      } elseif($field->type_lensa == 3) {
+        $type_lensa = "[ - ][ + ] ".$field->min_max;
+      } elseif($field->type_lensa == 4) {
+        $type_lensa = "[ - ] Add ".$field->min_max;
+      } else {
+        $type_lensa = "[ + ] ".$field->min_max;
+      }
+      $row[] = $type_lensa;
       $row[] = "";
       $row[] = "";
       if($id == "-") {
-        $row[] = "<button class='btn btn-sm btn-warning tambah_data' id='".md5($field->id)."' type='frame'>EDIT</button>
-        <button class='btn btn-sm btn-danger hapus' id='".md5($field->id)."' type='frame'>HAPUS</button>";
+        $row[] = "<button class='btn btn-sm btn-warning tambah_data' id='".md5($field->id)."' type='lensa'>EDIT</button>
+        <button class='btn btn-sm btn-danger hapus' id='".md5($field->id)."' type='lensa'>HAPUS</button>";
       } else {
         $row[] = "";
       }
@@ -426,11 +455,11 @@ class Master_data extends CI_Controller {
       $row[] = $no;
       $row[] = $field->nama;
       $row[] = $field->stok;
-      $row[] = "";
-      $row[] = "";
+      $row[] = $field->harga_beli;
+      $row[] = $field->harga_jual;
       if($id == "-") {
-        $row[] = "<button class='btn btn-sm btn-warning tambah_data' id='".md5($field->id)."' type='frame'>EDIT</button>
-        <button class='btn btn-sm btn-danger hapus' id='".md5($field->id)."' type='frame'>HAPUS</button>";
+        $row[] = "<button class='btn btn-sm btn-warning tambah_data' id='".md5($field->id)."' type='cairan'>EDIT</button>
+        <button class='btn btn-sm btn-danger hapus' id='".md5($field->id)."' type='cairan'>HAPUS</button>";
       } else {
         $row[] = "";
       }
@@ -466,7 +495,7 @@ class Master_data extends CI_Controller {
     echo json_encode($json);exit;
   }
 
-  function restok_toko()
+  function restok_toko($id_toko = '')
   {
     $data['toko'] = $this->db->get("master_toko")->result();
 
