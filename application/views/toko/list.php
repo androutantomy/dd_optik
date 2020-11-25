@@ -173,6 +173,22 @@
             });
         }));
 
+        $(".hapus").on("click", function() {
+            var id = $(this).attr("id");
+            var conf = confirm("Apakah anda yakin ?");
+
+            if(conf == true) {
+                $.post("<?= site_url('toko/hapus_toko/') ?>"+id, '', function(d) {
+                    if(d.s == 'sukses') {
+                        alert(d.m);
+                        location.reload();
+                    } else {
+                        alert(d.m);
+                    }
+                }, "json");
+            }
+        });
+
         $("#xxx").on('submit', (function(e) {
             e.preventDefault(e);
             $("#modal_loader").show();

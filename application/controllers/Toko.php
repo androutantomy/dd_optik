@@ -133,11 +133,16 @@ class Toko extends CI_Controller {
         echo json_encode($json);exit;
     }
 
-    function hapus(){
-        $id= $this->uri->segment(3);
-        $this->db->where('id',$id);
-        $this->db->delete('master_toko');
-        redirect('Toko');
+    function hapus_toko($id){
+        $i = $this->db->where("md5(id)", $id)->delete("master_toko");
+
+        if($i) {
+            $json = ['s' => 'sukses', 'm' => 'Berhasil hapus data'];
+        } else {
+            $json = ['s' => 'gagal', 'm' => 'Gagal hapus data'];
+        }
+
+        echo json_encode($json);exit;
     }
 
     function restok_toko()
