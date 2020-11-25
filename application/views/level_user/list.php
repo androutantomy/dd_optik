@@ -1,13 +1,4 @@
 <?php
-if ($this->session->flashdata('message')) {
-    echo "<div class='alert alert-success'>";
-    echo $this->session->flashdata('message');
-    echo "</div>";
-} elseif ($this->session->flashdata('pesan')){
-    echo "<div class='alert alert-danger'>";
-    echo $this->session->flashdata('pesan');
-    echo "</div>";
-}
 ?>
 <div class="page-title text-right">
 	<h4>USER<i class="ti-angle-right"></i> Master User Level </h4>
@@ -53,17 +44,18 @@ if ($this->session->flashdata('message')) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Edit Level User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close keluar_" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
+            <form id="xyy">
             <div class="modal-body">
-                <form class="form-horizontal mrg-top-40 pdd-right-30">
                     <div class="form-group row">
-                        <label for="form-1-1" class="col-md-2 control-label">Nama Level User</label>
+                        <label for="form-1-1" class="col-md-2 control-label">Nama Level</label>
                         <div class="col-md-10">
-                            <small class="text-normal">*Maximal 25 characters</small>
-                            <input type="text" id="nama" onkeyup="checkLetter()" class="form-control" maxlength="25" name="nama_level" placeholder="nama_level">
+                            <input type="hidden" name="id" id="id_edit">    
+                            <input type="text" id="nama_edit" class="form-control form-control-sm" maxlength="25" name="nama_edit" placeholder="nama level">
                         </div>
                     </div>
             </div>
@@ -76,6 +68,7 @@ if ($this->session->flashdata('message')) {
         </form>
 </div>
 </div>
+</div>
         <!-- END MENU UPDATE -->
 <!-- MENU TAMBAH -->
 <div class="modal fade" id="modal-tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,17 +76,17 @@ if ($this->session->flashdata('message')) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Level User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close keluar_" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
+            <form id="xyz">
             <div class="modal-body">
-                <form class="form-horizontal mrg-top-40 pdd-right-30">
                     <div class="form-group row">
-                        <label for="form-1-1" class="col-md-2 control-label">Nama Level User</label>
+                        <label for="form-1-1" class="col-md-2 control-label">Nama Level</label>
                         <div class="col-md-10">
-                            <small class="text-normal">*Maximal 25 characters</small>
-                            <input type="text" id="nama" onkeyup="checkLetter()" class="form-control" maxlength="25" name="nama_level" placeholder="nama_level">
+                            <input type="text" id="nama_level" class="form-control form-control-sm" maxlength="25" name="nama" placeholder="nama level">
                         </div>
                     </div>
             </div>
@@ -119,7 +112,7 @@ if ($this->session->flashdata('message')) {
 		var conf = confirm("Apakah anda yakin");
 
 		if(conf == true) {
-			$.post("<?= site_url('master/master_level/hapus_jenis_level/jenis_level') ?>"+id, '', function(d) {
+			$.post("<?= site_url('master/master_level/hapus_jenis_level/jenis_level/') ?>"+id, '', function(d) {
 				if(d.s == 'sukses') {
 					alert(d.m);
 					location.reload();
@@ -129,6 +122,65 @@ if ($this->session->flashdata('message')) {
 			}, "json");
 		}
 	});
+
+    $(document).on('click', '.edit', function() {
+		var id  = $(this).attr('id');
+
+		$.post("<?= site_url('master/master_level/get_data_jenis/jenis_level/') ?>"+id, '', function(d) {
+			if(d.s == 'sukses') {
+				$("#nama_edit").val(d.nama)
+				$("#id_edit").val(d.id)
+			}
+		}, 'json');
+	});
+
+    $('#xyy').on('submit', function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			url: "<?= site_url('master/master_level/update_jenis_level/jenis_level/') ?>",
+			type: "POST",
+			data:  $("#xyy").serialize(),
+			cache: false,
+			dataType: 'json',
+			processData:false,
+			success: function(respon){
+				if(respon.s == 'sukses') {
+					alert(respon.m);
+					location.reload();
+				} else {
+					alert(respon.m);
+				}
+			},
+			error: function(){        
+				alert('Upss, Terjadi Kesalahan, Silahkan coba kembali');
+			}
+		});
+	});	
+
+    $('#xyz').on('submit', function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			url: "<?= site_url('master/master_level/simpan_jenis_level/jenis_level/') ?>",
+			type: "POST",
+			data:  $("#xyz").serialize(),
+			cache: false,
+			dataType: 'json',
+			processData:false,
+			success: function(respon){
+				if(respon.s == 'sukses') {
+					alert(respon.m);
+					location.reload();
+				} else {
+					alert(respon.m);
+				}
+			},
+			error: function(){        
+				alert('Upss, Terjadi Kesalahan, Silahkan coba kembali');
+			}
+		});
+	});	
         </script>
 
 

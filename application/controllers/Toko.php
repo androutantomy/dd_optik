@@ -15,23 +15,30 @@ class Toko extends CI_Controller {
     }
 
     function add() {
-        // $this->load->library('form_validation');
-        $this->form_validation->set_rules('nama_toko','nama_toko','required');
-        $this->form_validation->set_rules('alamat','alamat','required');
-        $this->form_validation->set_rules('telp','telp','required');
-        $this->form_validation->set_rules('logo','logo','required');
-        if(isset($_POST['submit'])){
-            if($this->form_validation->run()!=FALSE) {
-                $this->M_Toko->save();
-                $this->session->set_flashdata('message','Berhasil Menambahkan Toko');
-            }else{
-                $this->session->set_flashdata('pesan','Mohon Isi Data Dengan Benar');
-            }
-              redirect('Toko'); 
-        } else {
-            $data['toko'] = $this->db->get('master_toko')->result();
-            $this->template->load('toko/list', $data);
+        
+         $data = array(
+            'nama_toko' => $this->input->post("nama_toko"),
+            'alamat' => $this->input->post("alamat"),
+            'telp' => $this->input->post("telp")
+    );
+    
+    if ($this->input->post("logo") != ""){
+        $path = FCPATH.'/uploads/logo/';
+        $config['upload_path']          = $path;
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+    $this->load->library('upload', $config);
+    $this->upload->initialize($config);
+    
+        $lolos = 0;
+        if (!$this->upload->do_upload('logo')){
+            $lolos = 1;
+            echo $this->upload->display_errors();
+            // $data['logo'] = $path.$this->upload->data('file_name');
+        }else{
+            $lolos = 1;
         }
+    }
+    
     }
 
     function edit() {
