@@ -1,4 +1,4 @@
-<table id="table" class="table-overflow table table-striped">
+<table id="table_<?= $type ?>_<?= $id != '' ? $id : ''; ?>" class="table-overflow table table-striped" width="100%">
 	<thead>
 		<th>No</th>
 		<th>Nama</th>
@@ -14,14 +14,14 @@
 
 <script>
 	$(document).ready(function() {
-        table = $('#table').DataTable({
+        table = $('#table_<?= $type ?>_<?= $id != '' ? $id : ''; ?>').DataTable({
             "processing": true, 
             "serverSide": true, 
             "order": [], 
 
             "ajax": {
 
-                "url": "<?= site_url('master/master_data/ajax_list_frame') ?>",
+                "url": "<?= site_url('master/master_data/ajax_list_frame/'.$id) ?>",
                 "type": "POST"
             },
 

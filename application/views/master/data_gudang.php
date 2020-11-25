@@ -6,7 +6,7 @@
 		<div class="card-block text-dark">
 			<h4 class="card-title">Master Data Gudang</h4>
 			<div class="card-body" id="data_gudang">
-				<button class="btn btn-sm btn-success" id="tambah_data">Tambah Barang</button>
+				<button class="btn btn-sm btn-success" id="tambah_data" type="">Tambah Barang</button>
 				<ul class="nav nav-tabs">
 					<li class="active"><a data-toggle="tab" id="btn_frame" href="#home">Frame</a></li>
 					<li><a data-toggle="tab" href="#menu1" id="btn_lensa">Lensa</a></li>
@@ -37,8 +37,37 @@
 		$("#data_frame").load("<?= site_url('master/master_data/list_data_frame') ?>");
 	});
 
-	$("#tambah_data").on("click", function() {
-		$("#data_gudang").load("<?= site_url('master/master_data/input_gudang') ?>");
+
+    $(document).on("click", ".hapus", function() {
+        var id = $(this).attr("id");
+        var type = $(this).attr("type");
+        var conf = confirm("Apakah anda yakin?");
+
+        if(conf == true) {
+            $.post("<?= site_url('master/master_data/hapus_list_data/') ?>"+type+'/'+id, '' , function(d) {
+                if(d.s == "sukses") {
+                    alert(d.m);
+                    if(type == "frame") {
+                    	$("#data_frame").load("<?= site_url('master/master_data/list_data_frame') ?>");
+                    } else if(type == "lensa") {
+                    	$("#data_lensa").load("<?= site_url('master/master_data/list_data_lensa') ?>");
+                    } else {
+                    	$("#data_cairan").load("<?= site_url('master/master_data/list_data_cairan') ?>");
+                    }                    
+                } else {
+                	alert(d.m);
+                }
+            }, "json")
+        }
+
+    });
+
+
+	$(document).on("click", "#tambah_data, .tambah_data", function() {
+		var type = $(this).attr("type");
+		var id = $(this).attr("id");
+
+		$("#data_gudang").load("<?= site_url('master/master_data/input_gudang/') ?>"+type+'/'+id);
 	});
 
 	$("#btn_frame").on("click", function() {

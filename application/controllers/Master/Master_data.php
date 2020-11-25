@@ -114,16 +114,28 @@ class Master_data extends CI_Controller {
     $this->template->load("master/list_cairan", $data);
   }
 
-  function data_gudang()
+  function data_gudang($id_toko = '')
   {
     // $data['barang'] = $this->db->get("master_cairan")->result();
 
     $this->template->load("master/data_gudang"); 
   }
 
-  function input_gudang()
+  function input_gudang($type = "", $id = "")
   {
-    $this->load->view("master/gudang");
+    $data['type'] = $type;
+    $data['id'] = $id;
+    if($id != '') {
+      if($type == "frame") {
+        $data['data'] = $this->db->get_where("data_frame", array("md5(id)" => $id))->row();
+      } else if($type == "lensa") {
+        $data['data'] = $this->db->get_where("data_lensa", array("md5(id)" => $id))->row();
+      } else {
+        $data['data'] = $this->db->get_where("data_cairan", array("md5(id)" => $id))->row();
+      }
+    }
+
+    $this->load->view("master/gudang", $data);
   }
 
   function option_frame($id = '')
@@ -189,13 +201,13 @@ class Master_data extends CI_Controller {
         "stok" => $status["stok"] > 0 ? $this->input->post("stok") + $status["stok"] : $this->input->post("stok"),
       ];
     } elseif($this->input->post("jenis") == 2) {
-      $status = $this->cek_frame($this->input->post("lensa"), 1, $this->input->post("min").",".$this->input->post("min"), $this->input->post("type"));
+      $status = $this->cek_lensa($this->input->post("lensa"), 1, $this->input->post("minus").",".$this->input->post("plus"), $this->input->post("type"));
       $data = [
         "id_lensa" => $this->input->post("lensa"),
         "status" => 1,
         "id_toko" => 0,
         "stok" => $status["stok"] > 0 ? $this->input->post("stok") + $status["stok"] : $this->input->post("stok"),
-        "min_max" => $this->input->post("min").",".$this->input->post("min"),
+        "min_max" => $this->input->post("minus").",".$this->input->post("plus"),
         "type_lensa" => $this->input->post("type"),
       ];
     } else {
@@ -209,19 +221,19 @@ class Master_data extends CI_Controller {
     }
 
     if($this->input->post("jenis") == 1) {
-      if($status["stok"] < 0 ) {        
+      if($status["stok"] <= 0 ) {        
         $i = $this->db->insert("data_frame", $data);
       } else {
         $i = $this->db->where("id", $status["id"])->update("data_frame", $data);
       }
     } elseif($this->input->post("jenis") == 2) {
-      if($status["stok"] < 0 ) {   
+      if($status["stok"] <= 0 ) {   
         $i = $this->db->insert("data_lensa", $data);
       } else {
         $i = $this->db->where("id", $status["id"])->update("data_lensa", $data);
       }
     } else {
-      if($status["stok"] < 0 ) {   
+      if($status["stok"] <= 0 ) {   
         $i = $this->db->insert("data_cairan", $data);
       } else {
         $i = $this->db->where("id", $status["id"])->update("data_cairan", $data);
@@ -232,6 +244,50 @@ class Master_data extends CI_Controller {
       $json = ['s' => 'sukses', 'm' => 'Berhasil simpan data'];
     } else {
       $json = ['s' => 'gagal', 'm' => 'Gagal simpan data'];
+    }
+
+    echo json_encode($json);exit;
+  }
+
+  function update_data_gudang()
+  {
+    if($this->input->post("jenis") == 1) {
+      $data = [
+        "id_frame" => $this->input->post("frame"),
+        "status" => 1,
+        "id_toko" => 0,
+        "stok" => $this->input->post("stok"),
+      ];
+    } elseif($this->input->post("jenis") == 2) {
+      $data = [
+        "id_lensa" => $this->input->post("lensa"),
+        "status" => 1,
+        "id_toko" => 0,
+        "stok" => $this->input->post("stok"),
+        "min_max" => $this->input->post("minus").",".$this->input->post("plus"),
+        "type_lensa" => $this->input->post("type"),
+      ];
+    } else {
+      $data = [
+        "id_cairan" => $this->input->post("cairan"),
+        "status" => 1,
+        "id_toko" => 0,
+        "stok" => $this->input->post("stok"),
+      ];
+    }
+
+    if($this->input->post("jenis") == 1) {
+      $i = $this->db->where("id", $this->input->post("id_update"))->update("data_frame", $data);
+    } elseif($this->input->post("jenis") == 2) {
+      $i = $this->db->where("id", $this->input->post("id_update"))->update("data_lensa", $data);
+    } else {
+      $i = $this->db->where("id", $this->input->post("id_update"))->update("data_cairan", $data);
+    }
+
+    if($i) {
+      $json = ['s' => 'sukses', 'm' => 'Berhasil update data'];
+    } else {
+      $json = ['s' => 'gagal', 'm' => 'Gagal update data'];
     }
 
     echo json_encode($json);exit;
@@ -257,7 +313,7 @@ class Master_data extends CI_Controller {
   }
 
   function cek_lensa($id_lensa, $status, $min_max, $type_lensa) {
-    $cek = $this->db->get_where("data_lensa", array("id_lensa" => $id_frame, "status" => $status, "min_max" => $min_max, "type_lensa" => $type_lensa));
+    $cek = $this->db->get_where("data_lensa", array("id_lensa" => $id_lensa, "status" => $status, "min_max" => $min_max, "type_lensa" => $type_lensa));
     $stok = [];
 
 
@@ -271,24 +327,30 @@ class Master_data extends CI_Controller {
     return $stok;
   }
 
-  function list_data_frame()
+  function list_data_frame($id = "")
   {
-    $this->load->view("gudang/list_frame");
+    $data['id'] = $id;
+    $data['type'] = "frame";
+    $this->load->view("gudang/list_frame", $data);
   }
 
-  function list_data_lensa()
+  function list_data_lensa($id = "")
   {
-    $this->load->view("gudang/list_lensa");
+    $data['id'] = $id;
+    $data['type'] = "lensa";
+    $this->load->view("gudang/list_lensa", $data);
   }
 
-  function list_data_cairan()
+  function list_data_cairan($id = "")
   {
-    $this->load->view("gudang/list_cairan");
+    $data['id'] = $id;
+    $data['type'] = "cairan";
+    $this->load->view("gudang/list_cairan", $data);
   }
 
-  function ajax_list_frame()
+  function ajax_list_frame($id = "-")
   {
-    $list = $this->model_frame->get_datatables();
+    $list = $this->model_frame->get_datatables($id);
     $data = array();
     $no = $_POST['start'];
     foreach ($list as $field) {
@@ -300,23 +362,28 @@ class Master_data extends CI_Controller {
       $row[] = $field->stok;
       $row[] = "";
       $row[] = "";
-      $row[] = "";
+      if($id == "-") {
+        $row[] = "<button class='btn btn-sm btn-warning tambah_data' id='".md5($field->id)."' type='frame'>EDIT</button>
+        <button class='btn btn-sm btn-danger hapus' id='".md5($field->id)."' type='frame'>HAPUS</button>";
+      } else {
+        $row[] = "";
+      }
       $data[] = $row;
     }
 
     $output = array(
       "draw" => $_POST['draw'],
-      "recordsTotal" => $this->model_frame->count_all(),
-      "recordsFiltered" => $this->model_frame->count_filtered(),
+      "recordsTotal" => $this->model_frame->count_all($id),
+      "recordsFiltered" => $this->model_frame->count_filtered($id),
       "data" => $data,
     );
 
     echo json_encode($output);
   }
 
-  function ajax_list_lensa()
+  function ajax_list_lensa($id = "-")
   {
-    $list = $this->model_lensa->get_datatables();
+    $list = $this->model_lensa->get_datatables($id);
     $data = array();
     $no = $_POST['start'];
     foreach ($list as $field) {
@@ -328,23 +395,28 @@ class Master_data extends CI_Controller {
       $row[] = $field->stok;
       $row[] = "";
       $row[] = "";
-      $row[] = "";
+      if($id == "-") {
+        $row[] = "<button class='btn btn-sm btn-warning tambah_data' id='".md5($field->id)."' type='frame'>EDIT</button>
+        <button class='btn btn-sm btn-danger hapus' id='".md5($field->id)."' type='frame'>HAPUS</button>";
+      } else {
+        $row[] = "";
+      }
       $data[] = $row;
     }
 
     $output = array(
       "draw" => $_POST['draw'],
-      "recordsTotal" => $this->model_lensa->count_all(),
-      "recordsFiltered" => $this->model_lensa->count_filtered(),
+      "recordsTotal" => $this->model_lensa->count_all($id),
+      "recordsFiltered" => $this->model_lensa->count_filtered($id),
       "data" => $data,
     );
 
     echo json_encode($output);
   }
 
-  function ajax_list_cairan()
+  function ajax_list_cairan($id = "-")
   {
-    $list = $this->model_cairan->get_datatables();
+    $list = $this->model_cairan->get_datatables($id);
     $data = array();
     $no = $_POST['start'];
     foreach ($list as $field) {
@@ -356,17 +428,48 @@ class Master_data extends CI_Controller {
       $row[] = $field->stok;
       $row[] = "";
       $row[] = "";
-      $row[] = "";
+      if($id == "-") {
+        $row[] = "<button class='btn btn-sm btn-warning tambah_data' id='".md5($field->id)."' type='frame'>EDIT</button>
+        <button class='btn btn-sm btn-danger hapus' id='".md5($field->id)."' type='frame'>HAPUS</button>";
+      } else {
+        $row[] = "";
+      }
       $data[] = $row;
     }
 
     $output = array(
       "draw" => $_POST['draw'],
-      "recordsTotal" => $this->model_cairan->count_all(),
-      "recordsFiltered" => $this->model_cairan->count_filtered(),
+      "recordsTotal" => $this->model_cairan->count_all($id),
+      "recordsFiltered" => $this->model_cairan->count_filtered($id),
       "data" => $data,
     );
 
     echo json_encode($output);
+  }
+
+  function hapus_list_data($type, $id)
+  {
+    if($type == "frame") {
+      $d = $this->db->where("md5(id)", $id)->delete("data_frame");
+    } elseif($type == "lensa") {
+      $d = $this->db->where("md5(id)", $id)->delete("data_lensa");
+    } else {
+      $d = $this->db->where("md5(id)", $id)->delete("data_cairan");
+    }
+
+    if($d) {
+      $json = ['s' => 'sukses', 'm' => 'Berhasil hapus data '.$type];
+    } else {
+      $json = ['s' => 'gagal', 'm' => 'Gagal hapus data '.$type];
+    }
+
+    echo json_encode($json);exit;
+  }
+
+  function restok_toko()
+  {
+    $data['toko'] = $this->db->get("master_toko")->result();
+
+    $this->template->load("gudang/restok_toko", $data);
   }
 }

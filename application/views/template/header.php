@@ -144,7 +144,7 @@
                         </li>
                         
                         <li class="nav-item ">
-                            <a href="<?= site_url('dashboard') ?>">
+                            <a href="<?= site_url('restok-data-toko') ?>">
                                 <span class="icon-holder"><i class="ei-diamond"></i></span>
                                 <span class="title">RE-STOK TOKO</span>
                             </a>
