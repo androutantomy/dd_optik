@@ -31,7 +31,7 @@
 	</div>
 </div>
 
-<!-- MODAL -->
+<!-- MODAL tambah-->
 <div class="modal fade" id="modal_tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -61,12 +61,12 @@
 	</div>
 </div>
 
-<!-- MODAL -->
+<!-- MODAL edit -->
 <div class="modal fade" id="modal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Master Jenis Barang</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Edit Master Jenis Barang</h5>
 				<button type="button" class="close keluar_" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
