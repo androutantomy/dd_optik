@@ -60,13 +60,13 @@
                         <div class="form-group row">
                             <label for="form-1-1" class="col-md-2 control-label">Nama Toko</label>
                             <div class="col-md-10">
-                                <input type="text" id="nama"  class="form-control" maxlength="25" name="nama_toko" placeholder="nama toko">
+                                <input type="text" id="nama"  class="form-control" required="required" name="nama_toko" placeholder="nama toko">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="form-1-1" class="col-md-2 control-label">Alamat Toko</label>
                             <div class="col-md-10">
-                                <input type="text" id="alamat" onkeyup="checkLetter()" class="form-control"name="alamat" placeholder="alamat">
+                                <input type="text" id="alamat"  required="required" class="form-control"name="alamat" placeholder="alamat">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -109,13 +109,13 @@
                             <label for="form-1-1" class="col-md-2 control-label">Nama Toko</label>
                             <div class="col-md-10">
                                 <input type="hidden" name="id_edit" id="id_edit" value="">
-                                <input type="text" id="nama_toko_edit" class="form-control" name="nama_toko_edit" placeholder="nama toko">
+                                <input type="text" id="nama_toko_edit" class="form-control" name="nama_toko_edit" required="required" placeholder="nama toko">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="form-1-1" class="col-md-2 control-label">Alamat Toko</label>
                             <div class="col-md-10">
-                                <input type="text" id="alamat_edit" class="form-control"name="alamat_edit" placeholder="alamat">
+                                <input type="text" id="alamat_edit" class="form-control"name="alamat_edit" required="required" placeholder="alamat">
                             </div>
                         </div>
                         <div class="form-group row">

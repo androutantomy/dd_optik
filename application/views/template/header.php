@@ -15,6 +15,7 @@
 
     <!-- plugins css -->
     <script src="<?php echo base_url() ?>assets/jquery.min.js"></script>
+    <script src="<?= base_url() ?>assets/jquery.mask.js"></script>
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bootstrap.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -33,7 +34,11 @@
     <link href="<?php echo base_url() ?>assets/dist/assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/dist/assets/css/animate.min.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/dist/assets/css/app.css" rel="stylesheet">
-
+    <link href="<?php echo base_url('assets/select2/css/select2.min.css')?>" rel="stylesheet">
+    <script src="<?php echo base_url('assets/select2/js/select2.full.min.js') ?>"></script>
+    <script>
+        $('.money').mask('#.##0', {reverse: true});
+    </script>
 </head>
 <body>
 
@@ -61,6 +66,13 @@
                             <a href="<?= site_url('dashboard') ?>">
                                 <span class="icon-holder"><i class="ei-bank"></i></span>
                                 <span class="title">DASHBOARD</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a href="<?= site_url('penjualan') ?>">
+                                <span class="icon-holder"><i class="ei-money"></i></span>
+                                <span class="title">PENJUALAN</span>
                             </a>
                         </li>
                         
