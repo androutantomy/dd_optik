@@ -147,7 +147,7 @@
                             </ul>
                             <ul class='dropdown-menu'>
                                 <li class="nav-item">
-                                    <a href="<?= site_url('master-frame') ?>">
+                                    <a href="<?= site_url('User/Master_user/') ?>">
                                         <span class='arrow'><i class='ti-angle-left'></i></span>
                                         <span class='title'>Master User</span>
                                     </a>

@@ -16,7 +16,6 @@ class Convertion {
 	    }
 	    $stok = [];
 
-
 	    if($cek->num_rows() > 0) {
 	      	$stok['stok'] = $cek->row()->stok;
 	      	$stok['id'] = $cek->row()->id;

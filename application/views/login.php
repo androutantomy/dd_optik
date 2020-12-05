@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <title>Konco.co</title>
+    <title>DD - OPTIK</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo base_url() ?>assets/dist/assets/images/logo/favicon.png">
@@ -22,6 +22,7 @@
 </head>
 
 <body>
+<form action="<?php echo base_url('auth/aksi_login'); ?>" method="post">	
     <div class="app">
         <div class="authentication">
             <div class="sign-in-2">
@@ -49,7 +50,7 @@
                                                                 </div>
                                                                 <div class="mrg-top-20 text-right">
 
-                                                                    <button type="submit" name="submit" class="btn btn-info">Login</button>
+                                                                    <button type="submit" name="submit" value="login" class="btn btn-info">Login</button>
                                                                 </div>
                                                                 <p class="mrg-btm-15 font-size-9">*Kontak Admin jika lupa username dan password</p>
                                                                 <?php form_close() ?>
@@ -72,5 +73,6 @@
             <script src="<?php echo base_url() ?>assets/dist/assets/js/app.min.js"></script>
 
             <!-- page js -->
+        </form>
         </body>
         </html>
