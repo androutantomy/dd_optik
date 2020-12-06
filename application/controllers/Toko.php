@@ -5,8 +5,10 @@ class Toko extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('M_Toko');
-        // chek_akses_modul();
-        // chek_seesion();
+        
+        if($this->session->userdata('status') == ''){
+            redirect(base_url('auth'));
+        }
     }
 
     function index() {
@@ -166,19 +168,34 @@ class Toko extends CI_Controller {
             $g = $this->db->select("master_lensa.nama_lensa, master_lensa.id as id_master_lensa, data_lensa.*")->join("master_lensa", "master_lensa.id = data_lensa.id_lensa")->get_where("data_lensa", array("status" => 1))->result();
             foreach($g as $val) {
                 $exp = explode(",", $val->min_max);
-                if($val->type_lensa == 1) {
+                if($val->type_lensa == 3) {
                     $min = "MIN";
-                    $max = "MAX";
-                } elseif($val->type_lensa == 2) {
+                    $max = "PLUS";
+                    $exp1 = $exp[0];
+                    $exp2 = $exp[1];
+                } elseif($val->type_lensa == 4) {
                     $min = "MIN";
                     $max = "ADD";
+                    $exp1 = $exp[0];
+                    $exp2 = $exp[1];
+                } elseif($val->type_lensa == 5) {
+                    $min = "PLUS";
+                    $max = "ADD";
+                    $exp1 = $exp[0];
+                    $exp2 = $exp[1];
+                } elseif($val->type_lensa == 1) {
+                    $min = "MIN";
+                    $max = "";
+                    $exp1 = $exp[0];
+                    $exp2 = "";
                 } else {
-                    $min = "MAX";
-                    $max = "ADD";
+                    $min = "";
+                    $max = "PLUS";
+                    $exp1 = $exp[0];
+                    $exp2 = "";
                 }
-                $option_arr[$val->id] = '[ '.$val->stok.' ] '.$min.' '. $exp[0] .' '. $max .' '.$exp[1].' | '.$val->nama_lensa;
+                $option_arr[$val->id] = '[ '.$val->stok.' ] '.$min.' '. $exp1 .' '. $max .' '. $exp2 .' | '.$val->nama_lensa;
             }
-
             $option = form_dropdown("lensa", $option_arr, '', array("class" => "form-control form-control-sm", "id" => "lensa", "required" => "required"));
 
         } else {

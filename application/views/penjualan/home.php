@@ -6,7 +6,8 @@
 		<div class="card-block text-dark">
 			<h4 class="card-title">Transaksi Penjualan</h4>
 			<div class="card-body">
-				<button class="btn btn-sm btn-success" id="add_penjualan">Transaksi Penjualan</button>
+				<button class="btn btn-sm btn-success" id="add_penjualan">Kacamata</button>
+				<button class="btn btn-sm btn-success" id="add_jual_cairan">Penjualan Cairan</button>
 
 				<div id="transaksi_penjualan">
 					<table id="list_penjualan" class="table-overflow table table-striped table-overflow">
@@ -31,6 +32,10 @@
 	$("#add_penjualan").on('click', function() {
 		$("#transaksi_penjualan").load("<?= site_url('penjualan/add') ?>");
 		$(this).hide();
+	});
+
+	$("#add_jual_cairan").on('click', function() {
+		$("#transaksi_penjualan").load("<?= site_url('penjualan/cairan') ?>");
 	});
 
 	$(document).on('click', '.nota, .nota_produksi', function() {

@@ -7,6 +7,9 @@ class Penjualan extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model("model_penjualan");
+		if($this->session->userdata('status') == '') {
+			redirect(base_url('auth'));
+		}
 	}
 
 	public function index()
@@ -155,6 +158,11 @@ class Penjualan extends CI_Controller {
 		$dompdf->set_paper('A4', 'potrait');
 		$dompdf->render();
 		return $dompdf->stream($name,array("Attachment"=>0));
+	}
+
+	function cairan()
+	{
+		$this->load->view("penjualan/jual_barang");
 	}
 
 }

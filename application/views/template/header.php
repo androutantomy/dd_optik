@@ -76,20 +76,26 @@
                             </a>
                         </li>
 
+
+                        
                         <li class="nav-item ">
                             <a href="<?= site_url('penjualan') ?>">
                                 <span class="icon-holder"><i class="ei-money"></i></span>
                                 <span class="title">PENJUALAN</span>
                             </a>
                         </li>
-                        
+
+                        <?php if ($this->session->userdata('id_level') === '3') { ?>
                         <li class="nav-item ">
                             <a href="<?= site_url('toko') ?>">
                                 <span class="icon-holder"><i class="ei-store"></i></span>
                                 <span class="title">TOKO</span>
                             </a>
                         </li>
+                        <?php } ?>
 
+                        <?php $array= array('4','5');?>
+                         <?php if (!in_array($this->session->userdata('id_level'), $array) ) { ?>
                         <li class="nav-item dropdown">
                             <a class='dropdown-toggle' href='javascript:void(0);'>
                                 <span class='icon-holder'><i class='ei-business-card'></i></span>
@@ -137,7 +143,10 @@
                                 </li>
                             </ul>
                         </li>
+                        <?php } ?>
 
+                        <?php $array= array('5');?>
+                         <?php if (!in_array($this->session->userdata('id_level'), $array) ) { ?>
                         <li class="nav-item dropdown">
                             <a class='dropdown-toggle' href='javascript:void(0);'>
                                 <span class='icon-holder'><i class='ei-users'></i></span>
@@ -161,7 +170,9 @@
                                 </li>
                             </ul>       
                         </li>
-                        
+                        <?php } ?>
+
+
                         <li class="nav-item ">
                             <a href="<?= site_url('restok-data-toko') ?>">
                                 <span class="icon-holder"><i class="ei-diamond"></i></span>
@@ -209,7 +220,7 @@
                                 <li>
                                     <?php echo anchor('Auth/logout', '<i class="ti-power-off pdd-right-10"></i>
                                     <span>Logout</span>') ?>
-
+                                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 
                                 </li>
                             </div>

@@ -24,7 +24,7 @@ class Master_user extends CI_Controller {
             'password' => $this->input->post("password")
         );
 
-        if(!empty($_FILES["logo_edit"]["name"])){
+        if(!empty($_FILES["logo"]["name"])){
             $mkdir = "uploads/foto_profil/";
 
             if(!is_dir($mkdir)){ 
@@ -85,7 +85,7 @@ class Master_user extends CI_Controller {
             'password' => $this->input->post("password_edit")
         );
 
-        if(!empty($_FILES["logo"]["name"])){
+        if(!empty($_FILES["logo_edit"]["name"])){
             $mkdir = "uploads/foto_profil/";
 
             if(!is_dir($mkdir)){ 
@@ -116,7 +116,7 @@ class Master_user extends CI_Controller {
                     $name = $uploadData['file_name'];
                     $link = base_url().$mkdir.$name;
 
-                    $data['logo'] = $link;
+                    $data['logo_edit'] = $link;
                 }else{
                     $errors = $this->upload->display_errors();
                     $json['alert']  = $errors;
