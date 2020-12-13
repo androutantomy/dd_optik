@@ -25,6 +25,7 @@
         <script src="<?php echo base_url() ?>assets/bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
         <script src="<?php echo base_url() ?>assets/bower_components/selectize/dist/js/standalone/selectize.min.js"></script>
 
+        <script src="<?php echo base_url() ?>assets/bower_components/bower-jvectormap/bootstrap-datepicker/dist/bootstrap-datepicker.js"></script>
 
         <script src="<?php echo base_url() ?>assets/bower_components/bower-jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
         <script src="<?php echo base_url() ?>assets/dist/assets/js/maps/jquery-jvectormap-us-aea.js"></script>

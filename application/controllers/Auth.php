@@ -11,7 +11,6 @@ class Auth extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('login');
-		// $this->load->library('Ion_auth');
 	}
 
 	function aksi_login(){

@@ -26,7 +26,6 @@ class Master_user extends CI_Controller {
             'password' => sha1(md5($this->input->post("password")))
         );
 
-
         if(!empty($_FILES["logo_edit"]["name"])){
             $mkdir = "assets/images/foto_profil/";
 

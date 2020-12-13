@@ -212,6 +212,7 @@
 <script>
 	$("#isBPJS").hide();
 	$("#add_penjualan").hide();
+	$("#add_jual_cairan").hide();
 
 	$("#tipe_pembelian").on("change", function() {
 		if($(this).val() == 2) {

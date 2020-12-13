@@ -36,6 +36,13 @@
     <link href="<?php echo base_url() ?>assets/dist/assets/css/app.css" rel="stylesheet">
     <link href="<?php echo base_url('assets/select2/css/select2.min.css')?>" rel="stylesheet">
     <script src="<?php echo base_url('assets/select2/js/select2.full.min.js') ?>"></script>
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+
+    <!-- page plugins js -->
+    <script src="<?php echo base_url() ?>assets/bower_components/chart.js/dist/Chart.min.js"></script>
+
+    <!-- page js -->
+    <script src="<?php echo base_url() ?>assets/charts/chartjs.js"></script>
     <script>
         $('.money').mask('#.##0', {reverse: true});
     </script>
@@ -177,7 +184,12 @@
                                 <span class="title">RE-STOK TOKO</span>
                             </a>
                         </li>
-                        
+                        <li class="nav-item ">
+                            <a href="<?= site_url('laporan-toko') ?>">
+                                <span class="icon-holder"><i class="ei-growth-alt"></i></span>
+                                <span class="title">LAPORAN</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
