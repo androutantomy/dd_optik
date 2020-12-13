@@ -14,7 +14,7 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="30%">Nama Lengkap</th>
-                                <th width="15%">username</th>
+                                <th width="10%">username</th>
                                 <th width="13%">level</th>
                                 <th width="15%">toko</th>
                                 <th>Foto Profil</th>
@@ -80,9 +80,9 @@
                         <div class="col-md-10">
                             <select class="form-control" name="id_level" id="id_level">
                                 <option value="">Pilih Level User</option>
-                                <option value="3">SUPER ADMIN</option>
-                                <option value="4">ADMIN TOKO</option>
-                                <option value="5">PENJAGA TOKO</option>
+                                <?php foreach($level as $val) { ?>
+                                <option value="<?= $val->id ?>"><?= $val->nama_level ?></option>
+                                <?php } ?>
                             </select>
                             </div>
                         </div>
@@ -97,16 +97,16 @@
                         <div class="col-md-10">
                             <select class="form-control" name="id_toko" id="id_toko">
                                 <option value="">Pilih Toko</option>
-                                <option value="1">Toko Kalinangka</option>
-                                <option value="2">Toko Pandawa</option>
-                                <option value="3">Optik 66</option>
+                                <?php foreach($toko as $val) { ?>
+                                <option value="<?= $val->id ?>"><?= $val->nama_toko ?></option>
+                                <?php } ?>
                             </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="form-1-1" class="col-md-2 control-label">password</label>
                             <div class="col-md-10">
-                                <input type="password" id="password" class="form-control" required="required" maxlength="25" name="password" placeholder="telp">
+                                <input type="password" id="password" class="form-control" required="required" maxlength="25" name="password" placeholder="isikan password baru">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -163,9 +163,9 @@
                         <div class="col-md-10">
                             <select class="form-control" name="id_level_edit" id="id_level_edit">
                                 <option value="">Pilih Level User</option>
-                                <option value="3">SUPER ADMIN</option>
-                                <option value="4">ADMIN TOKO</option>
-                                <option value="5">PENJAGA TOKO</option>
+                                <?php foreach($level as $val) { ?>
+                                <option value="<?= $val->id ?>"><?= $val->nama_level ?></option>
+                                <?php } ?>
                             </select>
                             </div>
                         </div>
@@ -180,22 +180,22 @@
                         <div class="col-md-10">
                             <select class="form-control" name="id_toko_edit" id="id_toko_edit">
                                 <option value="">Pilih Toko</option>
-                                <option value="1">Toko Kalinangka</option>
-                                <option value="2">Toko Pandawa</option>
-                                <option value="3">Optik 66</option>
+                                <?php foreach($toko as $val) { ?>
+                                <option value="<?= $val->id ?>"><?= $val->nama_toko ?></option>
+                                <?php } ?>
                             </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="form-1-1" class="col-md-2 control-label">password</label>
                             <div class="col-md-10">
-                                <input type="password" id="password_edt" required="required" class="form-control" maxlength="25" name="password_edit" placeholder="telp">
+                                <input type="password" id="password_edt" required="required" class="form-control" maxlength="25" name="password_edit" placeholder="isikan password baru/lama anda">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="form-1-1" class="col-md-2 control-label">Foto Profil</label>
                             <div class="col-md-10">
-                                <input type="file" id="logo_edit" required="required" class="form-control" name="logo_edit">
+                                <input type="file" id="logo_edit" class="form-control" name="logo_edit">
                             </div>
 
                         </div>

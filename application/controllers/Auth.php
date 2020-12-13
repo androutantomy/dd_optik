@@ -16,7 +16,7 @@ class Auth extends CI_Controller {
 
 	function aksi_login(){
 		$username = $this->input->post('username');
-		$password = $this->input->post('password');
+		$password = sha1(md5($this->input->post('password')));
 		// $where = array(
 		// 	'username' => $username,
 		// 	'password' => $password,

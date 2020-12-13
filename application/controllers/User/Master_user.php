@@ -11,6 +11,8 @@ class Master_user extends CI_Controller {
 
     function index() {
         $data['user'] = $this->db->get('user')->result();
+        $data['toko'] = $this->db->get("master_toko")->result();
+        $data['level'] = $this->db->get("master_user_level")->result();
         $this->template->load('master/list_user', $data);
     }
 
@@ -21,11 +23,12 @@ class Master_user extends CI_Controller {
             'id_toko' => $this->input->post("id_toko"),
             'nama_lengkap' => $this->input->post("nama_lengkap"),
             'username' => $this->input->post("username"),
-            'password' => $this->input->post("password")
+            'password' => sha1(md5($this->input->post("password")))
         );
 
+
         if(!empty($_FILES["logo_edit"]["name"])){
-            $mkdir = "uploads/foto_profil/";
+            $mkdir = "assets/images/foto_profil/";
 
             if(!is_dir($mkdir)){ 
                 mkdir($mkdir,0777,TRUE); 
@@ -64,7 +67,7 @@ class Master_user extends CI_Controller {
                 }
             }
         }
-
+        // print_r($data);exit;
         $i = $this->db->insert("user", $data);
 
         if($i) {
@@ -82,11 +85,11 @@ class Master_user extends CI_Controller {
             'id_toko' => $this->input->post("id_toko_edit"),
             'nama_lengkap' => $this->input->post("nama_lengkap_edit"),
             'username' => $this->input->post("username_edit"),
-            'password' => $this->input->post("password_edit")
+            'password' => sha1(md5($this->input->post("password_edit")))
         );
 
-        if(!empty($_FILES["logo"]["name"])){
-            $mkdir = "uploads/foto_profil/";
+        if(!empty($_FILES["logo_edit"]["name"])){
+            $mkdir = "assets/images/foto_profil/";
 
             if(!is_dir($mkdir)){ 
                 mkdir($mkdir,0777,TRUE); 
