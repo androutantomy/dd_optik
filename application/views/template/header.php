@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bootstrap.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/PACE/themes/red/pace-theme-minimal.css" />
+    <!-- <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/PACE/themes/red/pace-theme-minimal.css" /> -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/summernote/dist/summernote.css" />
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/dist/assets/css/sweetalert.css" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
 
     <!-- page plugins js -->
-    <script src="<?php echo base_url() ?>assets/bower_components/chart.js/dist/Chart.min.js"></script>
+    <!-- <script src="<?php echo base_url() ?>assets/bower_components/chart.js/dist/Chart.min.js"></script> -->
 
     <!-- page js -->
-    <script src="<?php echo base_url() ?>assets/charts/chartjs.js"></script>
+    <!-- <script src="<?php echo base_url() ?>assets/charts/chartjs.js"></script> -->
     <script>
         $('.money').mask('#.##0', {reverse: true});
     </script>

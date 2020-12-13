@@ -147,7 +147,7 @@ class Master_data extends CI_Controller {
       $arr[$val->id] = $val->nama;
     }
 
-    $option = form_dropdown("frame", $arr, '', array("class" => "form-control form-control-sm", "id" => "frame", "required" => "required"));
+    $option = form_dropdown("frame", $arr, '', array("class" => "form-control form-control-sm select2option", "id" => "frame", "required" => "required"));
 
     $json = ['s' => 'sukses', 'option' => $option];
 
@@ -164,7 +164,7 @@ class Master_data extends CI_Controller {
       $arr[$val->id] = $val->nama_lensa;
     }
 
-    $option = form_dropdown("lensa", $arr, '', array("class" => "form-control form-control-sm", "id" => "lensa", "required" => "required"));
+    $option = form_dropdown("lensa", $arr, '', array("class" => "form-control form-control-sm select2option", "id" => "lensa", "required" => "required"));
 
     $json = ['s' => 'sukses', 'option' => $option];
 
@@ -181,7 +181,7 @@ class Master_data extends CI_Controller {
       $arr[$val->id] = $val->nama;
     }
 
-    $option = form_dropdown("cairan", $arr, '', array("class" => "form-control form-control-sm", "id" => "cairan", "required" => "required"));
+    $option = form_dropdown("cairan", $arr, '', array("class" => "form-control form-control-sm select2option", "id" => "cairan", "required" => "required"));
 
     $json = ['s' => 'sukses', 'option' => $option];
 
