@@ -1,3 +1,7 @@
+
+<link href="<?php echo base_url('assets/select2/css/select2.min.css')?>" rel="stylesheet">
+<script src="<?php echo base_url('assets/select2/js/select2.full.min.js') ?>"></script>
+
 <button class="btn btn-sm btn-danger" id="kembali">Kembali</button><br>
 <br><br>
 <form id="xxy">
@@ -47,6 +51,8 @@
 
 <script>
 	$(document).ready(function() {
+		$(".select2option").select2();
+
 		$(".maxMin").hide();
 		$("#message").html("");
 		var type = "<?= $type ?>";
@@ -89,7 +95,7 @@
 			setTimeout(function(){
 				$("#lensa").val(idx);
 			},900)
-		
+
 
 			$("#id_update").val(idy);
 			$("#minus").val(split[0]);
@@ -122,6 +128,7 @@
 					$("#dataOption").html(d.option);
 					$(".maxMin").hide();
 					$("#message").html("");
+					$(".select2option").select2();
 				}
 			}, "json");
 		} else if($(this).val() == 2) {
@@ -130,6 +137,7 @@
 					$("#dataOption").html(d.option);
 					$(".maxMin").show();
 					$("#message").html("");
+					$(".select2option").select2();
 				}
 			}, "json");
 		} else if($(this).val() == 3) {
@@ -138,6 +146,7 @@
 					$("#dataOption").html(d.option);
 					$(".maxMin").hide();
 					$("#message").html("");
+					$(".select2option").select2();
 				}
 			}, "json");
 		} else {
