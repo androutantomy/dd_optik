@@ -37,8 +37,6 @@ class Pembelian extends CI_Controller {
 			$row = array();
 			$row[] = $no;
             $row[] = $field->nama;
-            $row[] = date("d-m-Y", strtotime($field->tanggal_nota));;
-			$row[] = date("d-m-Y", strtotime($field->tgl_selesai));
             $row[] = "<button class='btn btn-sm btn-warning pelunasan' type='nota' id='". md5($field->id) ."'><i class='fa fa-money'></i> Pelunasan</button>
             			<button class='btn btn-sm btn-warning nota' type='nota' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota</button>
             			<button class='btn btn-sm btn-success nota_produksi' type='nota_produksi' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota Produksi</button>";
