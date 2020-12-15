@@ -27,6 +27,8 @@ class Master_data extends CI_Controller {
       $i = $this->db->set("nama", $this->input->post('nama'))->set("harga_beli", $this->input->post("harga_beli"))->set("harga_jual", $this->input->post("harga_jual"))->insert("master_frame");
     } elseif($jenis == 'cairan') {
       $i = $this->db->set("nama", $this->input->post('nama'))->set("harga_beli", $this->input->post("harga_beli"))->set("harga_jual", $this->input->post("harga_jual"))->insert("master_cairan");
+    } elseif($jenis == 'lensa') {
+      $i = $this->db->set("nama", $this->input->post('nama'))->set("harga_beli", $this->input->post("harga_beli"))->set("harga_jual", $this->input->post("harga_jual"))->insert("master_lensa");
     }
 
     if($i) {
@@ -49,6 +51,9 @@ class Master_data extends CI_Controller {
     } elseif ($jenis == 'cairan') {
       $g = $this->db->get_where("master_cairan", array("md5(id)" => $id))->row();
       $nama = $g->nama;
+    } elseif ($jenis == 'lensa') {
+      $g = $this->db->get_where("master_lensa", array("md5(id)" => $id))->row();
+      $nama = $g->nama;
     }
 
     if($g) {
@@ -68,6 +73,8 @@ class Master_data extends CI_Controller {
       $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->set("harga_beli", $this->input->post("harga_beli_edit"))->set("harga_jual", $this->input->post("harga_jual_edit"))->update("master_frame");
     } elseif($jenis == 'cairan') {
       $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->set("harga_beli", $this->input->post("harga_beli_edit"))->set("harga_jual", $this->input->post("harga_jual_edit"))->update("master_cairan");
+    } elseif($jenis == 'lensa') {
+      $i = $this->db->set("nama", $this->input->post('nama_edit'))->where('id', $this->input->post('id'))->set("harga_beli", $this->input->post("harga_beli_edit"))->set("harga_jual", $this->input->post("harga_jual_edit"))->update("master_lensa");
     }
 
     if($i) {
@@ -87,6 +94,8 @@ class Master_data extends CI_Controller {
       $d = $this->db->where("md5(id)", $id)->delete("master_frame");
     } elseif($jenis == 'cairan') {
       $d = $this->db->where("md5(id)", $id)->delete("master_cairan");
+    } elseif($jenis == 'lensa') {
+      $d = $this->db->where("md5(id)", $id)->delete("master_lensa");
     }
 
     if($d) {
@@ -112,6 +121,14 @@ class Master_data extends CI_Controller {
     $data['barang'] = $this->db->get("master_cairan")->result();
 
     $this->template->load("master/list_cairan", $data);
+  }
+
+  // master lensa
+  function data_lensa()
+  {
+    $data['barang'] = $this->db->get("master_lensa")->result();
+
+    $this->template->load("master/list_lensa", $data);
   }
 
   function data_gudang($id_toko = '')
@@ -161,7 +178,7 @@ class Master_data extends CI_Controller {
 
     $arr = ["Pilih Lensa"];
     foreach($g as $val) {
-      $arr[$val->id] = $val->nama_lensa;
+      $arr[$val->id] = $val->nama;
     }
 
     $option = form_dropdown("lensa", $arr, '', array("class" => "form-control form-control-sm select2option", "id" => "lensa", "required" => "required"));
@@ -408,7 +425,7 @@ class Master_data extends CI_Controller {
       $no++;
       $row = array();
       $row[] = $no;
-      $row[] = $field->nama_lensa;
+      $row[] = $field->nama;
       $row[] = $field->stok;
       if($field->type_lensa == 1) {
         $type_lensa = "[ - ] ".$field->min_max;;

@@ -133,7 +133,7 @@
                             </ul>       
                             <ul class='dropdown-menu'>
                                 <li class="nav-item">
-                                    <a href="<?= site_url('master-frame') ?>">
+                                    <a href="<?= site_url('master-lensa') ?>">
                                         <span class='arrow'><i class='ti-angle-left'></i></span>
                                         <span class='title'>Master Lensa</span>
                                     </a>

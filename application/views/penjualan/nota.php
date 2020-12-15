@@ -85,7 +85,7 @@
 	<tr>
 		<td width="20%">Lensa</td>
 		<td width="2%"> : </td>
-		<td width="50%"><?= $pembelian->nama_lensa; ?></td>
+		<td width="50%"><?= $pembelian->nama; ?></td>
 		<td width="5%"> Rp. </td>
 		<td style="text-align: right;"><?= $pembelian->harga_lensa; ?></td>
 	</tr>

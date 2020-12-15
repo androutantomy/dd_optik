@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_lensa extends CI_Model {
     var $table = 'data_lensa';
-        var $column_order = array(null, 'master_lensa.nama_lensa', 'data_lensa.stok', '', '', );
-        var $column_search = array('master_lensa.nama_lensa');
-        var $order = array('master_lensa.nama_lensa' => 'asc'); // default order 
+        var $column_order = array(null, 'master_lensa.nama', 'data_lensa.stok', '', '', );
+        var $column_search = array('master_lensa.nama');
+        var $order = array('master_lensa.nama' => 'asc'); // default order 
 
         public function __construct()
         {
@@ -16,7 +16,7 @@ class Model_lensa extends CI_Model {
         private function _get_datatables_query($id='-')
         {   
       
-            $this->db->select("data_lensa.*, master_lensa.nama_lensa")->from($this->table)
+            $this->db->select("data_lensa.*, master_lensa.nama")->from($this->table)
             ->join("master_lensa", "master_lensa.id = data_lensa.id_lensa");
             if($id != "-") {
                 $this->db->where("status", 2);

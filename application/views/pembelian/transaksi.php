@@ -45,64 +45,7 @@
 			<input type="date" name="is_bpjs" id="is_bpjs" value="<?= isset($penjualan) ? $penjualan->is_bpjs : '' ?>" class="form-control input-sm">
 		</div>
 	</div>
-	<div class="form-group">
-		<table border="1">
-			<tr>
-				<th width="5%"></th>
-				<th width="15%" style="text-align: center;">SPH</th>
-				<th width="15%" style="text-align: center;">CYL</th>
-				<th width="15%" style="text-align: center;">AXIS</th>
-				<th width="15%" style="text-align: center;">ADD</th>
-				<th  style="text-align: center;" rowspan="3">
-					<table border="0">
-						<tr>
-							<td rowspan="5"><span style="font-size: 25px;">PD</span></td>
-						</tr>
-						<tr>									
-							<td>Jauh</td>
-							<td><input type="text" name="pd_jauh" id="pd_jauh" value="<?= isset($penjualan) ? $penjualan->pd_jauh : '' ?>" class="form-control input-sm"></td>
-							<td>m/m</td>
-						</tr>
-						<tr>
-							<td >Dekat</td>
-							<td><input type="text" name="pd_dekat" id="pd_dekat" class="form-control input-sm" value="<?= isset($penjualan) ? $penjualan->pd_dekat : '' ?>"></td>
-							<td>m/m</td>
-						</tr>
-					</table>
-				</th>
-			</tr>
-			<tr>
-				<td><center>R</center></td>
-				<td>
-					<input type="text" name="sphr" id="sphr" value="<?= isset($penjualan) ? $penjualan->rsph : '' ?>" class="form-control input-sm">
-				</td>
-				<td>
-					<input type="text" name="cylr" id="cylr" value="<?= isset($penjualan) ? $penjualan->rcyl : '' ?>" class="form-control input-sm">
-				</td>
-				<td>
-					<input type="text" name="axisr" id="axisr" value="<?= isset($penjualan) ? $penjualan->raxis : '' ?>" class="form-control input-sm">
-				</td>
-				<td>
-					<input type="text" name="addr" id="addr" value="<?= isset($penjualan) ? $penjualan->radd : '' ?>" class="form-control input-sm">
-				</td>
-			</tr>
-			<tr>
-				<td><center>L</center></td>
-				<td>
-					<input type="text" name="sphl" id="sphl" value="<?= isset($penjualan) ? $penjualan->lsph : '' ?>" class="form-control input-sm">
-				</td>
-				<td>
-					<input type="text" name="cyll" id="cyll" value="<?= isset($penjualan) ? $penjualan->lcyl : '' ?>" class="form-control input-sm">
-				</td>
-				<td>
-					<input type="text" name="axisl" id="axisl" value="<?= isset($penjualan) ? $penjualan->laxis : '' ?>" class="form-control input-sm">
-				</td>
-				<td>
-					<input type="text" name="addl" id="addl" value="<?= isset($penjualan) ? $penjualan->ladd : '' ?>" class="form-control input-sm">
-				</td>
-			</tr>
-		</table>
-	</div>
+
 	<div class="form-group row">
 		<div class="col-md-2">Frame</div>
 		<div class="col-md-5">
@@ -140,7 +83,7 @@
 						$type_lensa = "- PLUS - ADD -".$val->min_max;
 					}
 					?>
-					<option value="<?= $val->id ?>" harga="<?= $val->harga_jual ?>" <?= isset($penjualan) ? $penjualan->id_lensa == $val->id ? 'selected' : '' : '' ?>>[ <?= $val->stok ?> ] <?= $type_lensa; ?> <?= $val->nama_lensa ?></option>
+					<option value="<?= $val->id ?>" harga="<?= $val->harga_jual ?>" <?= isset($penjualan) ? $penjualan->id_lensa == $val->id ? 'selected' : '' : '' ?>>[ <?= $val->stok ?> ] <?= $type_lensa; ?> <?= $val->nama ?></option>
 				<?php } ?>
 			</select>
 		</div>

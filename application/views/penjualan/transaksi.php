@@ -173,7 +173,7 @@
 			<select class="form-control input-sm selectx select2option" name="lensa" id="lensa">
 				<option value="0">Pilih Lensa</option>
 				<?php foreach($lensa as $val) { ?>
-					<option value="<?= $val->id ?>" harga="<?= $val->harga_jual ?>" <?= isset($penjualan) ? $penjualan->id_lensa == $val->id ? 'selected' : '' : '' ?>>[ <?= $val->stok ?> ] <?= $val->nama_lensa ?></option>
+					<option value="<?= $val->id ?>" harga="<?= $val->harga_jual ?>" <?= isset($penjualan) ? $penjualan->id_lensa == $val->id ? 'selected' : '' : '' ?>>[ <?= $val->stok ?> ] <?= $val->nama ?></option>
 				<?php } ?>
 			</select>
 		</div>

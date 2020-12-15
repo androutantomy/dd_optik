@@ -165,7 +165,7 @@ class Toko extends CI_Controller {
             $option = form_dropdown("frame", $option_arr, '', array("class" => "form-control form-control-sm", "id" => "frame", "required" => "required"));
 
         } elseif($type == 2) {
-            $g = $this->db->select("master_lensa.nama_lensa, master_lensa.id as id_master_lensa, data_lensa.*")->join("master_lensa", "master_lensa.id = data_lensa.id_lensa")->get_where("data_lensa", array("status" => 1))->result();
+            $g = $this->db->select("master_lensa.nama, master_lensa.id as id_master_lensa, data_lensa.*")->join("master_lensa", "master_lensa.id = data_lensa.id_lensa")->get_where("data_lensa", array("status" => 1))->result();
             foreach($g as $val) {
                 $exp = explode(",", $val->min_max);
                 if($val->type_lensa == 3) {
@@ -194,7 +194,7 @@ class Toko extends CI_Controller {
                     $exp1 = $exp[0];
                     $exp2 = "";
                 }
-                $option_arr[$val->id] = '[ '.$val->stok.' ] '.$min.' '. $exp1 .' '. $max .' '. $exp2 .' | '.$val->nama_lensa;
+                $option_arr[$val->id] = '[ '.$val->stok.' ] '.$min.' '. $exp1 .' '. $max .' '. $exp2 .' | '.$val->nama;
             }
             $option = form_dropdown("lensa", $option_arr, '', array("class" => "form-control form-control-sm", "id" => "lensa", "required" => "required"));
 

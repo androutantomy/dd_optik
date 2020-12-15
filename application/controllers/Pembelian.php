@@ -19,7 +19,7 @@ class Pembelian extends CI_Controller {
 		$data['frame'] = $this->db->select("a.*, b.stok")->from("data_frame b")->join("master_frame a", "a.id = b.id_frame")->where("status", 2)->where("id_toko", 1)->where("b.stok >", 0)->get()->result();
 		$data['lensa'] = $this->db->select("a.*, b.*, b.id AS id_data_lensa")->from("data_lensa b")->join("master_lensa a", "a.id = b.id_lensa")->where("b.stok >", 0)->get()->result();
 		if($id != '0') {
-			$data['penjualan'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama_lensa")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
+			$data['penjualan'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
 										->join("master_frame d", "b.id_frame = d.id")->join("master_lensa e", "c.id_lensa = e.id")
 										->get_where("penjualan a", array("md5(a.id)" => $id))->row();
 		}
@@ -116,7 +116,7 @@ class Pembelian extends CI_Controller {
 	{
 		$filename = "Nota Penjualan";
 		$data['title'] = $filename;
-		$data['pembelian'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama_lensa")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
+		$data['pembelian'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
 										->join("master_frame d", "b.id_frame = d.id")->join("master_lensa e", "c.id_lensa = e.id")
 										->get_where("penjualan a", array("md5(a.id)" => $id))->row();
 		// echo "<pre>"; print_r($data['pembelian']->nama);exit;
@@ -138,7 +138,7 @@ class Pembelian extends CI_Controller {
 	{
 		$filename = "Nota Produksi";
 		$data['title'] = $filename;
-		$data['pembelian'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama_lensa")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
+		$data['pembelian'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
 										->join("master_frame d", "b.id_frame = d.id")->join("master_lensa e", "c.id_lensa = e.id")
 										->get_where("penjualan a", array("md5(a.id)" => $id))->row();
 		// echo "<pre>"; print_r($data['pembelian']->nama);exit;
