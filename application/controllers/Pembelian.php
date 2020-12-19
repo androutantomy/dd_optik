@@ -7,6 +7,9 @@ class Pembelian extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model("model_pembelian");
+		if($this->session->userdata('status') == '') {
+			redirect(base_url('auth'));
+		}
 	}
 
 	public function index()
@@ -36,7 +39,8 @@ class Pembelian extends CI_Controller {
            	$no++;
 			$row = array();
 			$row[] = $no;
-            $row[] = $field->nama;
+			$row[] = $field->nama;
+			$row[] = date("d-m-Y", strtotime($field->tanggal_nota));
             $row[] = "<button class='btn btn-sm btn-warning pelunasan' type='nota' id='". md5($field->id) ."'><i class='fa fa-money'></i> Pelunasan</button>
             			<button class='btn btn-sm btn-warning nota' type='nota' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota</button>
             			<button class='btn btn-sm btn-success nota_produksi' type='nota_produksi' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota Produksi</button>";
@@ -45,8 +49,8 @@ class Pembelian extends CI_Controller {
 
 		$output = array(
 			"draw" => $_POST['draw'],
-			"recordsTotal" => $this->model_penjualan->count_all(),
-			"recordsFiltered" => $this->model_penjualan->count_filtered(),
+			"recordsTotal" => $this->model_pembelian->count_all(),
+			"recordsFiltered" => $this->model_pembelian->count_filtered(),
 			"data" => $data,
         );
         
@@ -88,18 +92,18 @@ class Pembelian extends CI_Controller {
 
 		if($id == "") {
 			$gF = $this->db->get_where("data_frame", array("id" => $this->input->post("frame")))->row()->stok;
-			$tF = $gF - 1;
+			$tF = $gF + 1;
 			$k = $this->db->set("stok", $tF)->where("id", $this->input->post("frame"))->update("data_frame");
 
 			$gF = $this->db->get_where("data_lensa", array("id" => $this->input->post("lensa")))->row()->stok;
-			$tF = $gF - 1;
+			$tF = $gF + 1;
 			$k = $this->db->set("stok", $tF)->where("id", $this->input->post("lensa"))->update("data_lensa");
 
 			// print_r($data);exit;
-			$i = $this->db->insert("penjualan", $data);
+			$i = $this->db->insert("pembelian", $data);
 			$insert_id = md5($this->db->insert_id());
 		} else {
-			$i = $this->db->where("md5(id)", $id)->update("penjualan", $data);
+			$i = $this->db->where("md5(id)", $id)->update("pembelian", $data);
 			$insert_id = $id;
 		}
 
@@ -114,18 +118,18 @@ class Pembelian extends CI_Controller {
 
 	function nota($id)
 	{
-		$filename = "Nota Penjualan";
+		$filename = "Nota Pembelian";
 		$data['title'] = $filename;
 		$data['pembelian'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
 										->join("master_frame d", "b.id_frame = d.id")->join("master_lensa e", "c.id_lensa = e.id")
-										->get_where("penjualan a", array("md5(a.id)" => $id))->row();
+										->get_where("pembelian a", array("md5(a.id)" => $id))->row();
 		// echo "<pre>"; print_r($data['pembelian']->nama);exit;
-		$html = $this->load->view('penjualan/nota', $data, true);
+		$html = $this->load->view('pembelian/nota', $data, true);
 		$this->load->add_package_path(APPPATH.'third_party/dompdf/');		
 		require_once(APPPATH."third_party/dompdf/dompdf_config.inc.php");
 
 
-		$name   = "Nota Penjualan.pdf";
+		$name   = "Nota Pembelian.pdf";
 		$dompdf = new Dompdf();
 		$dompdf->load_html($html);
 		$dompdf->set_paper('A4', 'landscape');
@@ -140,9 +144,9 @@ class Pembelian extends CI_Controller {
 		$data['title'] = $filename;
 		$data['pembelian'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
 										->join("master_frame d", "b.id_frame = d.id")->join("master_lensa e", "c.id_lensa = e.id")
-										->get_where("penjualan a", array("md5(a.id)" => $id))->row();
+										->get_where("pembelian a", array("md5(a.id)" => $id))->row();
 		// echo "<pre>"; print_r($data['pembelian']->nama);exit;
-		$html = $this->load->view('penjualan/nota_produksi', $data, true);
+		$html = $this->load->view('pembelian/nota_produksi', $data, true);
 		$this->load->add_package_path(APPPATH.'third_party/dompdf/');		
 		require_once(APPPATH."third_party/dompdf/dompdf_config.inc.php");
 

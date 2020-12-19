@@ -9,7 +9,7 @@
 		</div>
 		<div class="col-md-1"> : </div>
 		<div class="col-md-10">
-			<input type="text" name="nama" id="nama" class="form-control input-sm" value="<?= isset($penjualan) ? $penjualan->nama : '' ?>" required="required">
+			<input type="text" name="nama" id="nama" class="form-control input-sm" value="<?= isset($pembelian) ? $pembelian->nama : '' ?>" required="required">
 		</div>
 	</div>				
 	<div class="form-group row">
@@ -18,7 +18,7 @@
 		</div>
 		<div class="col-md-1"> : </div>
 		<div class="col-md-10">
-			<input type="text" name="alamat" id="alamat" class="form-control input-sm" value="<?= isset($penjualan) ? $penjualan->alamat : '' ?>" required="required">
+			<input type="text" name="alamat" id="alamat" class="form-control input-sm" value="<?= isset($pembelian) ? $pembelian->alamat : '' ?>" required="required">
 		</div>
 	</div>
 	<div class="form-group row">
@@ -27,7 +27,7 @@
 		</div>
 		<div class="col-md-1"> : </div>
 		<div class="col-md-10">
-			<input type="text" name="telp" id="telp" class="form-control input-sm" value="<?= isset($penjualan) ? $penjualan->telp : '' ?>" required="required">
+			<input type="text" name="telp" id="telp" class="form-control input-sm" value="<?= isset($pembelian) ? $pembelian->telp : '' ?>" required="required">
 		</div>
 	</div>
 	<div class="form-group row">
@@ -37,12 +37,12 @@
 		<div class="col-md-1"> : </div>
 		<div class="col-md-5">
 			<select class="form-control form-control-sm" name="tipe_pembelian" id="tipe_pembelian" required="required">
-				<option value="1" <?= isset($penjualan) ? $penjualan->tipe_pembelian == 1 ? 'selected' : 'selected' : 'selected' ?>>Cash</option>
-				<!-- <option value="2" <?= isset($penjualan) ? $penjualan->tipe_pembelian == 2 ? 'selected' : '' : '' ?>>BPJS</option> -->
+				<option value="1" <?= isset($pembelian) ? $pembelian->tipe_pembelian == 1 ? 'selected' : 'selected' : 'selected' ?>>Cash</option>
+				<!-- <option value="2" <?= isset($pembelian) ? $pembelian->tipe_pembelian == 2 ? 'selected' : '' : '' ?>>BPJS</option> -->
 			</select>
 		</div>
 		<div class="col-md-5" id="isBPJS">
-			<input type="date" name="is_bpjs" id="is_bpjs" value="<?= isset($penjualan) ? $penjualan->is_bpjs : '' ?>" class="form-control input-sm">
+			<input type="date" name="is_bpjs" id="is_bpjs" value="<?= isset($pembelian) ? $pembelian->is_bpjs : '' ?>" class="form-control input-sm">
 		</div>
 	</div>
 
@@ -52,16 +52,16 @@
 			<select class="form-control input-sm selectx" name="frame" id="frame">
 				<option value="0">Pilih Frame</option>
 				<?php foreach($frame as $val) { ?>
-					<option value="<?= $val->id ?>" <?= isset($penjualan) ? $penjualan->id_frame == $val->id ? 'selected' : '' : '' ?> harga="<?= $val->harga_jual ?>">[ <?= $val->stok ?> ] <?= $val->nama ?></option>
+					<option value="<?= $val->id ?>" <?= isset($pembelian) ? $pembelian->id_frame == $val->id ? 'selected' : '' : '' ?> harga="<?= $val->harga_jual ?>">[ <?= $val->stok ?> ] <?= $val->nama ?></option>
 				<?php } ?>
 			</select>
 		</div>
 		<div class="col-md-1">Rp.</div>
 		<div class="col-md-2" style="text-align: right;">
-			<input type="text" readonly="" name="harga_frame_asli"  id="harga_frame_asli" value="<?= isset($penjualan) ? $penjualan->harga_frame : '' ?>" class="form-control input-sm">
+			<input type="text" readonly="" name="harga_frame_asli"  id="harga_frame_asli" value="<?= isset($pembelian) ? $pembelian->harga_frame : '' ?>" class="form-control input-sm">
 		</div>
 		<div class="col-md-2" style="text-align: right;">
-			<input type="text" name="harga_frame" style="text-align: right;" id="harga_frame" value="<?= isset($penjualan) ? $penjualan->potongan_frame : '' ?>" class="form-control potongan input-sm" value="0">
+			<input type="text" name="harga_frame" style="text-align: right;" id="harga_frame" value="<?= isset($pembelian) ? $pembelian->potongan_frame : '' ?>" class="form-control potongan input-sm" value="0">
 		</div>
 	</div>
 	<div class="form-group row">
@@ -83,26 +83,26 @@
 						$type_lensa = "- PLUS - ADD -".$val->min_max;
 					}
 					?>
-					<option value="<?= $val->id ?>" harga="<?= $val->harga_jual ?>" <?= isset($penjualan) ? $penjualan->id_lensa == $val->id ? 'selected' : '' : '' ?>>[ <?= $val->stok ?> ] <?= $type_lensa; ?> <?= $val->nama ?></option>
+					<option value="<?= $val->id ?>" harga="<?= $val->harga_jual ?>" <?= isset($pembelian) ? $pembelian->id_lensa == $val->id ? 'selected' : '' : '' ?>>[ <?= $val->stok ?> ] <?= $type_lensa; ?> <?= $val->nama ?></option>
 				<?php } ?>
 			</select>
 		</div>
 		<div class="col-md-1">Rp.</div>
 		<div class="col-md-2" style="text-align: right;">
-			<input type="text" readonly name="harga_lensa_asli" value="<?= isset($penjualan) ? $penjualan->harga_lensa : '' ?>" id="harga_lensa_asli" class="form-control input-sm">
+			<input type="text" readonly name="harga_lensa_asli" value="<?= isset($pembelian) ? $pembelian->harga_lensa : '' ?>" id="harga_lensa_asli" class="form-control input-sm">
 		</div>
 		<div class="col-md-2" style="text-align: right;">
-			<input type="text" name="harga_lensa" style="text-align: right;" id="harga_lensa" value="<?= isset($penjualan) ? $penjualan->potongan_lensa : '' ?>" class="form-control potongan input-sm" value="0">
+			<input type="text" name="harga_lensa" style="text-align: right;" id="harga_lensa" value="<?= isset($pembelian) ? $pembelian->potongan_lensa : '' ?>" class="form-control potongan input-sm" value="0">
 		</div>
 	</div>
 	<div class="form-group row">
 		<div class="col-md-2">Keterangan</div>
 		<div class="col-md-5">
-			<input type="text" name="keterangan" id="keterangan" value="<?= isset($penjualan) ? $penjualan->keterangan : '' ?>" class="form-control input-sm">
+			<input type="text" name="keterangan" id="keterangan" value="<?= isset($pembelian) ? $pembelian->keterangan : '' ?>" class="form-control input-sm">
 		</div>
 		<div class="col-md-1">Rp.</div>
 		<div class="col-md-4" style="text-align: right;">
-			<input type="text" name="harga_keterangan" style="text-align: right;" value="<?= isset($penjualan) ? $penjualan->harga_keterangan : '' ?>" id="harga_keterangan" class="form-control input-sm" value="0"><br>
+			<input type="text" name="harga_keterangan" style="text-align: right;" value="<?= isset($pembelian) ? $pembelian->harga_keterangan : '' ?>" id="harga_keterangan" class="form-control input-sm" value="0"><br>
 			<hr>
 		</div>
 	</div>
@@ -113,11 +113,11 @@
 		</div>
 		<div class="col-md-1">Rp.</div>
 		<div class="col-md-2" style="text-align: right;" id="total_asli">
-			<?= isset($penjualan) ? $penjualan->harga_frame+$penjualan->harga_lensa+$penjualan->harga_keterangan : '...............................' ?>
+			<?= isset($pembelian) ? $pembelian->harga_frame+$pembelian->harga_lensa+$pembelian->harga_keterangan : '...............................' ?>
 		</div>
 		<div class="col-md-2" style="text-align: right;" id="total">
 			
-			<?= isset($penjualan) ? $penjualan->potongan_frame+$penjualan->potongan_lensa : '...............................' ?>
+			<?= isset($pembelian) ? $pembelian->potongan_frame+$pembelian->potongan_lensa : '...............................' ?>
 		</div>
 	</div>
 	<div class="form-group row">
@@ -127,34 +127,29 @@
 		</div>
 		<div class="col-md-1">Rp. </div>
 		<div class="col-md-4">
-			<input type="text" style="text-align: right;" value="<?= isset($penjualan) ? $penjualan->uang_muka : '' ?>" name="uang_muka" id="uang_muka" class="form-control input-sm" value="0">
+			<input type="text" style="text-align: right;" value="<?= isset($pembelian) ? $pembelian->uang_muka : '' ?>" name="uang_muka" id="uang_muka" class="form-control input-sm" value="0">
 		</div>
 	</div>
-	<div class="form-group row">
-		<div class="col-md-2">
-			<label>Selesai Tgl</label>
-		</div>
-		<div class="col-md-3">
-			<input type="date" name="tgl_selesai" id="tgl_selesai" class="form-control input-sm" value="<?= isset($penjualan) ? $penjualan->tgl_selesai : '' ?>" required="required">
-		</div>
+	<!-- <div class="form-group row">
+		
 		<div class="col-md-2">
 			Sisa
 		</div>
 		<div class="col-md-1">Rp. </div>
 		<div class="col-md-4">
-			<input type="text" readonly style="text-align: right;" name="sisa" value="<?= isset($penjualan) ? $penjualan->sisa : '' ?>" id="sisa" class="form-control input-sm">
+			<input type="text" readonly style="text-align: right;" name="sisa" value="<?= isset($pembelian) ? $pembelian->sisa : '' ?>" id="sisa" class="form-control input-sm">
 		</div>
-	</div>
+	</div> -->
 	<div class="form-group row">
 		<div class="col-md-12">
-			<button class="btn btn-sm btn-success pull-right" type="submit"><?= isset($penjualan) ? 'Update' : 'Buat' ?> Nota</button>
+			<button class="btn btn-sm btn-success pull-right" type="submit"><?= isset($pembelian) ? 'Update' : 'Buat' ?> Nota</button>
 		</div>
 	</div>
 </form>
 
 <script>
 	$("#isBPJS").hide();
-	$("#add_penjualan").hide();
+	$("#add_pembelian").hide();
 
 	$("#tipe_pembelian").on("change", function() {
 		if($(this).val() == 2) {
@@ -239,11 +234,11 @@
 
 	$("#input_pembelian").on('submit', (function(e) {
 		e.preventDefault(e);
-		var id = "<?= isset($penjualan) ? md5($penjualan->id) : ''; ?>";
+		var id = "<?= isset($pembelian) ? md5($pembelian->id) : ''; ?>";
 		$("#modal_loader").show();
 
 		$.ajax({
-			url: "<?= site_url() ?>Penjualan/simpan_data/"+id,
+			url: "<?= site_url() ?>pembelian/simpan_data/"+id,
 			type: "POST",
 			data: new FormData(this),
 			contentType: false,
@@ -253,7 +248,7 @@
 			success: function(respon) {
 				if (respon.s == 'sukses') {
 					alert(respon.m);
-					window.open("<?= site_url('penjualan/nota/') ?>"+respon.url);
+					window.open("<?= site_url('pembelian/nota/') ?>"+respon.url);
 				} else {
 					alert(respon.m);
 				}

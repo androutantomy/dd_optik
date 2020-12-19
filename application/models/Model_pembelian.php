@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_pembelian extends CI_Model {
     var $table = 'pembelian';
-    var $column_order = array(null, 'nama', 'tanggal_nota', 'tgl_selesai');
-    var $column_search = array('nama','tanggal_nota','tgl_selesai');
+    var $column_order = array(null, 'nama', 'tanggal_nota');
+    var $column_search = array('nama','tanggal_nota');
     var $order = array('tanggal_nota' => 'desc');
 
     public function __construct()

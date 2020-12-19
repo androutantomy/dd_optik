@@ -50,7 +50,7 @@
 							<input type="text" id="nama" class="form-control form-control-sm" name="nama" placeholder="Isikan nama barang">
 						</div>
 					</div>
-
+							
 					<div class="form-group row">
 						<label for="form-1-1" class="col-md-2 control-label">Harga Jual</label>
 						<div class="col-md-10">

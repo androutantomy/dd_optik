@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="card">
 		<div class="card-block text-dark">
-			<h4 class="card-title">Transaksi Pembelian (UNDER CONSTRUCTING)</h4>
+			<h4 class="card-title">Transaksi Pembelian</h4>
 			<div class="card-body">
 				<button class="btn btn-sm btn-success" id="add_pembelian">Transaksi Pembelian</button>
 
@@ -14,7 +14,7 @@
 							<th></th>
 							<th>Nama Distributor</th>
 							<th>Tanggal Transaksi</th>
-							<th>Tanggal Selesai</th>
+							<th>Aksi</tg>
 							<td></td>
 						</thead>
 						<tbody>

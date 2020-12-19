@@ -203,7 +203,7 @@
 		</div>
 		<div class="col-md-1">Rp.</div>
 		<div class="col-md-2" style="text-align: right;" id="total_asli">
-			<?= isset($penjualan) ? $penjualan->harga_frame+$penjualan->harga_lensa+$penjualan->harga_keterangan : '...............................' ?>
+			<?= isset($penjualan) ? $penjualan->harga_frame+$penjualan->harga_lensa+0 : '...............................' ?>
 		</div>
 		<div class="col-md-2" style="text-align: right;" id="total">
 			
