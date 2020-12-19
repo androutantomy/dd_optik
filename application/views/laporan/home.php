@@ -15,7 +15,14 @@
 							<input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control form-control-sm input-sm" placeholder="Isikan tanggal selesai">
 						</div>
 						<div class="col-md-2">
-							<select class="form-control form-control-sm input-sm" name="jenis" id="jenis">
+							<select name="laporan" id="laporan" class="form-control form-control-sm">
+								<option value="0">Jenis Laporan</option>
+								<option value="1">Bulanan</option>
+								<option value="2">Tahunan</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+							<select class="form-control form-control-sm input-sm" name="jenis" id="jenis" required="required">
 								<option value="0">Pilih Jenis</option>
 								<option value="1">Frame</option>
 								<option value="2">Lensa</option>
@@ -25,8 +32,9 @@
 						</div>
 						<div class="col-md-2" id="daftar_option">
 						</div>
-						<div class="col-md-2">
-							<button class="btn btn-sm btn-success"><i class="ei-right-chevron-circle"></i> Tampilkan</button>
+						<div class="col-md-12" style="margin-top: 5px;">
+							<button class="btn btn-sm btn-success pull-right" name="submit" value="tampilkan"><i class="ei-right-chevron-circle"></i> Tampilkan</button>
+							<button class="btn btn-sm btn-warning pull-right" name="submit" value="download"><i class="fa fa-file"> Download</i></button>
 						</div>
 					</div>
 				</form>

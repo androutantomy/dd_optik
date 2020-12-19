@@ -190,6 +190,13 @@
                                 <span class="title">LAPORAN</span>
                             </a>
                         </li>
+
+                        <li class="nav-item ">
+                            <a href="<?= site_url('pesan-lensa') ?>">
+                                <span class="icon-holder"><i class="ei-business-card"></i></span>
+                                <span class="title">PESAN LENSA</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

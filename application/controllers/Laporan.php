@@ -13,6 +13,7 @@ class Laporan extends CI_Controller {
 
 	public function index()
 	{	
+		// print_r($this->input->get());exit;
 		if($this->input->get('tanggal_mulai') != '') {
 			$data['tanggal_mulai'] = $this->input->get('tanggal_mulai');
 			$data['tanggal_selesai'] = $this->input->get('tanggal_selesai');
@@ -20,12 +21,12 @@ class Laporan extends CI_Controller {
 			$selesai = new DateTime($this->input->get('tanggal_selesai'));
 			$diff = date_diff($mulai, $selesai);
 			$beda = $diff->format("%a");
-			if($beda > 14) {
+			if($beda > 8) {
 				?>
-					<script>
-						alert('Maaf, Maksimal jangka waktu 2 minggu');
-						location.href = "<?= site_url('laporan') ?>";
-					</script>
+				<script>
+					alert('Maaf, Maksimal jangka waktu 1 minggu');
+					location.href = "<?= site_url('laporan') ?>";
+				</script>
 				<?php
 			}
 
@@ -43,7 +44,16 @@ class Laporan extends CI_Controller {
 
 		}
 
-    	$this->template->load("laporan/home");
+		if($this->input->get("submit") == 'download') {
+			$this->download_pdf();
+		}
+
+		$this->template->load("laporan/home");
+	}
+
+	function download_excel()
+	{
+		$this->load->view("laporan/excel");
 	}
 
 }

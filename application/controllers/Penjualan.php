@@ -22,10 +22,11 @@ class Penjualan extends CI_Controller {
 		$data['frame'] = $this->db->select("a.*, b.stok")->from("data_frame b")->join("master_frame a", "a.id = b.id_frame")->where("status", 2)->where("id_toko", 1)->where("b.stok >", 0)->get()->result();
 		$data['lensa'] = $this->db->select("a.*, b.*, b.id AS id_data_lensa")->from("data_lensa b")->join("master_lensa a", "a.id = b.id_lensa")->where("b.stok >", 0)->get()->result();
 		if($id != '0') {
-			$data['penjualan'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
-										->join("master_frame d", "b.id_frame = d.id")->join("master_lensa e", "c.id_lensa = e.id")
-										->get_where("penjualan a", array("md5(a.id)" => $id))->row();
+			$data['penjualan'] = $this->db->select("a.*")->get_where("penjualan a", array("md5(a.id)" => $id))->row();
+			$data['data_frame'] = $this->db->select("master_frame.nama AS nama_frame")->join("master_frame", "master_frame.id = data_frame.id_frame")->get_where("data_frame", array("id_frame" => $data['penjualan']->id_frame))->row();
+			$data['data_lensa'] = $this->db->select("master_lensa.nama")->join("master_lensa", "master_lensa.id = data_lensa.id_lensa")->get_where("data_lensa", array("id_lensa" => $data['penjualan']->id_lensa))->row();
 		}
+		$data['master_lensa'] = $this->db->get("master_lensa")->result();
 		$this->load->view('penjualan/transaksi', $data);
 	}
 
@@ -78,29 +79,37 @@ class Penjualan extends CI_Controller {
 			'id_frame' => $this->input->post("frame"),
 			'id_lensa' => $this->input->post("lensa"),
 			'keterangan' => $this->input->post("keterangan"),
-			'harga_keterangan' => $this->input->post("harga_keterangan"),
-			'potongan_frame' => $this->input->post("harga_frame"),
-			'potongan_lensa' => $this->input->post("harga_lensa"),
-			'harga_frame' => str_replace(".", "", $this->input->post("harga_frame_asli")),
-			'harga_lensa' => str_replace(".", "", $this->input->post("harga_lensa_asli")),
-			'uang_muka' => $this->input->post("uang_muka"),
+			'harga_keterangan' => $this->input->post("harga_keterangan") != "" ? $this->input->post("harga_keterangan") : 0,
+			'potongan_frame' => $this->input->post("harga_frame") != "" ? $this->input->post("harga_frame") : 0,
+			'potongan_lensa' => $this->input->post("harga_lensa") != "" ? $this->input->post("harga_lensa") : 0,
+			'harga_frame' => str_replace(".", "", $this->input->post("harga_frame_asli")) != "" ? $this->input->post("harga_frame_asli") : 0,
+			'harga_lensa' => str_replace(".", "", $this->input->post("harga_lensa_asli")) != "" ? $this->input->post("harga_lensa_asli") : 0,
+			'uang_muka' => $this->input->post("uang_muka") != "" ? $this->input->post("uang_muka") : 0,
 			'sisa' => $this->input->post("sisa"),
 			'tipe_pembelian' => $this->input->post("tipe_pembelian"),
 			'tgl_selesai' => $this->input->post("tgl_selesai"),
 			'is_bpjs' => $this->input->post("is_bpjs"),
+			'status' => $this->input->post("pesan_lensa") == "" ? 1 : 2,
 
 		];
 
+		$next = $this->input->post("pesan_lensa") == "" ? "oke" : "tidak";
+		$m1 = "Berhasil proses penjualan, silahkan proses pemesanan lensa";
+		$m2 = "Berhasil proses pembelian";
+		$m = $this->input->post("pesan_lensa") == "" ? $m1 : $m2;
 		if($id == "") {
-			$gF = $this->db->get_where("data_frame", array("id" => $this->input->post("frame")))->row()->stok;
-			$tF = $gF - 1;
-			$k = $this->db->set("stok", $tF)->where("id", $this->input->post("frame"))->update("data_frame");
+			if($this->input->post("frame") != "" && $this->input->post("frame") != "0") {
+				$gF = $this->db->get_where("data_frame", array("id" => $this->input->post("frame")))->row()->stok;
+				$tF = $gF - 1;
+				$k = $this->db->set("stok", $tF)->where("id", $this->input->post("frame"))->update("data_frame");
+			} 
 
-			$gF = $this->db->get_where("data_lensa", array("id" => $this->input->post("lensa")))->row()->stok;
-			$tF = $gF - 1;
-			$k = $this->db->set("stok", $tF)->where("id", $this->input->post("lensa"))->update("data_lensa");
+			if($this->input->post("pesan_lensa") == "") {
+				$gF = $this->db->get_where("data_lensa", array("id" => $this->input->post("lensa")))->row()->stok;
+				$tF = $gF - 1;
+				$k = $this->db->set("stok", $tF)->where("id", $this->input->post("lensa"))->update("data_lensa");
+			}
 
-			// print_r($data);exit;
 			$i = $this->db->insert("penjualan", $data);
 			$insert_id = md5($this->db->insert_id());
 		} else {
@@ -109,7 +118,7 @@ class Penjualan extends CI_Controller {
 		}
 
 		if($i) {
-			$json = ['s' => 'sukses', 'm' => 'Berhasil proses pembelian', 'url' => $insert_id];
+			$json = ['s' => 'sukses', 'm' => $m, 'url' => $insert_id, 'next' => $next];
 		} else {
 			$json = ['s' => 'gagal', 'm' => 'Gagal proses pembelian, silahkan coba kembali'];
 		}

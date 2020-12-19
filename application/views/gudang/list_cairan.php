@@ -3,13 +3,15 @@
 		<th>No</th>
 		<th>Nama</th>
 		<th>Stok</th>
-		<th>Harga Beli</th>
-		<th>Harga Jual</th>
-		<th>Aksi</th>
-	</thead>
-	<tbody>
-		
-	</tbody>
+        <?php if($this->session->userdata("id_level") == 3) { ?>
+          <th>Harga Beli</th>
+          <th>Harga Jual</th>
+      <?php } ?>
+      <th>Aksi</th>
+  </thead>
+  <tbody>
+      
+  </tbody>
 </table>
 
 <script>

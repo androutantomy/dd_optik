@@ -188,7 +188,11 @@
 	<div class="form-group row">
 		<div class="col-md-2">Keterangan</div>
 		<div class="col-md-5">
-			<input type="text" name="keterangan" id="keterangan" value="<?= isset($penjualan) ? $penjualan->keterangan : '' ?>" class="form-control input-sm">
+			<input type="text" name="keterangan" id="keterangan" value="<?= isset($penjualan) ? $penjualan->keterangan : '' ?>" class="form-control input-sm"><br>
+			<div class="checkbox checkbox-inline checkbox-primary">
+				<input id="form-4-1" name="pesan_lensa" id="pesan_lensa" value="1" stateA="0" type="checkbox">
+				<label for="form-4-1">Pilih jika harus pesan lensa</label>
+			</div>
 		</div>
 		<div class="col-md-1">Rp.</div>
 		<div class="col-md-4" style="text-align: right;">
@@ -196,6 +200,7 @@
 			<hr>
 		</div>
 	</div>
+
 	<div class="form-group row">
 		<div class="col-md-5"></div>
 		<div class="col-md-2">
@@ -241,12 +246,13 @@
 		</div>
 	</div>
 </form>
-
 <script>
 	$(".select2option").select2();
 	$("#isBPJS").hide();
 	$("#add_penjualan").hide();
 	$("#add_jual_cairan").hide();
+	$("#nama_lensa_").hide();
+	$("#ifOrderLensa").hide();
 
 	$("#tipe_pembelian").on("change", function() {
 		if($(this).val() == 2) {
@@ -284,7 +290,9 @@
 	$(".potongan").keyup(function() {
 		var harga_lensa = parseInt($("#harga_lensa").val());
 		var harga_frame = parseInt($("#harga_frame").val());
-		var total = harga_frame+harga_lensa;
+		var harga_lensa2 = isNaN(harga_lensa) ? 0 : harga_lensa;
+		var harga_frame2 = isNaN(harga_frame) ? 0 : harga_frame;
+		var total = harga_frame2+harga_lensa2;
 		format_angkat("total", total);
 	})
 
@@ -345,7 +353,11 @@
 			success: function(respon) {
 				if (respon.s == 'sukses') {
 					alert(respon.m);
-					window.open("<?= site_url('penjualan/nota/') ?>"+respon.url);
+					if(respon.next == "oke") {
+						window.open("<?= site_url('penjualan/nota/') ?>"+respon.url);
+					} else {
+						window.open("<?= site_url('pesan_lensa/pesan/') ?>"+respon.url);
+					}
 				} else {
 					alert(respon.m);
 				}

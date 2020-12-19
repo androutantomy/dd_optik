@@ -39,10 +39,22 @@
 		</div>
 		<div class="col-md-2 maxMin">
 			<input type="hidden" name="id_update" id="id_update">
-			<input type="number" name="minus" class="form-control form-control-sm emptyy" id="minus" placeholder="Isikan nilai minus" >
+			<input type="text" name="minus" class="form-control form-control-sm emptyy" id="minus" placeholder="Isikan nilai minus" >
 		</div>
 		<div class="col-md-2 maxMin">
-			<input type="number" name="plus" class="form-control form-control-sm emptyy" id="plus" placeholder="Isikan nilai plus">
+			<input type="text" name="plus" class="form-control form-control-sm emptyy" id="plus" placeholder="Isikan nilai plus">
+		</div>
+	</div>
+	<div class="form-group row">
+		<div class="col-md-2"></div>
+		<div class="col-md-2">
+			<input type="text" name="sph" id="sph" class="form-control form-control-sm input-sm maxMin isKriptok" placeholder="SPH">
+		</div>
+		<div class="col-md-2">
+			<input type="text" name="cyl" id="cyl" class="form-control form-control-sm input-sm maxMin isKriptok" placeholder="CYL">
+		</div>
+		<div class="col-md-2">
+			<input type="text" name="add" id="add" class="form-control form-control-sm input-sm maxMin isKriptok" placeholder="ADD">
 		</div>
 	</div>
 	<div id="message" style="color: green;"></div>
@@ -67,7 +79,8 @@
 			},500)
 
 			setTimeout(function(){
-				$("#frame").val(idx);;
+				$("#frame").val(idx);
+				$("#frame").trigger("change");
 			},800)
 
 			var stok = "<?= isset($data) ?  $data->stok : ''; ?>";
@@ -80,27 +93,34 @@
 			var stok = "<?= isset($data) && $type == 'lensa' ?  $data->stok : ''; ?>";
 			var max_min = "<?= isset($data) && $type == 'lensa' ?  $data->min_max : ''; ?>";
 			var type = "<?= isset($data) && $type == 'lensa' ?  $data->type_lensa : ''; ?>";
-			var split = max_min.split(",");
+			var sph = "<?= isset($data) && $type == 'lensa' ?  $data->sph : ''; ?>";
+			var cyl = "<?= isset($data) && $type == 'lensa' ?  $data->cyl : ''; ?>";
+			var add = "<?= isset($data) && $type == 'lensa' ?  $data->addl : ''; ?>";
+			var split = max_min.split("|");
 
 			setTimeout(function(){
 				$("#selectJenis").val(2);
 				$("#selectJenis").trigger("change");
-			},500)
+			},200)
 
-			setTimeout(function(){
+			/*setTimeout(function(){
 				$("#type").val(type);
 				$("#selectJenis").trigger("change");
-			},700)	
+			},500)*/	
 
 			setTimeout(function(){
 				$("#lensa").val(idx);
-			},900)
+				$("#lensa").trigger("change");
+			},700)
 
 
 			$("#id_update").val(idy);
 			$("#minus").val(split[0]);
 			$("#plus").val(split[1]);
 			$("#stok").val(stok);
+			$("#sph").val(sph);
+			$("#cyl").val(cyl);
+			$("#add").val(add);
 		} else if(type == "cairan") {
 			var idy = "<?= isset($data) && $type == 'cairan' ?  $data->id : ''; ?>";
 			var idx = "<?= isset($data) && $type == 'cairan' ?  $data->id_cairan : ''; ?>";			
@@ -111,6 +131,7 @@
 
 			setTimeout(function(){
 				$("#cairan").val(idx);
+				$("#cairan").trigger("change");
 			},800)
 
 			var stok = "<?= isset($data) ?  $data->stok : ''; ?>";
@@ -120,6 +141,19 @@
 		}
 
 	});
+
+
+	$(document).on("change", "#lensa", function() {
+		var id = $(this).val();
+		$.post("<?= site_url('master/master_data/cek_kriptok/') ?>"+id, '', function(d) {
+			if(d.isKriptok == false) {
+				$("#add").hide();
+			} else {
+				$("#add").show();
+			}
+		}, 'json');
+	});
+
 
 	$(document).on("change", "#selectJenis", function() {
 		if($(this).val() == 1) {

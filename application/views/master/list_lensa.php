@@ -64,6 +64,16 @@
 							<input type="text" id="harga_beli" class="form-control form-control-sm" id="rupiah" onkeypress="return hanyaAngka(event)" name="harga_beli" placeholder="Isikan harga beli barang">
 						</div>
 					</div>
+
+					<div class="form-group row">
+						<label for="form-1-1" class="col-md-2 control-label">Tipe Lensa</label>
+						<div class="col-md-10">
+							<select name="tipe_lensa" id="tipe_lensa" required="required" class="form-control form-control-sm">
+								<option value="1">Biasa</option>
+								<option value="2">Kriptok</option>
+							</select>
+						</div>
+					</div>
 				</div>
 
 				<div class="modal-footer">
@@ -107,6 +117,15 @@
 						<label for="form-1-1" class="col-md-2 control-label">Harga Beli</label>
 						<div class="col-md-10">
 							<input type="text" id="harga_beli_edit" class="form-control form-control-sm" id="rupiah" onkeypress="return hanyaAngka(event)" name="harga_beli_edit" placeholder="Isikan harga beli barang">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="form-1-1" class="col-md-2 control-label">Tipe Lensa</label>
+						<div class="col-md-10">
+							<select name="tipe_lensa_edit" id="tipe_lensa_edit" required="required" class="form-control form-control-sm">
+								<option value="1">Biasa</option>
+								<option value="2">Kriptok</option>
+							</select>
 						</div>
 					</div>
 
@@ -178,10 +197,12 @@
 
 		$.post("<?= site_url('master/master_data/get_data_jenis/lensa/') ?>"+id, '', function(d) {
 			if(d.s == 'sukses') {
-				$("#nama_edit").val(d.nama)
-				$("#harga_jual_edit").val(d.harga_jual)
-				$("#harga_beli_edit").val(d.harga_beli)
-				$("#id_edit").val(d.id)
+				$("#nama_edit").val(d.nama);
+				$("#harga_jual_edit").val(d.harga_jual);
+				$("#harga_beli_edit").val(d.harga_beli);
+				$("#id_edit").val(d.id);
+				$("#tipe_lensa_edit").val(d.tipe);
+				$("#tipe_lensa_edit").trigger("change");
 			}
 		}, 'json');
 	});

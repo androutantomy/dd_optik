@@ -57,6 +57,7 @@ $route['master-cairan'] = 'master/Master_data/data_cairan/';
 $route['master-level-user'] = 'master/Master_level/data_jenis_level/';
 $route['master-data-gudang'] = 'master/Master_data/data_gudang/';
 $route['restok-data-toko'] = 'master/Master_data/restok_toko/';
+$route['pesan-lensa'] = 'pesan_lensa';
 $route['master-user'] = 'user/Master_user/mstr_user/';
 $route['laporan-toko'] = 'laporan';
 $route['404_override'] = '';

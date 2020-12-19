@@ -16,7 +16,7 @@ class Model_lensa extends CI_Model {
         private function _get_datatables_query($id='-')
         {   
       
-            $this->db->select("data_lensa.*, master_lensa.nama")->from($this->table)
+            $this->db->select("data_lensa.*, master_lensa.nama, master_lensa.harga_jual, master_lensa.harga_beli")->from($this->table)
             ->join("master_lensa", "master_lensa.id = data_lensa.id_lensa");
             if($id != "-") {
                 $this->db->where("status", 2);

@@ -53,7 +53,6 @@
 		var id = $(this).attr('id');
 
 		$("#transaksi_penjualan").load("<?= site_url('penjualan/add/') ?>"+id);
-		$(this).hide();
 	});
 
 
