@@ -14,8 +14,8 @@
 							<th></th>
 							<th>Nama Distributor</th>
 							<th>Tanggal Transaksi</th>
-							<th>Aksi</tg>
-							<td></td>
+							<th>Aksi</th>
+							<!-- <td></td> -->
 						</thead>
 						<tbody>
 
