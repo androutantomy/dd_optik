@@ -78,7 +78,7 @@
 	<tr>
 		<td width="20%">Frame</td>
 		<td width="2%"> : </td>
-		<td width="50%"><?= $pembelian->nama_frame; ?></td>
+		<td width="50%"><?= $this->convertion->nama_barang("frame", $pembelian->id_frame); ?></td>
 		<td width="5%"></td>
 		<td rowspan="3">
 			<center>Penerima</center><br><br><br>
@@ -88,7 +88,7 @@
 	<tr>
 		<td width="20%">Lensa</td>
 		<td width="2%"> : </td>
-		<td width="50%"><?= $pembelian->nama; ?></td>
+		<td width="50%"><?= $this->convertion->nama_barang("lensa", $pembelian->id_lensa); ?></td>
 		<td width="5%"></td>
 		<td></td>
 	</tr>

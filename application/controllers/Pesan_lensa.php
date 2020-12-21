@@ -105,7 +105,6 @@ class Pesan_lensa extends CI_Controller {
 	function selesai($id)
 	{
 		$g = $this->db->get_where("pesan_lensa", array('md5(id)' => $id))->row();
-
 		if($g->jenis_barang == 1) {
 			$c = $this->db->get_where("data_lensa", array("id_lensa" => $g->id_lensa, 'min_max' => $g->plus_minus, 'type_lensa' => $g->type_lensa, 'sph' => $g->sph, 'cyl' => $g->cyl, 'addl' => $g->addl));
 			$data = [
@@ -127,8 +126,18 @@ class Pesan_lensa extends CI_Controller {
 				$i = $this->db->insert("data_lensa", $data);
 			}
 		} else {
+			$data_lensa = [
+				'nama' => $g->nama_lensa,
+				'tipe_lensa' => $g->tipe_lensa,
+				'harga_beli' => $g->harga_beli,
+				'harga_jual' => $g->harga_jual,
+			];
+
+			$this->db->insert("master_lensa", $data_lensa);
+			$insert_id = $this->db->insert_id();
+
 			$data = [
-				'id_lensa' => $g->id_lensa,
+				'id_lensa' => $insert_id,
 				'status' => 1,
 				'id_toko' => 0, 
 				'stok' => 1,

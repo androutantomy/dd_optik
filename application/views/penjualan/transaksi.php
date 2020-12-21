@@ -195,10 +195,13 @@
 			</div>
 		</div>
 		<div class="col-md-1">Rp.</div>
-		<div class="col-md-4" style="text-align: right;">
+		<div class="col-md-2" style="text-align: right;">
 			<input type="text" name="harga_keterangan" style="text-align: right;" value="<?= isset($penjualan) ? $penjualan->harga_keterangan : '' ?>" id="harga_keterangan" class="form-control input-sm" value="0"><br>
+		</div>
+		<div class="col-md-2">
 			<hr>
 		</div>
+
 	</div>
 
 	<div class="form-group row">
@@ -208,7 +211,7 @@
 		</div>
 		<div class="col-md-1">Rp.</div>
 		<div class="col-md-2" style="text-align: right;" id="total_asli">
-			<?= isset($penjualan) ? $penjualan->harga_frame+$penjualan->harga_lensa+0 : '...............................' ?>
+			<?= isset($penjualan) ? $penjualan->harga_frame+$penjualan->harga_lensa+$penjualan->harga_keterangan : '...............................' ?>
 		</div>
 		<div class="col-md-2" style="text-align: right;" id="total">
 			
@@ -300,6 +303,7 @@
 	{
 		var harga_frame = parseInt($("#frame option:selected").attr("harga"));
 		var harga_lensa = parseInt($("#lensa option:selected").attr("harga"));
+		var harga_keterangan = parseInt($("#harga_keterangan").val());
 		if(target == 'total_asli' && harga_lensa != NaN && harga_frame != NaN) {
 			harga = harga_frame+harga_lensa;
 		} else if(target == 'total_asli' && harga_frame != NaN && harga_lensa == NaN) {

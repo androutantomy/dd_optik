@@ -16,6 +16,7 @@
 							<th>Nama Pelanggan</th>
 							<th>Tanggal Transaksi</th>
 							<th>Tanggal Selesai</th>
+							<th>Status Transaksi</th>
 							<td></td>
 						</thead>
 						<tbody>
@@ -49,6 +50,21 @@
 		}
 	});
 
+	$(document).on("click", ".transaksi_selesai", function() {
+		var id = $(this).attr("id");
+		var conf = confirm("Apakah anda yakin ?");
+
+		if(conf == "true"){
+			$.post("<?= site_url('penjualan/transaksi_selesai/') ?>"+id, "", function(data) {
+				if(data.s == "sukses") {
+					alert(data.m);
+				} else {
+					alert(data.m);
+				}
+			}, "json"); 
+		}
+	});
+
 	$(document).on('click', '.pelunasan', function() {
 		var id = $(this).attr('id');
 
@@ -58,6 +74,10 @@
 
 	$(document).ready(function() {
 		table = $('#list_penjualan').DataTable({
+			dom: 'Bfrtip',
+	        buttons: [
+	            'excelHtml5',
+	        ],
 			"processing": true, 
 			"serverSide": true, 
 			"order": [], 

@@ -43,9 +43,24 @@ class Penjualan extends CI_Controller {
             $row[] = $field->nama;
             $row[] = date("d-m-Y", strtotime($field->tanggal_nota));
 			$row[] = date("d-m-Y", strtotime($field->tgl_selesai));
-            $row[] = "<button class='btn btn-sm btn-warning pelunasan' type='nota' id='". md5($field->id) ."'><i class='fa fa-money'></i> Pelunasan</button>
+			if ($field->status == 1) {
+				$status = "Transaksi Baru";
+			} elseif($field->status == 2) {
+				$status = "Proses pesan lensa";
+			} elseif($field->status == 3) {
+				$status = "Lensa pesanan sampai";
+			} else {
+				$status = "Transaksi Selesai";
+			}
+			$row[] = $status;
+
+            $button = "<button class='btn btn-sm btn-warning pelunasan' type='nota' id='". md5($field->id) ."'><i class='fa fa-money'></i> Pelunasan</button>
             			<button class='btn btn-sm btn-warning nota' type='nota' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota</button>
             			<button class='btn btn-sm btn-success nota_produksi' type='nota_produksi' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota Produksi</button>";
+            if($field->status > 1 || $field->status == 0) {
+            	$button .= "<button class='btn btn-sm btn-success transaksi_selesai' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Selesai</button>";
+            }
+            $row[] = $button;
 			$data[] = $row;
 		}
 
@@ -82,14 +97,14 @@ class Penjualan extends CI_Controller {
 			'harga_keterangan' => $this->input->post("harga_keterangan") != "" ? $this->input->post("harga_keterangan") : 0,
 			'potongan_frame' => $this->input->post("harga_frame") != "" ? $this->input->post("harga_frame") : 0,
 			'potongan_lensa' => $this->input->post("harga_lensa") != "" ? $this->input->post("harga_lensa") : 0,
-			'harga_frame' => str_replace(".", "", $this->input->post("harga_frame_asli")) != "" ? $this->input->post("harga_frame_asli") : 0,
-			'harga_lensa' => str_replace(".", "", $this->input->post("harga_lensa_asli")) != "" ? $this->input->post("harga_lensa_asli") : 0,
+			'harga_frame' => str_replace(".", "", $this->input->post("harga_frame_asli")) != "" ? str_replace(".", "", $this->input->post("harga_frame_asli")) : 0,
+			'harga_lensa' => str_replace(".", "", $this->input->post("harga_lensa_asli")) != "" ? str_replace(".", "", $this->input->post("harga_lensa_asli"))  : 0,
 			'uang_muka' => $this->input->post("uang_muka") != "" ? $this->input->post("uang_muka") : 0,
-			'sisa' => $this->input->post("sisa"),
+			'sisa' => str_replace(".", "", $this->input->post("sisa")) != "" ? str_replace(".", "", $this->input->post("sisa")) : 0,
 			'tipe_pembelian' => $this->input->post("tipe_pembelian"),
 			'tgl_selesai' => $this->input->post("tgl_selesai"),
 			'is_bpjs' => $this->input->post("is_bpjs"),
-			'status' => $this->input->post("pesan_lensa") == "" ? 1 : 2,
+			'status' => $this->input->post("pesan_lensa") == "" ? 0 : 2,
 
 		];
 
@@ -130,12 +145,10 @@ class Penjualan extends CI_Controller {
 	{
 		$filename = "Nota Penjualan";
 		$data['title'] = $filename;
-		$data['pembelian'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
-										->join("master_frame d", "b.id_frame = d.id")->join("master_lensa e", "c.id_lensa = e.id")
-										->get_where("penjualan a", array("md5(a.id)" => $id))->row();
-		// echo "<pre>"; print_r($data['pembelian']->nama);exit;
-		$html = $this->load->view('penjualan/nota', $data, true);
-		$this->load->add_package_path(APPPATH.'third_party/dompdf/');		
+		$data['pembelian'] = $this->db->select("a.*")->get_where("penjualan a", array("md5(a.id)" => $id))->row();
+		$data['data_toko'] = $this->db->get_where("master_toko", array("id" => $data['pembelian']->id_toko))->row();
+		$this->load->view('penjualan/nota', $data);
+		/*$this->load->add_package_path(APPPATH.'third_party/dompdf/');		
 		require_once(APPPATH."third_party/dompdf/dompdf_config.inc.php");
 
 
@@ -144,7 +157,7 @@ class Penjualan extends CI_Controller {
 		$dompdf->load_html($html);
 		$dompdf->set_paper('A4', 'landscape');
 		$dompdf->render();
-		return $dompdf->stream($name,array("Attachment"=>0));
+		return $dompdf->stream($name,array("Attachment"=>0));*/
 
 	}
 
@@ -152,11 +165,13 @@ class Penjualan extends CI_Controller {
 	{
 		$filename = "Nota Produksi";
 		$data['title'] = $filename;
-		$data['pembelian'] = $this->db->select("a.*, d.nama AS nama_frame, e.nama")->join("data_frame b", "a.id_frame = b.id")->join("data_lensa c", "a.id_lensa = c.id")
-										->join("master_frame d", "b.id_frame = d.id")->join("master_lensa e", "c.id_lensa = e.id")
-										->get_where("penjualan a", array("md5(a.id)" => $id))->row();
-		// echo "<pre>"; print_r($data['pembelian']->nama);exit;
-		$html = $this->load->view('penjualan/nota_produksi', $data, true);
+		$data['pembelian'] = $this->db->select("a.*")->get_where("penjualan a", array("md5(a.id)" => $id))->row();
+		$this->load->view('penjualan/nota_produksi', $data, true);
+		/*$data['gambar_toko'] = $this->convertion->get_gambar_optik($data['pembelian']->id_toko);
+		$data['alamat'] = $this->convertion->data_optik("alamat", $data['pembelian']->id_toko);
+		$data['nama_toko'] = $this->convertion->data_optik("nama_toko", $data['pembelian']->id_toko);
+		$data['telp'] = $this->convertion->data_optik("telp", $data['pembelian']->id_toko);
+		
 		$this->load->add_package_path(APPPATH.'third_party/dompdf/');		
 		require_once(APPPATH."third_party/dompdf/dompdf_config.inc.php");
 
@@ -166,12 +181,32 @@ class Penjualan extends CI_Controller {
 		$dompdf->load_html($html);
 		$dompdf->set_paper('A4', 'potrait');
 		$dompdf->render();
-		return $dompdf->stream($name,array("Attachment"=>0));
+		return $dompdf->stream($name,array("Attachment"=>0));*/
 	}
 
 	function cairan()
 	{
 		$this->load->view("penjualan/jual_barang");
+	}
+
+	function transaksi_selesai($id)
+	{
+		$u = $this->db->set("status", 1)->where("md5(id)", $id)->update("penjualan");
+
+		if($u) {
+			$json = ['s' => 'sukses', 'm' => 'Transaksi selesai'];
+		} else {
+			$json = ['s' => 'gagal', 'm' => 'Upps, terjadi kesalahan, Silahkan coba lagi'];
+		}
+
+		echo json_encode($json);exit;
+	}
+
+	function simpan_transaksi()
+	{
+		$data = [
+			''
+		];
 	}
 
 }

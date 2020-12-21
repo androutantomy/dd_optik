@@ -49,7 +49,7 @@
 </head>
 <body>
 
-    <div class="app is-collapsed">
+    <div class="app">
 
         <div class="layout">
 
@@ -59,8 +59,8 @@
                     <div class="side-nav-logo">
                         <a href="">
                             <!-- <p class="mrg-btm-15 font-size-15">Konco.co</p> -->
-                            <div class="logo logo-dark" style="background-image: url('<?php echo base_url() ?>assets/images/logo/dd-logo.png')"></div>
-                            <!-- <div class="logo logo-white" style="background-image: url('<?php echo base_url() ?>assets/images/logo/dd-logo.png')"></div> -->
+                            <!-- <div class="logo logo-dark" style="background-image: url('<?php echo base_url() ?>assets/images/logo/dd-logo.png')"></div> -->
+                            <div class="logo logo-white" style="background-image: url('<?php echo base_url() ?>assets/images/logo/dd-logo.png')"></div>
                         </a><br><br>
                         <div class="mobile-toggle side-nav-toggle">
                             <a href="#">
