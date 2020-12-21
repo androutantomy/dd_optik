@@ -64,16 +64,6 @@ class Pembelian extends CI_Controller {
 			'nama' => $this->input->post("nama"),
 			'alamat' => $this->input->post("alamat"),
 			'telp' => $this->input->post("telp"),
-			'lsph' => $this->input->post("sphl"),
-			'lcyl' => $this->input->post("cyll"),
-			'laxis' => $this->input->post("axisl"),
-			'ladd' => $this->input->post("addl"),
-			'rsph' => $this->input->post("sphr"),
-			'rcyl' => $this->input->post("cylr"),
-			'raxis' => $this->input->post("axisr"),
-			'radd' => $this->input->post("addr"),
-			'pd_jauh' => $this->input->post("pd_jauh"),
-			'pd_dekat' => $this->input->post("pd_dekat"),
 			'id_frame' => $this->input->post("frame"),
 			'id_lensa' => $this->input->post("lensa"),
 			'keterangan' => $this->input->post("keterangan"),
@@ -82,23 +72,25 @@ class Pembelian extends CI_Controller {
 			'potongan_lensa' => $this->input->post("harga_lensa"),
 			'harga_frame' => str_replace(".", "", $this->input->post("harga_frame_asli")),
 			'harga_lensa' => str_replace(".", "", $this->input->post("harga_lensa_asli")),
-			'uang_muka' => $this->input->post("uang_muka"),
-			'sisa' => $this->input->post("sisa"),
 			'tipe_pembelian' => $this->input->post("tipe_pembelian"),
-			'tgl_selesai' => $this->input->post("tgl_selesai"),
-			'is_bpjs' => $this->input->post("is_bpjs"),
 
 		];
+		$next = $this->input->post("pesan_lensa") == "" ? "oke" : "tidak";
+		$m1 = "Berhasil proses pembelian, silahkan cek data barang";
+		$m2 = "Berhasil proses pembelian";
+		$m = $this->input->post("pesan_lensa") == "" ? $m1 : $m2;
 
 		if($id == "") {
+			if($this->input->post("frame") != "" && $this->input->post("frame") != "0") {
 			$gF = $this->db->get_where("data_frame", array("id" => $this->input->post("frame")))->row()->stok;
 			$tF = $gF + 1;
 			$k = $this->db->set("stok", $tF)->where("id", $this->input->post("frame"))->update("data_frame");
-
+			
+		}if($this->input->post("pesan_lensa") == "") {
 			$gF = $this->db->get_where("data_lensa", array("id" => $this->input->post("lensa")))->row()->stok;
 			$tF = $gF + 1;
 			$k = $this->db->set("stok", $tF)->where("id", $this->input->post("lensa"))->update("data_lensa");
-
+		}
 			// print_r($data);exit;
 			$i = $this->db->insert("pembelian", $data);
 			$insert_id = md5($this->db->insert_id());
