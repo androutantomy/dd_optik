@@ -66,10 +66,6 @@ class Pembelian extends CI_Controller {
 			'telp' => $this->input->post("telp"),
 			'id_frame' => $this->input->post("frame"),
 			'id_lensa' => $this->input->post("lensa"),
-			'keterangan' => $this->input->post("keterangan"),
-			'harga_keterangan' => $this->input->post("harga_keterangan"),
-			'potongan_frame' => $this->input->post("harga_frame"),
-			'potongan_lensa' => $this->input->post("harga_lensa"),
 			'harga_frame' => str_replace(".", "", $this->input->post("harga_frame_asli")),
 			'harga_lensa' => str_replace(".", "", $this->input->post("harga_lensa_asli")),
 			'tipe_pembelian' => $this->input->post("tipe_pembelian"),
@@ -85,7 +81,7 @@ class Pembelian extends CI_Controller {
 			$gF = $this->db->get_where("data_frame", array("id" => $this->input->post("frame")))->row()->stok;
 			$tF = $gF + 1;
 			$k = $this->db->set("stok", $tF)->where("id", $this->input->post("frame"))->update("data_frame");
-			
+
 		}if($this->input->post("pesan_lensa") == "") {
 			$gF = $this->db->get_where("data_lensa", array("id" => $this->input->post("lensa")))->row()->stok;
 			$tF = $gF + 1;

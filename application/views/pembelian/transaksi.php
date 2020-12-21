@@ -95,17 +95,7 @@
 			<input type="text" name="harga_lensa" style="text-align: right;" id="harga_lensa" value="<?= isset($pembelian) ? $pembelian->potongan_lensa : '' ?>" class="form-control potongan input-sm" value="0">
 		</div>
 	</div>
-	<div class="form-group row">
-		<div class="col-md-2">Keterangan</div>
-		<div class="col-md-5">
-			<input type="text" name="keterangan" id="keterangan" value="<?= isset($pembelian) ? $pembelian->keterangan : '' ?>" class="form-control input-sm">
-		</div>
-		<div class="col-md-1">Rp.</div>
-		<div class="col-md-4" style="text-align: right;">
-			<input type="text" name="harga_keterangan" style="text-align: right;" value="<?= isset($pembelian) ? $pembelian->harga_keterangan : '' ?>" id="harga_keterangan" class="form-control input-sm" value="0"><br>
-			<hr>
-		</div>
-	</div>
+	
 	<div class="form-group row">
 		<div class="col-md-5"></div>
 		<div class="col-md-2">
