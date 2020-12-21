@@ -3,9 +3,9 @@
 		<tr>
 			<th valign="bottom" align='right' width='40%'><img src="./uploads/logo/_173431.png" width="100px"></th>
 			<th valign="top" align='right' width='60%' style="padding:0px 0px 0px 0px; line-height:5px">
-				<h5 style="margin: 10px;"><center>Ruko Kalinongko</center></h5><br>
-				<h5 style="margin: 10px;"><center>Jl. Osamaliki 43 E Salatiga</center></h5><br>
-				<h5 style="margin: 10px;"><center>Telp. 0823 2493 6595</center></h5><br>
+				<table border="0">
+					<h5><center><?= $data_toko != "" ? $data_toko->nama_toko : "Ruko Kalinangka"; ?><br><br><br><br><br> <?= $data_toko != "" ? $data_toko->alamat : "Jl. Osamaliki 43 E salatiga"; ?> <br><br><br><br><br><?= $data_toko != "" ? "Telp. ".$data_toko->telp : "Telp. 0823 2493 6595"; ?></center></h5>
+				</table>
 			</th>
 		</tr>
 	</table>

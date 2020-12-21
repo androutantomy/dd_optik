@@ -167,6 +167,7 @@ class Penjualan extends CI_Controller {
 		$data['title'] = $filename;
 		$data['pembelian'] = $this->db->select("a.*")->get_where("penjualan a", array("md5(a.id)" => $id))->row();
 		$this->load->view('penjualan/nota_produksi', $data, true);
+		$data['data_toko'] = $this->db->get_where("master_toko", array("id" => $data['pembelian']->id_toko))->row();
 		/*$data['gambar_toko'] = $this->convertion->get_gambar_optik($data['pembelian']->id_toko);
 		$data['alamat'] = $this->convertion->data_optik("alamat", $data['pembelian']->id_toko);
 		$data['nama_toko'] = $this->convertion->data_optik("nama_toko", $data['pembelian']->id_toko);
