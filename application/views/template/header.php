@@ -49,7 +49,7 @@
 </head>
 <body>
 
-    <div class="app">
+    <div class="app is-collapsed">
 
         <div class="layout">
 
