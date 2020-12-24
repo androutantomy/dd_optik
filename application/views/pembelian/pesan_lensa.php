@@ -10,12 +10,6 @@
 					<thead>
 						<th>No</th>
 						<th>Nama Pemesan</th>
-						<th>Nama Lensa</th>
-						<th>SPH</th>
-						<th>CYL</th>
-						<th>ADD</th>
-						<th>Harga Beli</th>
-						<th>Harga Jual</th>
 						<th>Aksi</th>
 					</thead>
 				</table>

@@ -9,6 +9,8 @@ class Laporan extends CI_Controller {
 		if($this->session->userdata('status') == ''){
 			redirect(base_url('auth'));
 		}
+
+		$this->load->model("")
 	}
 
 	public function index()
@@ -16,7 +18,6 @@ class Laporan extends CI_Controller {
 		// print_r($this->input->get());exit;
 		if($this->input->get('tanggal_mulai') != '') {
 			$data['tanggal_mulai'] = $this->input->get('tanggal_mulai');
-			$data['tanggal_selesai'] = $this->input->get('tanggal_selesai');
 			$mulai = new DateTime($this->input->get('tanggal_mulai'));
 			$selesai = new DateTime($this->input->get('tanggal_selesai'));
 			$diff = date_diff($mulai, $selesai);
@@ -54,6 +55,36 @@ class Laporan extends CI_Controller {
 	function download_excel()
 	{
 		$this->load->view("laporan/excel");
+	}
+
+	function list_data()
+	{		
+        $list = $this->model_penjualan->get_datatables();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $field) {
+           	
+           	$no++;
+			$row = array();
+			$row[] = $no;
+            $row[] = $field->nama;
+            $row[] = date("d-m-Y", strtotime($field->tanggal_nota));
+			$row[] = date("d-m-Y", strtotime($field->tgl_selesai));
+            $row[] = "<button class='btn btn-sm btn-warning pelunasan' type='nota' id='". md5($field->id) ."'><i class='fa fa-money'></i> Pelunasan</button>
+            			<button class='btn btn-sm btn-warning nota' type='nota' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota</button>
+            			<button class='btn btn-sm btn-success nota_produksi' type='nota_produksi' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota Produksi</button>";
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->model_penjualan->count_all(),
+			"recordsFiltered" => $this->model_penjualan->count_filtered(),
+			"data" => $data,
+        );
+        
+		echo json_encode($output);
+    
 	}
 
 }

@@ -149,6 +149,7 @@ class Toko extends CI_Controller {
 
     function restok_toko()
     {
+        $data['daftar_toko'] = $this->db->get("master_toko")->result();
         $data['toko'] = $this->db->get("master_toko")->result();
         $this->load->view("toko/restok", $data);
     }
@@ -157,6 +158,9 @@ class Toko extends CI_Controller {
     {
         $option_arr = ["Pilih"];
         if($type == 1) {
+            if($this->session->userdata("id_level") != 3) {
+                $this->db->where("data_frame.id_toko", $this->session->userdata("id_toko"));
+            }
             $g = $this->db->select("master_frame.nama, master_frame.id as id_master_frame, data_frame.*")->join("master_frame", "master_frame.id = data_frame.id_frame")->get_where("data_frame", array("status" => 1))->result();
             foreach($g as $val) {
                 $option_arr[$val->id_master_frame] = '[ '.$val->stok.' ]  '.$val->nama;
@@ -165,40 +169,20 @@ class Toko extends CI_Controller {
             $option = form_dropdown("frame", $option_arr, '', array("class" => "form-control form-control-sm", "id" => "frame", "required" => "required"));
 
         } elseif($type == 2) {
+            /*if($this->session->userdata("id_level") != 3) {
+                $this->db->where("data_lensa.id_toko", $this->session->userdata("id_toko"));
+            }*/
             $g = $this->db->select("master_lensa.nama, master_lensa.id as id_master_lensa, data_lensa.*")->join("master_lensa", "master_lensa.id = data_lensa.id_lensa")->get_where("data_lensa", array("status" => 1))->result();
             foreach($g as $val) {
-                $exp = explode(",", $val->min_max);
-                if($val->type_lensa == 3) {
-                    $min = "MIN";
-                    $max = "PLUS";
-                    $exp1 = $exp[0];
-                    $exp2 = $exp[1];
-                } elseif($val->type_lensa == 4) {
-                    $min = "MIN";
-                    $max = "ADD";
-                    $exp1 = $exp[0];
-                    $exp2 = $exp[1];
-                } elseif($val->type_lensa == 5) {
-                    $min = "PLUS";
-                    $max = "ADD";
-                    $exp1 = $exp[0];
-                    $exp2 = $exp[1];
-                } elseif($val->type_lensa == 1) {
-                    $min = "MIN";
-                    $max = "";
-                    $exp1 = $exp[0];
-                    $exp2 = "";
-                } else {
-                    $min = "";
-                    $max = "PLUS";
-                    $exp1 = $exp[0];
-                    $exp2 = "";
-                }
-                $option_arr[$val->id] = '[ '.$val->stok.' ] '.$min.' '. $exp1 .' '. $max .' '. $exp2 .' | '.$val->nama;
+
+                $option_arr[$val->id] = '[ '.$val->stok.' ] '.$val->nama;
             }
             $option = form_dropdown("lensa", $option_arr, '', array("class" => "form-control form-control-sm", "id" => "lensa", "required" => "required"));
 
         } else {
+            if($this->session->userdata("id_level") != 3) {
+                $this->db->where("data_cairan.id_toko", $this->session->userdata("id_toko"));
+            }
             $g = $this->db->select("master_cairan.nama, master_cairan.id as id_master_cairan, data_cairan.*")->join("master_cairan", "master_cairan.id = data_cairan.id_cairan")->get_where("data_cairan", array("status" => 1))->result();
             foreach($g as $val) {
                 $option_arr[$val->id_master_cairan] = '[ '.$val->stok.' ]  '.$val->nama;
@@ -214,8 +198,13 @@ class Toko extends CI_Controller {
 
     function simpan_data_restok_toko()
     {
+        $tipe = $this->input->post("tipe");
+        echo "<pre>";
+        print_r($this->input->post());
+        exit;
+
         if($this->input->post("jenis") == 1) {
-            $status = $this->cek_frame($this->input->post("frame"), 1, "frame", $this->input->post("stok"));
+            $status = $this->cek_frame($this->input->post("frame"), 1, "frame", $this->input->post("stok"), $tipe);
             if($status['s'] == "error") {
                 echo json_encode($status);exit;
             }
@@ -226,6 +215,7 @@ class Toko extends CI_Controller {
                 "stok" => $this->input->post("stok"),
             ];
         } elseif($this->input->post("jenis") == 2) {
+
             $g = $this->db->get_where("data_lensa", array("id" => $this->input->post("lensa")))->row();
             if($g->stok < $this->input->post("stok")) {
                 echo json_encode($json = ["s" => "error", "m" => "Nominal stok untuk toko lebih banyak dari stok gudang"]);exit;
@@ -242,7 +232,7 @@ class Toko extends CI_Controller {
                 "type_lensa" => $g->type_lensa,
             ];
         } else {
-            $status = $this->cek_frame($this->input->post("cairan"), 1, "cairan", $this->input->post("stok"));
+            $status = $this->cek_frame($this->input->post("cairan"), 1, "cairan", $this->input->post("stok"), $tipe);
             if($status['s'] == "error") {
                 echo json_encode($status);exit;
             }
@@ -292,11 +282,21 @@ class Toko extends CI_Controller {
         echo json_encode($json);exit;
     }
 
-    function cek_frame($id_frame, $status, $jenis, $stok) {
+    function cek_frame($id_frame, $status, $jenis, $stok, $tipe) {
         if($jenis == "frame") {
-            $cek = $this->db->get_where("data_frame", array("id_frame" => $id_frame, "status" => $status));
+            if($tipe == 2) {
+                $this->db->where("id_toko", $this->session->userdata("id_toko"));
+            } else {
+                $this->db->where("status", $status);
+            }
+            $cek = $this->db->get_where("data_frame", array("id_frame" => $id_frame));
         } elseif($jenis == "cairan") {
-            $cek = $this->db->get_where("data_cairan", array("id_cairan" => $id_frame, "status" => $status));
+            if($tipe == 2) {
+                $this->db->where("id_toko", $this->session->userdata("id_toko"));
+            } else {
+                $this->db->where("status", $status);
+            }
+            $cek = $this->db->get_where("data_cairan", array("id_cairan" => $id_frame));
         }
         $respon = [];
 

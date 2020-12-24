@@ -19,7 +19,13 @@ class Penjualan extends CI_Controller {
 
 	function add($id = '0') 
 	{
+		if($this->session->userdata("id_level") != 3) {
+			$this->db->where("id_toko", $this->session->userdata("id_toko"));
+		}
 		$data['frame'] = $this->db->select("a.*, b.stok")->from("data_frame b")->join("master_frame a", "a.id = b.id_frame")->where("status", 2)->where("id_toko", 1)->where("b.stok >", 0)->get()->result();
+		if($this->session->userdata("id_level") != 3) {
+			$this->db->where("id_toko", $this->session->userdata("id_toko"));
+		}
 		$data['lensa'] = $this->db->select("a.*, b.*, b.id AS id_data_lensa")->from("data_lensa b")->join("master_lensa a", "a.id = b.id_lensa")->where("b.stok >", 0)->get()->result();
 		if($id != '0') {
 			$data['penjualan'] = $this->db->select("a.*")->get_where("penjualan a", array("md5(a.id)" => $id))->row();
@@ -75,6 +81,37 @@ class Penjualan extends CI_Controller {
     
 	}
 
+	function list_data_cairan()
+	{		
+        $list = $this->model_penjualan->get_datatables2();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $field) {
+           	
+           	$no++;
+			$row = array();
+			$row[] = $no;
+            $row[] = $field->nama;            
+            $row[] = date("d-m-Y", strtotime($field->tgl_transaksi));
+            $row[] = $field->id_jenis == 1 ? "Cairan" : "Softlense";
+            $button = "<button class='btn btn-sm btn-warning pelunasan_cairan' type='nota' id='". md5($field->id) ."'><i class='fa fa-money'></i> Pelunasan</button>
+            			<button class='btn btn-sm btn-warning nota_cairan' type='nota' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota</button>";
+
+            $row[] = $button;
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->model_penjualan->count_all2(),
+			"recordsFiltered" => $this->model_penjualan->count_filtered2(),
+			"data" => $data,
+        );
+        
+		echo json_encode($output);
+    
+	}
+
 	function simpan_data($id = '')
 	{
 		$data = [
@@ -108,32 +145,48 @@ class Penjualan extends CI_Controller {
 
 		];
 
-		$next = $this->input->post("pesan_lensa") == "" ? "oke" : "tidak";
-		$m1 = "Berhasil proses penjualan, silahkan proses pemesanan lensa";
-		$m2 = "Berhasil proses pembelian";
-		$m = $this->input->post("pesan_lensa") == "" ? $m1 : $m2;
 		if($id == "") {
 			if($this->input->post("frame") != "" && $this->input->post("frame") != "0") {
 				$gF = $this->db->get_where("data_frame", array("id" => $this->input->post("frame")))->row()->stok;
+				if($gF-1 < 0) {
+					$json = ['s' => 'gagal', 'm' => 'Stok anda tidak mencukupi untuk transaksi'];
+					echo json_encode($json);exit;
+				}
 				$tF = $gF - 1;
 				$k = $this->db->set("stok", $tF)->where("id", $this->input->post("frame"))->update("data_frame");
 			} 
 
 			if($this->input->post("pesan_lensa") == "") {
 				$gF = $this->db->get_where("data_lensa", array("id" => $this->input->post("lensa")))->row()->stok;
+				if($gF-1 < 0) {
+					$json = ['s' => 'gagal', 'm' => 'Stok anda tidak mencukupi untuk transaksi'];
+					echo json_encode($json);exit;
+				}
 				$tF = $gF - 1;
 				$k = $this->db->set("stok", $tF)->where("id", $this->input->post("lensa"))->update("data_lensa");
 			}
 
 			$i = $this->db->insert("penjualan", $data);
 			$insert_id = md5($this->db->insert_id());
+
+
+
+			if($this->input->post("pesan_lensa") != "") {
+				$dataL = [
+					'id_pesanan' => $this->db->insert_id(),
+					'status' => 0
+				];
+
+				$i = $this->db->insert("pesan_lensa", $dataL);
+			}
+
 		} else {
 			$i = $this->db->where("md5(id)", $id)->update("penjualan", $data);
 			$insert_id = $id;
 		}
 
 		if($i) {
-			$json = ['s' => 'sukses', 'm' => $m, 'url' => $insert_id, 'next' => $next];
+			$json = ['s' => 'sukses', 'm' => 'Berhasil proses pembelian', 'url' => $insert_id];
 		} else {
 			$json = ['s' => 'gagal', 'm' => 'Gagal proses pembelian, silahkan coba kembali'];
 		}
@@ -185,9 +238,14 @@ class Penjualan extends CI_Controller {
 		return $dompdf->stream($name,array("Attachment"=>0));*/
 	}
 
-	function cairan()
+	function cairan($id = "")
 	{
-		$this->load->view("penjualan/jual_barang");
+		$data['pembelian'] = "";
+		if($id != "") {
+			$data['pembelian'] = $this->db->get_where("penjualan_barang", array("md5(id)" => $id))->row();
+		}
+		// print_r($data);exit;
+		$this->load->view("penjualan/jual_barang", $data);
 	}
 
 	function transaksi_selesai($id)
@@ -203,11 +261,127 @@ class Penjualan extends CI_Controller {
 		echo json_encode($json);exit;
 	}
 
+	function option_cairan()
+	{
+		if($this->session->userdata("id_level") != 3) {
+			$this->db->where("data_cairan.id_toko", $this->session->userdata("id_toko"));
+		} else {
+			$this->db->where("data_cairan.status", 1);
+		}
+		$g = $this->db->select("data_cairan.*, master_cairan.nama")->join("master_cairan", "master_cairan.id = data_cairan.id_cairan")->get("data_cairan")->result();
+
+		$arr = ['Pilih Cairan'];
+		foreach($g as $val) {
+			$arr[$val->id] = "[".$val->stok."] ".$val->nama;
+		}
+
+		$option = form_dropdown("cairan", $arr, '', array("class" => "form-control form-control-sm select2option inputan_user", "id" => "cairan", "required" => "required"));
+
+		$json = ['s' => 'sukses', 'option' => $option];
+
+    	echo json_encode($json);exit;
+	}
+
+	function option_softlense()
+	{
+		if($this->session->userdata("id_level") != 3) {
+			$this->db->where("data_softlense.id_toko", $this->session->userdata("id_toko"));
+		} else {
+			$this->db->where("data_softlense.status", 1);
+		}
+		$g = $this->db->select("data_softlense.*, master_softlense.nama")->join("master_softlense", "master_softlense.id = data_softlense.id_softlense")->get("data_softlense")->result();
+
+		$arr = ['Pilih Softlense'];
+		foreach($g as $val) {
+			$arr[$val->id] = "[".$val->stok."] ".$val->nama;
+		}
+
+		$option = form_dropdown("softlense", $arr, '', array("class" => "form-control form-control-sm select2option inputan_user", "id" => "softlense", "required" => "required"));
+
+		$json = ['s' => 'sukses', 'option' => $option];
+
+    	echo json_encode($json);exit;
+	}
+
+	function harga_barang($id, $qty, $jenis)
+	{
+		$g = $this->db->join("master_".$jenis, "master_".$jenis.".id = data_".$jenis.".id_".$jenis)->get_where("data_".$jenis, array("data_".$jenis.".id" => $id))->row();
+
+		if($g != "") {
+			$total = $g->harga_jual*$qty;
+			$json = ['s' => 'sukses', 'harga' => $g->harga_jual, 'total' => $total];
+		} else {
+			$json = ['s' => 'gagal', 'm' => 'Data tidak ditemukan'];
+		}
+
+		echo json_encode($json);exit;
+	}
+
 	function simpan_transaksi()
 	{
 		$data = [
-			''
+			'id_jenis' => $this->input->post("jenis"),
+			'nama' => $this->input->post("nama"),
+			'alamat' => $this->input->post("alamat"),
+			'telp' => $this->input->post("telp"),
+			'id_barang' => $this->input->post("jenis") == 1 ? $this->input->post("cairan") : $this->input->post("softlense"),
+			'qty' => $this->input->post("qty"),
+			'sph' => $this->input->post("sph"),
+			'nominal' => $this->input->post("nominal"),
+			'id_toko' => $this->session->userdata("id_level") != 3 ? $this->session->userdata("id_toko") : 0,
 		];
+
+		// print_r($data);exit;
+
+		if($this->input->post("jenis") == 1) {
+			$g = $this->db->get_where("data_cairan", array("id" => $this->input->post("cairan")))->row();
+			$sisa = $g->stok-$this->input->post("qty");
+			if($sisa < 0) {
+				$json = ['s' => 'gagal', 'm' => 'Maaf stok tidak mencukupi'];
+				echo json_encode($json);exit;
+			}
+			$data['nama_barang'] = $this->db->join("master_cairan", "data_cairan.id_cairan = master_cairan.id")->get_where("data_cairan", array("data_cairan.id" => $this->input->post("cairan")))->row()->nama;
+
+			if($this->input->post("id_transaksi_barang") == "") {
+				$i = $this->db->insert("penjualan_barang", $data);
+				$insert_id = md5($this->db->insert_id());
+			} else {
+				$i = $this->db->where("md5(id)",  $this->input->post("id_transaksi_barang"))->update("penjualan_barang", $data);
+				$insert_id = $this->input->post("id_transaksi_barang");
+			}
+		} else {			
+			$g = $this->db->get_where("data_softlense", array("id" => $this->input->post("softlense")))->row();
+			$sisa = $g->stok-$this->input->post("qty");
+			if($sisa < 0) {
+				$json = ['s' => 'gagal', 'm' => 'Maaf stok tidak mencukupi'];
+				echo json_encode($json);exit;
+			}
+			$data['nama_barang'] = $this->db->join("master_softlense", "data_softlense.id_softlense = master_softlense.id")->get_where("data_softlense", array("data_softlense.id" => $this->input->post("softlense")))->row()->nama;
+
+			if($this->input->post("id_transaksi_barang") == "") {
+				$i = $this->db->insert("penjualan_barang", $data);
+				$insert_id = md5($this->db->insert_id());
+			} else {
+				$i = $this->db->where("md5(id)",  $this->input->post("id_transaksi_barang"))->update("penjualan_barang", $data);
+				$insert_id = $this->input->post("id_transaksi_barang");
+			}
+		}
+
+		if($i) {
+			$json = ['s' => 'sukses', 'm' => 'Berhasil simpan data', 'url' => $insert_id];
+		} else {
+			$json = ['s' => 'gagal', 'm' => 'Gagal simpan data'];
+		}
+
+		echo json_encode($json);exit;
+	}
+
+	function nota_barang($id)
+	{
+		$data['pembelian'] = $this->db->get_where("penjualan_barang", array("md5(id)" => $id))->result();
+		$data['data_toko'] = $this->db->get_where("master_toko", array("id" => $data['pembelian'][0]->id_toko))->row();
+
+		$this->load->view("penjualan/nota_barang", $data);
 	}
 
 }

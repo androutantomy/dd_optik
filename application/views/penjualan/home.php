@@ -10,19 +10,45 @@
 				<button class="btn btn-sm btn-success" id="add_jual_cairan">Penjualan Cairan</button>
 
 				<div id="transaksi_penjualan">
-					<table id="list_penjualan" class="table-overflow table table-striped table-overflow">
-						<thead>
-							<th></th>
-							<th>Nama Pelanggan</th>
-							<th>Tanggal Transaksi</th>
-							<th>Tanggal Selesai</th>
-							<th>Status Transaksi</th>
-							<td></td>
-						</thead>
-						<tbody>
 
-						</tbody>
-					</table>
+
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" id="btn_frame" href="#home">Kacamata</a></li>
+						<li><a data-toggle="tab" href="#menu1" id="btn_lensa">Cairan</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div id="home" class="tab-pane fade in active">
+							<table id="list_penjualan" class="table-overflow table table-striped table-overflow">
+								<thead>
+									<th></th>
+									<th>Nama Pelanggan</th>
+									<th>Tanggal Transaksi</th>
+									<th>Tanggal Selesai</th>
+									<th>Status Transaksi</th>
+									<th></th>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+						</div>
+						<div id="menu1" class="tab-pane fade">
+							<table id="list_penjualan_cairan" width="100%" class="table-overflow table table-striped table-overflow">
+								<thead>
+									<th></th>
+									<th>Nama Pelanggan</th>
+									<th>Tanggal Transaksi</th>
+									<th>Jenis Barang</th>
+									<th></th>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -71,13 +97,19 @@
 		$("#transaksi_penjualan").load("<?= site_url('penjualan/add/') ?>"+id);
 	});
 
+	$(document).on('click', '.pelunasan_cairan', function() {
+		var id = $(this).attr('id');
+
+		$("#transaksi_penjualan").load("<?= site_url('penjualan/cairan/') ?>"+id);
+	});
+
 
 	$(document).ready(function() {
 		table = $('#list_penjualan').DataTable({
 			dom: 'Bfrtip',
-	        buttons: [
-	            'excelHtml5',
-	        ],
+			buttons: [
+			'excelHtml5',
+			],
 			"processing": true, 
 			"serverSide": true, 
 			"order": [], 
@@ -85,6 +117,29 @@
 			"ajax": {
 
 				"url": "<?= site_url('penjualan/list_data') ?>",
+				"type": "POST"
+			},
+
+			"columnDefs": [{
+				"targets": [0], 
+				"orderable": false, 
+			}, ],
+		});
+	});
+
+	$(document).ready(function() {
+		table = $('#list_penjualan_cairan').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+			'excelHtml5',
+			],
+			"processing": true, 
+			"serverSide": true, 
+			"order": [], 
+
+			"ajax": {
+
+				"url": "<?= site_url('penjualan/list_data_cairan') ?>",
 				"type": "POST"
 			},
 
