@@ -134,9 +134,6 @@
 </table>
 <table border="0" width="100%">
 	<tr>
-		<td width="20%">Selesai Tgl</td>
-		<td width="2%"> : </td>
-		<td><?= date("d-m-Y", strtotime($pembelian->tgl_selesai)); ?></td>
 		<td style="padding-top: 20px; ">
 			<center>Sales</center><br><br><br>
 			<center>(...............................)</center>

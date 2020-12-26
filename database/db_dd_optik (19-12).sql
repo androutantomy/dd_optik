@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2020 at 11:50 AM
+-- Generation Time: Dec 20, 2020 at 11:19 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -103,7 +103,7 @@ INSERT INTO `data_lensa` (`id`, `id_lensa`, `status`, `id_toko`, `stok`, `min_ma
 (7, 1, 1, 0, 15, '1', 2, '', '', '', '2020-11-29 08:11:32'),
 (8, 3, 1, 0, 14, '1|2', 4, '12', '4', '2,5', '2020-12-19 08:12:19'),
 (9, 3, 1, 0, 6, '1,5|1,2', 3, '2', '1,5', '2,5', '2020-12-19 08:38:55'),
-(15, 5, 1, 0, 1, '1,2|1', 3, '1', '2', '1,5', '2020-12-21 03:22:26');
+(13, 0, 1, 0, 1, '1,5|1', 3, '2', '3', '1,9', '2020-12-19 17:59:41');
 
 -- --------------------------------------------------------
 
@@ -188,9 +188,8 @@ CREATE TABLE `master_lensa` (
 --
 
 INSERT INTO `master_lensa` (`id`, `nama`, `tipe_lensa`, `harga_beli`, `harga_jual`) VALUES
-(1, 'Biasa single', NULL, '0', '12000'),
-(3, 'Kriptok', 2, '200000', '70000'),
-(5, 'Aquas Multi', 2, '450000', '500000');
+(1, 'Biasa single', NULL, '-', '12000'),
+(3, 'Kriptok', 2, '200000', '70000');
 
 -- --------------------------------------------------------
 
@@ -297,19 +296,18 @@ CREATE TABLE `penjualan` (
   `tgl_selesai` date NOT NULL,
   `tanggal_nota` timestamp NOT NULL DEFAULT current_timestamp(),
   `is_bpjs` datetime DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT 1 COMMENT '1: selesai 2: menunngu lensa 3:lensa sampai\r\n',
-  `id_toko` int(11) NOT NULL
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '1: selesai 2: menunngu lensa 3:lensa sampai\r\n'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id`, `nama`, `alamat`, `telp`, `lsph`, `lcyl`, `laxis`, `ladd`, `rsph`, `rcyl`, `raxis`, `radd`, `pd_jauh`, `pd_dekat`, `id_frame`, `id_lensa`, `keterangan`, `harga_keterangan`, `potongan_frame`, `potongan_lensa`, `harga_frame`, `harga_lensa`, `uang_muka`, `sisa`, `tipe_pembelian`, `tgl_selesai`, `tanggal_nota`, `is_bpjs`, `status`, `id_toko`) VALUES
-(1, 'Tomy ', 'Jl. kemiri cand', '094817383737', '2', '3', '2,3', '1,9', '2', '3', '2,4', '2', '2,2', '1', 3, 2, 'Dikurangin bagian atas', '10000', '0', '0', '12000', '12000', '34000', '0', 1, '2020-12-03', '2020-11-28 11:43:42', '0000-00-00 00:00:00', 0, 0),
-(2, 'Biasa single', 'yogyakarta', '6281227058001', '-1.00', '-2.00', '90', '2.00', '-0.75', '-1.00', '90', '2.00', '65', '63', 3, 2, '', '0', '0', '0', '12000', '12000', '12000', '', 1, '2020-12-12', '2020-12-15 08:35:44', '0000-00-00 00:00:00', 0, 0),
-(3, 'Biasa single', 'bjh', 'jghjgug', '-10', '-10', '', '-10', '-10', '-10', '', '-10', '65', '65', 3, 6, '', '0', '10000', '10000', '12000', '12000', '10000', '', 1, '2020-12-18', '2020-12-15 08:50:57', '0000-00-00 00:00:00', 0, 0),
-(14, 'Tomy UMKM', 'alamat toko a', '094817383737', '-10', '-10', '', '-10', '-10', '-10', '', '-10', '', '', 3, 15, '', '100000', '10000', '50000', '12000', '500000', '150000', '402000', 1, '2020-12-18', '2020-12-19 14:38:20', '0000-00-00 00:00:00', 0, 0);
+INSERT INTO `penjualan` (`id`, `nama`, `alamat`, `telp`, `lsph`, `lcyl`, `laxis`, `ladd`, `rsph`, `rcyl`, `raxis`, `radd`, `pd_jauh`, `pd_dekat`, `id_frame`, `id_lensa`, `keterangan`, `harga_keterangan`, `potongan_frame`, `potongan_lensa`, `harga_frame`, `harga_lensa`, `uang_muka`, `sisa`, `tipe_pembelian`, `tgl_selesai`, `tanggal_nota`, `is_bpjs`, `status`) VALUES
+(1, 'Tomy ', 'Jl. kemiri cand', '094817383737', '2', '3', '2,3', '1,9', '2', '3', '2,4', '2', '2,2', '1', 3, 2, 'Dikurangin bagian atas', '10000', '0', '0', '12000', '12000', '34000', '0', 1, '2020-12-03', '2020-11-28 11:43:42', '0000-00-00 00:00:00', 0),
+(2, 'Biasa single', 'yogyakarta', '6281227058001', '-1.00', '-2.00', '90', '2.00', '-0.75', '-1.00', '90', '2.00', '65', '63', 3, 2, '', '0', '0', '0', '12000', '12000', '12000', '', 1, '2020-12-12', '2020-12-15 08:35:44', '0000-00-00 00:00:00', 0),
+(3, 'Biasa single', 'bjh', 'jghjgug', '-10', '-10', '', '-10', '-10', '-10', '', '-10', '65', '65', 3, 6, '', '0', '10000', '10000', '12000', '12000', '10000', '', 1, '2020-12-18', '2020-12-15 08:50:57', '0000-00-00 00:00:00', 0),
+(14, 'Tomy UMKM', 'alamat toko a', '094817383737', '-10', '-10', '', '-10', '-10', '-10', '', '-10', '', '', 0, 0, '', '0', '0', '0', '0', '0', '0', '0', 1, '2020-12-18', '2020-12-19 14:38:20', '0000-00-00 00:00:00', 3);
 
 -- --------------------------------------------------------
 
@@ -336,6 +334,13 @@ CREATE TABLE `pesan_lensa` (
   `tgl_pesan` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` int(11) NOT NULL COMMENT '0: pesan 1: selesai'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pesan_lensa`
+--
+
+INSERT INTO `pesan_lensa` (`id`, `id_pesanan`, `jenis_mata`, `nama_lensa`, `jenis_barang`, `tipe_lensa`, `harga_beli`, `harga_jual`, `jumlah`, `type_lensa`, `plus_minus`, `sph`, `cyl`, `addl`, `id_lensa`, `tgl_pesan`, `status`) VALUES
+(6, 14, 'l', '-', 1, 1, '2000000', '220000', '1', '3', '1,5|1', '2', '3', '1,9', 3, '2020-12-19 17:13:32', 0);
 
 -- --------------------------------------------------------
 
@@ -464,7 +469,7 @@ ALTER TABLE `data_frame`
 -- AUTO_INCREMENT for table `data_lensa`
 --
 ALTER TABLE `data_lensa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `master_cairan`
@@ -488,7 +493,7 @@ ALTER TABLE `master_jenis_barang`
 -- AUTO_INCREMENT for table `master_lensa`
 --
 ALTER TABLE `master_lensa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `master_toko`
@@ -512,7 +517,7 @@ ALTER TABLE `penjualan`
 -- AUTO_INCREMENT for table `pesan_lensa`
 --
 ALTER TABLE `pesan_lensa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`
