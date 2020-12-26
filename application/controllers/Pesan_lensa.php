@@ -30,21 +30,11 @@ class Pesan_lensa extends CI_Controller {
 		$no = $_POST['start'];
 
 		foreach ($list as $field) {
-			$nama_lensa = $field->nama_lensa;
-			if($field->jenis_barang == 1) {
-				$nama_lensa = $this->cek_lensa($field->id_lensa);
-			}
            	
            	$no++;
 			$row = array();
 			$row[] = $no;
             $row[] = $field->nama;
-            $row[] = $nama_lensa;
-            $row[] = $field->sph;
-            $row[] = $field->cyl;
-            $row[] = $field->addl;
-            $row[] = $field->harga_beli;
-            $row[] = $field->harga_jual;
             $row[] = "<button class='btn btn-sm btn-warning selesai' type='nota' id='". md5($field->id) ."'><i class='fa fa-money'></i> Pesanan sampai</button>";
 			$data[] = $row;
 		}
@@ -105,56 +95,11 @@ class Pesan_lensa extends CI_Controller {
 	function selesai($id)
 	{
 		$g = $this->db->get_where("pesan_lensa", array('md5(id)' => $id))->row();
-		if($g->jenis_barang == 1) {
-			$c = $this->db->get_where("data_lensa", array("id_lensa" => $g->id_lensa, 'min_max' => $g->plus_minus, 'type_lensa' => $g->type_lensa, 'sph' => $g->sph, 'cyl' => $g->cyl, 'addl' => $g->addl));
-			$data = [
-				'id_lensa' => $g->id_lensa,
-				'status' => 1,
-				'id_toko' => 0, 
-				'min_max' => $g->plus_minus,
-				'type_lensa' => $g->type_lensa,
-				'sph' => $g->sph,
-				'cyl' => $g->cyl,
-				'addl' => $g->addl,
-			];
-
-			if($c->num_rows() > 0) {
-				$data['stok'] = $c->row()->stok+1;
-
-				$i = $this->db->update("data_lensa", array("id" => $c->row()->id));
-			} else {
-				$i = $this->db->insert("data_lensa", $data);
-			}
-		} else {
-			$data_lensa = [
-				'nama' => $g->nama_lensa,
-				'tipe_lensa' => $g->tipe_lensa,
-				'harga_beli' => $g->harga_beli,
-				'harga_jual' => $g->harga_jual,
-			];
-
-			$this->db->insert("master_lensa", $data_lensa);
-			$insert_id = $this->db->insert_id();
-
-			$data = [
-				'id_lensa' => $insert_id,
-				'status' => 1,
-				'id_toko' => 0, 
-				'stok' => 1,
-				'min_max' => $g->plus_minus,
-				'type_lensa' => $g->type_lensa,
-				'sph' => $g->sph,
-				'cyl' => $g->cyl,
-				'addl' => $g->addl,
-			];
-
-			$i = $this->db->insert("data_lensa", $data);
-		}
 
 		if($i) {
 			$u = $this->db->set("status", 3)->where("id", $g->id_pesanan)->update("penjualan");
 			if($u) {
-				$d = $this->db->where("id", $g->id)->delete("pesan_lensa");
+				$d = $this->db->set("status", 1)->where("id", $g->id)->update("pesan_lensa");
 			}			
 			$json = ['s' => 'sukses', 'm' => 'Berhasil update status transaksi'];
 		} else {

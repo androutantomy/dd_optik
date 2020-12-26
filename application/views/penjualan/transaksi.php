@@ -45,7 +45,7 @@
 			</select>
 		</div>
 		<div class="col-md-5" id="isBPJS">
-			<input type="date" name="is_bpjs" id="is_bpjs" value="<?= isset($penjualan) ? $penjualan->is_bpjs : '' ?>" class="form-control input-sm">
+			<!-- <input type="date" name="is_bpjs" id="is_bpjs" value="<?= isset($penjualan) ? $penjualan->is_bpjs : '' ?>" class="form-control input-sm"> -->
 		</div>
 	</div>
 	<div class="form-group">
@@ -79,175 +79,175 @@
 				<td>
 					<select name="sphr" id="sphr" class="form-control input-sm select2option">
 						<?php for($i=10; $i>0; $i-=0.25) { $current = strlen($i)<= 1 ? '-'.$i.'.00' : '-'.$i; ?>
-							<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->rsph == $current ? 'selected' : '' : '' ?>> <?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
-						<?php } ?>
+						<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->rsph == $current ? 'selected' : '' : '' ?>> <?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
+					<?php } ?>
 
-						<?php for($i=0; $i<10; $i+=0.25) { $current1 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-							<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->rsph == $current1 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
-						<?php } ?>
-					</select>
-				</td>
-				<td>
-					<select name="cylr" id="cylr" class="form-control input-sm select2option">
-						<?php for($i=10; $i>0; $i-=0.25) { $current2 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
-							<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->rcyl == $current2 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
-						<?php } ?>
-						<?php for($i=0; $i<10; $i+=0.25) { $current3 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-							<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->rcyl == $current3 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
-						<?php } ?>
-					</select>
-				</td>
-				<td>
-					<input type="text" name="axisr" id="axisr" value="<?= isset($penjualan) ? $penjualan->raxis : '' ?>" class="form-control input-sm">
-				</td>
-				<td>
-					<select name="addr" id="addr" class="form-control input-sm select2option">
-						<?php for($i=10; $i>0; $i-=0.25) { $current4 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
-							<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->radd == $current4 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
-						<?php } ?>
-						<?php for($i=0; $i<10; $i+=0.25) { $current5 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-							<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->radd == $current5 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
-						<?php } ?>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td><center>L</center></td>
-				<td>
-					<select name="sphl" id="sphl" class="form-control input-sm select2option">
-						<?php for($i=10; $i>0; $i-=0.25) { $current6 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
-							<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->lsph == $current6 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
-						<?php } ?>
-						<?php for($i=0; $i<10; $i+=0.25) { $current7 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-							<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->lsph == $current7 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
-						<?php } ?>
-					</select>
-				</td>
-				<td>
-					<select name="cyll" id="cyll" class="form-control input-sm select2option">
-						<?php for($i=10; $i>0; $i-=0.25) { $current8 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
-							<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->lcyl == $current8 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
-						<?php } ?>
-						<?php for($i=0; $i<10; $i+=0.25) { $current9 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-							<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->lcyl == $current9 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
-						<?php } ?>
-					</select>
-				</td>
-				<td>
-					<input type="text" name="axisl" id="axisl" value="<?= isset($penjualan) ? $penjualan->laxis : '' ?>" class="form-control input-sm">
-				</td>
-				<td>
-					<select name="addl" id="addl" class="form-control input-sm select2option">
-						<?php for($i=10; $i>0; $i-=0.25) { $current10 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
-							<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->ladd == $current10 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
-						<?php } ?>
-						<?php for($i=0; $i<10; $i+=0.25) { $current11 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-							<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->ladd == $current11 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
-						<?php } ?>
-					</select>
-				</td>
-			</tr>
-		</table>
-	</div>
-	<div class="form-group row">
-		<div class="col-md-2">Frame</div>
-		<div class="col-md-5">
-			<select class="form-control input-sm selectx select2option" name="frame" id="frame">
-				<option value="0">Pilih Frame</option>
-				<?php foreach($frame as $val) { ?>
-					<option value="<?= $val->id ?>" <?= isset($penjualan) ? $penjualan->id_frame == $val->id ? 'selected' : '' : '' ?> harga="<?= $val->harga_jual ?>">[ <?= $val->stok ?> ] <?= $val->nama ?></option>
+					<?php for($i=0; $i<10; $i+=0.25) { $current1 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
+					<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->rsph == $current1 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
 				<?php } ?>
 			</select>
-		</div>
-		<div class="col-md-1">Rp.</div>
-		<div class="col-md-2" style="text-align: right;">
-			<input type="text" readonly="" name="harga_frame_asli"  id="harga_frame_asli" value="<?= isset($penjualan) ? $penjualan->harga_frame : '' ?>" class="form-control input-sm">
-		</div>
-		<div class="col-md-2" style="text-align: right;">
-			<input type="text" name="harga_frame" style="text-align: right;" id="harga_frame" value="<?= isset($penjualan) ? $penjualan->potongan_frame : '' ?>" class="form-control potongan input-sm" value="0">
+		</td>
+		<td>
+			<select name="cylr" id="cylr" class="form-control input-sm select2option">
+				<?php for($i=10; $i>0; $i-=0.25) { $current2 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
+				<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->rcyl == $current2 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
+			<?php } ?>
+			<?php for($i=0; $i<10; $i+=0.25) { $current3 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
+			<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->rcyl == $current3 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+		<?php } ?>
+	</select>
+</td>
+<td>
+	<input type="text" name="axisr" id="axisr" value="<?= isset($penjualan) ? $penjualan->raxis : '' ?>" class="form-control input-sm">
+</td>
+<td>
+	<select name="addr" id="addr" class="form-control input-sm select2option">
+		<?php for($i=10; $i>0; $i-=0.25) { $current4 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
+		<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->radd == $current4 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
+	<?php } ?>
+	<?php for($i=0; $i<10; $i+=0.25) { $current5 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
+	<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->radd == $current5 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+<?php } ?>
+</select>
+</td>
+</tr>
+<tr>
+	<td><center>L</center></td>
+	<td>
+		<select name="sphl" id="sphl" class="form-control input-sm select2option">
+			<?php for($i=10; $i>0; $i-=0.25) { $current6 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
+			<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->lsph == $current6 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
+		<?php } ?>
+		<?php for($i=0; $i<10; $i+=0.25) { $current7 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
+		<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->lsph == $current7 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+	<?php } ?>
+</select>
+</td>
+<td>
+	<select name="cyll" id="cyll" class="form-control input-sm select2option">
+		<?php for($i=10; $i>0; $i-=0.25) { $current8 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
+		<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->lcyl == $current8 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
+	<?php } ?>
+	<?php for($i=0; $i<10; $i+=0.25) { $current9 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
+	<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->lcyl == $current9 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+<?php } ?>
+</select>
+</td>
+<td>
+	<input type="text" name="axisl" id="axisl" value="<?= isset($penjualan) ? $penjualan->laxis : '' ?>" class="form-control input-sm">
+</td>
+<td>
+	<select name="addl" id="addl" class="form-control input-sm select2option">
+		<?php for($i=10; $i>0; $i-=0.25) { $current10 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
+		<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->ladd == $current10 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
+	<?php } ?>
+	<?php for($i=0; $i<10; $i+=0.25) { $current11 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
+	<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->ladd == $current11 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+<?php } ?>
+</select>
+</td>
+</tr>
+</table>
+</div>
+<div class="form-group row">
+	<div class="col-md-2">Frame</div>
+	<div class="col-md-5">
+		<select class="form-control input-sm selectx select2option" name="frame" id="frame">
+			<option value="0">Pilih Frame</option>
+			<?php foreach($frame as $val) { ?>
+				<option value="<?= $val->id ?>" <?= isset($penjualan) ? $penjualan->id_frame == $val->id ? 'selected' : '' : '' ?> harga="<?= $val->harga_jual ?>">[ <?= $val->stok ?> ] <?= $val->nama ?></option>
+			<?php } ?>
+		</select>
+	</div>
+	<div class="col-md-1">Rp.</div>
+	<div class="col-md-2" style="text-align: right;">
+		<input type="text" readonly="" name="harga_frame_asli"  id="harga_frame_asli" value="<?= isset($penjualan) ? $penjualan->harga_frame : '' ?>" class="form-control input-sm">
+	</div>
+	<div class="col-md-2" style="text-align: right;">
+		<input type="text" name="harga_frame" style="text-align: right;" id="harga_frame" value="<?= isset($penjualan) ? $penjualan->potongan_frame : '' ?>" class="form-control potongan input-sm" value="0">
+	</div>
+</div>
+<div class="form-group row">
+	<div class="col-md-2">Lensa</div>
+	<div class="col-md-5">
+		<select class="form-control input-sm selectx select2option" name="lensa" id="lensa">
+			<option value="0">Pilih Lensa</option>
+			<?php foreach($lensa as $val) { ?>
+				<option value="<?= $val->id ?>" harga="<?= $val->harga_jual ?>" <?= isset($penjualan) ? $penjualan->id_lensa == $val->id ? 'selected' : '' : '' ?>>[ <?= $val->stok ?> ] <?= $val->nama ?></option>
+			<?php } ?>
+		</select>
+	</div>
+	<div class="col-md-1">Rp.</div>
+	<div class="col-md-2" style="text-align: right;">
+		<input type="text" readonly name="harga_lensa_asli" value="<?= isset($penjualan) ? $penjualan->harga_lensa : '' ?>" id="harga_lensa_asli" class="form-control input-sm">
+	</div>
+	<div class="col-md-2" style="text-align: right;">
+		<input type="text" name="harga_lensa" style="text-align: right;" id="harga_lensa" value="<?= isset($penjualan) ? $penjualan->potongan_lensa : '' ?>" class="form-control potongan input-sm" value="0">
+	</div>
+</div>
+<div class="form-group row">
+	<div class="col-md-2">Keterangan</div>
+	<div class="col-md-5">
+		<input type="text" name="keterangan" id="keterangan" value="<?= isset($penjualan) ? $penjualan->keterangan : '' ?>" class="form-control input-sm"><br>
+		<div class="checkbox checkbox-inline checkbox-primary">
+			<input id="form-4-1" name="pesan_lensa" id="pesan_lensa" value="1" stateA="0" type="checkbox">
+			<label for="form-4-1">Pilih jika harus pesan lensa</label>
 		</div>
 	</div>
-	<div class="form-group row">
-		<div class="col-md-2">Lensa</div>
-		<div class="col-md-5">
-			<select class="form-control input-sm selectx select2option" name="lensa" id="lensa">
-				<option value="0">Pilih Lensa</option>
-				<?php foreach($lensa as $val) { ?>
-					<option value="<?= $val->id ?>" harga="<?= $val->harga_jual ?>" <?= isset($penjualan) ? $penjualan->id_lensa == $val->id ? 'selected' : '' : '' ?>>[ <?= $val->stok ?> ] <?= $val->nama ?></option>
-				<?php } ?>
-			</select>
-		</div>
-		<div class="col-md-1">Rp.</div>
-		<div class="col-md-2" style="text-align: right;">
-			<input type="text" readonly name="harga_lensa_asli" value="<?= isset($penjualan) ? $penjualan->harga_lensa : '' ?>" id="harga_lensa_asli" class="form-control input-sm">
-		</div>
-		<div class="col-md-2" style="text-align: right;">
-			<input type="text" name="harga_lensa" style="text-align: right;" id="harga_lensa" value="<?= isset($penjualan) ? $penjualan->potongan_lensa : '' ?>" class="form-control potongan input-sm" value="0">
-		</div>
+	<div class="col-md-1">Rp.</div>
+	<div class="col-md-2" style="text-align: right;">
+		<input type="text" name="harga_keterangan" style="text-align: right;" value="<?= isset($penjualan) ? $penjualan->harga_keterangan : '' ?>" id="harga_keterangan" class="form-control input-sm" value="0"><br>
 	</div>
-	<div class="form-group row">
-		<div class="col-md-2">Keterangan</div>
-		<div class="col-md-5">
-			<input type="text" name="keterangan" id="keterangan" value="<?= isset($penjualan) ? $penjualan->keterangan : '' ?>" class="form-control input-sm"><br>
-			<div class="checkbox checkbox-inline checkbox-primary">
-				<input id="form-4-1" name="pesan_lensa" id="pesan_lensa" value="1" stateA="0" type="checkbox">
-				<label for="form-4-1">Pilih jika harus pesan lensa</label>
-			</div>
-		</div>
-		<div class="col-md-1">Rp.</div>
-		<div class="col-md-2" style="text-align: right;">
-			<input type="text" name="harga_keterangan" style="text-align: right;" value="<?= isset($penjualan) ? $penjualan->harga_keterangan : '' ?>" id="harga_keterangan" class="form-control input-sm" value="0"><br>
-		</div>
-		<div class="col-md-2">
-			<hr>
-		</div>
+	<div class="col-md-2">
+		<hr>
+	</div>
 
-	</div>
+</div>
 
-	<div class="form-group row">
-		<div class="col-md-5"></div>
-		<div class="col-md-2">
-			Jumlah
-		</div>
-		<div class="col-md-1">Rp.</div>
-		<div class="col-md-2" style="text-align: right;" id="total_asli">
-			<?= isset($penjualan) ? $penjualan->harga_frame+$penjualan->harga_lensa+$penjualan->harga_keterangan : '...............................' ?>
-		</div>
-		<div class="col-md-2" style="text-align: right;" id="total">
-			
-			<?= isset($penjualan) ? $penjualan->potongan_frame+$penjualan->potongan_lensa : '...............................' ?>
-		</div>
+<div class="form-group row">
+	<div class="col-md-5"></div>
+	<div class="col-md-2">
+		Jumlah
 	</div>
-	<div class="form-group row">
-		<div class="col-md-5"></div>
-		<div class="col-md-2">
-			Uang Muka
-		</div>
-		<div class="col-md-1">Rp. </div>
-		<div class="col-md-4">
-			<input type="text" style="text-align: right;" value="<?= isset($penjualan) ? $penjualan->uang_muka : '' ?>" name="uang_muka" id="uang_muka" class="form-control input-sm" value="0">
-		</div>
+	<div class="col-md-1">Rp.</div>
+	<div class="col-md-2" style="text-align: right;" id="total_asli">
+		<?= isset($penjualan) ? $penjualan->harga_frame+$penjualan->harga_lensa+$penjualan->harga_keterangan : '...............................' ?>
 	</div>
-	<div class="form-group row">
-		<div class="col-md-2">
-			<label>Selesai Tgl</label>
-		</div>
-		<div class="col-md-3">
-			<input type="date" name="tgl_selesai" id="tgl_selesai" class="form-control input-sm" value="<?= isset($penjualan) ? $penjualan->tgl_selesai : '' ?>" required="required">
-		</div>
-		<div class="col-md-2">
-			Sisa
-		</div>
-		<div class="col-md-1">Rp. </div>
-		<div class="col-md-4">
-			<input type="text" readonly style="text-align: right;" name="sisa" value="<?= isset($penjualan) ? $penjualan->sisa : '' ?>" id="sisa" class="form-control input-sm">
-		</div>
+	<div class="col-md-2" style="text-align: right;" id="total">
+		
+		<?= isset($penjualan) ? $penjualan->potongan_frame+$penjualan->potongan_lensa : '...............................' ?>
 	</div>
-	<div class="form-group row">
-		<div class="col-md-12">
-			<button class="btn btn-sm btn-success pull-right" type="submit"><?= isset($penjualan) ? 'Update' : 'Buat' ?> Nota</button>
-		</div>
+</div>
+<div class="form-group row">
+	<div class="col-md-5"></div>
+	<div class="col-md-2">
+		Uang Muka
 	</div>
+	<div class="col-md-1">Rp. </div>
+	<div class="col-md-4">
+		<input type="text" style="text-align: right;" value="<?= isset($penjualan) ? $penjualan->uang_muka : '' ?>" name="uang_muka" id="uang_muka" class="form-control input-sm" value="0">
+	</div>
+</div>
+<div class="form-group row">
+	<div class="col-md-2">
+		<label>Selesai Tgl</label>
+	</div>
+	<div class="col-md-3">
+		<input type="date" name="tgl_selesai" id="tgl_selesai" class="form-control input-sm" value="<?= isset($penjualan) ? $penjualan->tgl_selesai : '' ?>" required="required">
+	</div>
+	<div class="col-md-2">
+		Sisa
+	</div>
+	<div class="col-md-1">Rp. </div>
+	<div class="col-md-4">
+		<input type="text" readonly style="text-align: right;" name="sisa" value="<?= isset($penjualan) ? $penjualan->sisa : '' ?>" id="sisa" class="form-control input-sm">
+	</div>
+</div>
+<div class="form-group row">
+	<div class="col-md-12">
+		<button class="btn btn-sm btn-success pull-right" type="submit"><?= isset($penjualan) ? 'Update' : 'Buat' ?> Nota</button>
+	</div>
+</div>
 </form>
 <script>
 	$(".select2option").select2();
@@ -301,19 +301,20 @@
 
 	function format_angkat(target, harga) 
 	{
-		var harga_frame = parseInt($("#frame option:selected").attr("harga"));
-		var harga_lensa = parseInt($("#lensa option:selected").attr("harga"));
-		var harga_keterangan = parseInt($("#harga_keterangan").val());
-		if(target == 'total_asli' && harga_lensa != NaN && harga_frame != NaN) {
+		var harga_frame = isNaN(parseInt($("#frame option:selected").attr("harga"))) ? 0 : parseInt($("#frame option:selected").attr("harga"));
+		var harga_lensa = isNaN(parseInt($("#lensa option:selected").attr("harga"))) ? 0 : parseInt($("#lensa option:selected").attr("harga"));
+		var harga_keterangan = isNaN(parseInt($("#harga_keterangan").val())) ? 0 : parseInt($("#harga_keterangan").val());
+		
+		if(target == 'total_asli' && harga_lensa > 0 && harga_frame > 0 ) {
 			harga = harga_frame+harga_lensa;
-		} else if(target == 'total_asli' && harga_frame != NaN && harga_lensa == NaN) {
+		} else if(target == 'total_asli' && harga_frame > 0 && harga_lensa <= 0) {
 			harga = harga_frame;
-		} else if(target == 'total_asli' && harga_frame == NaN && harga_lensa != NaN) {
+		} else if(target == 'total_asli' && harga_frame <= 0 && harga_lensa > 0) {
 			harga = harga_lensa;
 		} else if(target == 'sisa') {
-			var potongan_lensa = parseInt($("#harga_lensa").val());
-			var potongan_frame = parseInt($("#harga_frame").val());
-			var harga_keterangan = parseInt($("#harga_keterangan").val());
+			var potongan_lensa = isNaN(parseInt($("#harga_lensa").val())) ? 0 : parseInt($("#harga_lensa").val());
+			var potongan_frame = isNaN(parseInt($("#harga_frame").val())) ? 0 : parseInt($("#harga_frame").val());
+			var harga_keterangan = isNaN(parseInt($("#harga_keterangan").val())) ? 0 : parseInt($("#harga_keterangan").val());
 			var total_potongan = potongan_frame+potongan_lensa;
 			harga = harga_lensa+harga_frame-harga-total_potongan+harga_keterangan;
 		} else if(target == 'total_asli_') {			
@@ -357,11 +358,7 @@
 			success: function(respon) {
 				if (respon.s == 'sukses') {
 					alert(respon.m);
-					if(respon.next == "oke") {
-						window.open("<?= site_url('penjualan/nota/') ?>"+respon.url);
-					} else {
-						window.open("<?= site_url('pesan_lensa/pesan/') ?>"+respon.url);
-					}
+					window.open("<?= site_url('penjualan/nota/') ?>"+respon.url);
 				} else {
 					alert(respon.m);
 				}

@@ -146,6 +146,14 @@
                                         <span class='title'>Master Cairan</span>
                                     </a>
                                 </li>
+                            </ul>                                             
+                            <ul class='dropdown-menu'>
+                                <li class="nav-item">
+                                    <a href="<?= site_url('master-softlense') ?>">
+                                        <span class='arrow'><i class='ti-angle-left'></i></span>
+                                        <span class='title'>Master Softlense</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <?php } ?>

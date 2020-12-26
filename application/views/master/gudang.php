@@ -15,6 +15,7 @@
 				<option value="1">Frame</option>
 				<option value="2">Lensa</option>
 				<option value="3">Cairan</option>
+				<option value="4">Softlense</option>
 			</select>
 		</div>	
 		<div class="col-md-5 row" id="dataOption">
@@ -24,7 +25,7 @@
 		<div class="col-md-2">
 			<label for="form-1-1" class="control-label">Jumlah Stok</label>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<input type="text" name="stok" class="form-control form-control-sm emptyy" id="stok" placeholder="Isikan jumlah stok">
 		</div>
 		<div class="col-md-4 maxMin">
@@ -32,18 +33,19 @@
 				<option value="">Pilih Tipe Lensa</option>
 				<option value="1">Minus</option>
 				<option value="2">Plus</option>
-				<option value="3">Minus & Plus</option>
-				<option value="4">Minus & Additional</option>
-				<option value="5">Plus & Additional</option>
+				<option value="3">Minus & Cylinder</option>
+				<option value="4">Minus & Addition</option>
+				<option value="5">Plus & Cylinder</option>
+				<option value="6">Plus & Addition</option>
 			</select>
 		</div>
-		<div class="col-md-2 maxMin">
+		<!-- <div class="col-md-2 maxMin">
 			<input type="hidden" name="id_update" id="id_update">
 			<input type="text" name="minus" class="form-control form-control-sm emptyy" id="minus" placeholder="Isikan nilai minus" >
 		</div>
 		<div class="col-md-2 maxMin">
 			<input type="text" name="plus" class="form-control form-control-sm emptyy" id="plus" placeholder="Isikan nilai plus">
-		</div>
+		</div> -->
 	</div>
 	<div class="form-group row">
 		<div class="col-md-2"></div>
@@ -183,8 +185,15 @@
 					$(".select2option").select2();
 				}
 			}, "json");
-		} else {
-
+		} else if($(this).val() == 4) {
+			$.post("<?= site_url('master/master_data/option_softlense/') ?>", '', function(d) {
+				if(d.s == "sukses") {
+					$("#dataOption").html(d.option);
+					$(".isKriptok").show();
+					$("#message").html("");
+					$(".select2option").select2();
+				}
+			}, "json");
 		}
 	});
 

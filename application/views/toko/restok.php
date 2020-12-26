@@ -1,10 +1,28 @@
 <form id="restok_toko">
+	<div class="form-group row" <?= $this->session->userdata("id_level") != 3 ? "hidden" : "";  ?>>
+		<div class="col-md-2">
+			<label>Pilih Tipe Transaksi</label>
+		</div>
+		<div class="col-md-5">
+			<select class="form-control form-control-sm" id="tipe" name="tipe">
+				<option value="1">Dari Gudang</option>
+				<option value="2" <?= $this->session->userdata("id_level") != 3 ? "" : "selected"; ?>>Dari Toko</option>
+			</select>
+		</div>
+		<div class="col-md-5">
+			<select class="form-control form-control-sm" id="toko_asal" name="toko_asal">
+				<?php foreach($daftar_toko as $val) { ?>
+					<option value="<?= $val->id ?>"><?= $val->nama_toko; ?></option>
+				<?php } ?>
+			</select>
+		</div>
+	</div>
 	<div class="form-group row">
 		<div class="col-md-2">
 			<label class="control-label">Pilih Jenis Barang</label>
 		</div>
 		<div class="col-md-5">
-			<select class="form-control form-control-sm" id="jenis" name="jenis">
+			<select class="form-control form-control-sm" id="jenis" name="jenis" required="required">
 				<option value="">Pilih Jenis Barang</option>
 				<option value="1">Frame</option>
 				<option value="2">Lensa</option>
@@ -35,6 +53,16 @@
 <script>
 	$(document).ready(function() {
 		$("#message").html("");
+		$("#toko_asal").hide();
+
+		$("#tipe").on("change", function() {
+			var id = $(this).val();
+			if(id == 2) {
+				$("#toko_asal").show();
+			} else {
+				$("#toko_asal").hide();
+			}
+		});
 	});
 
 	$("#jenis").on("change", function() {

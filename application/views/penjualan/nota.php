@@ -42,6 +42,13 @@
 		<td width="2%"> : </td>
 		<td><?= $pembelian->telp == "" ? "-" : $pembelian->telp; ?></td>
 	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td>
+			<?= $pembelian->tipe_pembelian == 2 ? "<u>Peserta BPJS</u>" : ""; ?>
+		</td>
+	</tr>
 </table>
 <br>
 <table width="100%" style="border-collapse: collapse;">
