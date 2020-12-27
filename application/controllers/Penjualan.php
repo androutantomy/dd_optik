@@ -143,7 +143,7 @@ class Penjualan extends CI_Controller {
 			'uang_muka' => $this->input->post("uang_muka") != "" ? $this->input->post("uang_muka") : 0,
 			'sisa' => str_replace(".", "", $this->input->post("sisa")) != "" ? str_replace(".", "", $this->input->post("sisa")) : 0,
 			'tipe_pembelian' => $this->input->post("tipe_pembelian"),
-			'tgl_selesai' => $this->input->post("tgl_selesai"),
+			// 'tgl_selesai' => $this->input->post("tgl_selesai"),
 			'is_bpjs' => $this->input->post("is_bpjs"),
 			'status' => $this->input->post("pesan_lensa") == "" ? 0 : 2,
 
