@@ -56,4 +56,12 @@ class Convertion {
 			return "-";
 		}
 	}
+
+	function nama_toko($id_toko)
+	{
+		$g = $this->ci->db->get_where("master_toko", array("id" => $id_toko))->row();
+
+		$nama_toko = '';
+		return $g != "" ? $g->nama_toko : "";
+	}
 }
