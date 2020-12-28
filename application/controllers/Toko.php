@@ -213,13 +213,13 @@ class Toko extends CI_Controller {
     function simpan_data_restok_toko()
     {
         $tipe = $this->input->post("tipe");
-        $status = ($tipe == 1) ? 1 : 2;
+        $status_ = ($tipe == 1) ? 1 : 2;
         if($this->session->userdata("id_level") != 3) {
-            $status = 2;
+            $status_ = 2;
         }
 
         if($this->input->post("jenis") == 1) {
-            $status = $this->cek_frame($this->input->post("frame"), $status, "frame", $this->input->post("stok"), $tipe);
+            $status = $this->cek_frame($this->input->post("frame"), $status_, "frame", $this->input->post("stok"), $tipe);
             if($status['s'] == "error") {
                 echo json_encode($status);exit;
             }
@@ -235,6 +235,7 @@ class Toko extends CI_Controller {
             if($g->stok < $this->input->post("stok")) {
                 echo json_encode($json = ["s" => "error", "m" => "Nominal stok untuk toko lebih banyak dari stok gudang"]);exit;
             }
+
             $status["stok"] = $g->stok;
             $status["id"] = $g->id;
             $status["id_lensa"] = $g->id_lensa;
@@ -243,11 +244,13 @@ class Toko extends CI_Controller {
                 "status" => 2,
                 "id_toko" => $this->input->post("toko"),
                 "stok" => $this->input->post("stok"),
-                "min_max" => $g->min_max,
                 "type_lensa" => $g->type_lensa,
+                "sph" => $g->sph,
+                "cyl" => $g->cyl,
+                "addl" => $g->addl,
             ];
         } else {
-            $status = $this->cek_frame($this->input->post("cairan"), $status, "cairan", $this->input->post("stok"), $tipe);
+            $status = $this->cek_frame($this->input->post("cairan"), $status_, "cairan", $this->input->post("stok"), $tipe);
             if($status['s'] == "error") {
                 echo json_encode($status);exit;
             }
@@ -275,6 +278,7 @@ class Toko extends CI_Controller {
             if($c->num_rows() <= 0) {      
                 $i = $this->db->insert("data_lensa", $data);
             } else {
+                $data['stok'] = $c->row()->stok+$this->input->post("stok");
                 $i = $this->db->where("id", $c->row()->id)->update("data_lensa", $data);
             }
         } else {
@@ -310,7 +314,7 @@ class Toko extends CI_Controller {
             $cek = $this->db->get_where("data_cairan", array("id_cairan" => $id_frame, "status" => $status));
         }
         $respon = [];
-        
+
         if($cek->num_rows() > 0) {
             if($cek->row()->stok < $stok) {
                 $respon = ["s" => "error", "m" => "Nominal stok untuk toko lebih banyak dari stok gudang"];
