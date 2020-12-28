@@ -68,4 +68,8 @@
 			$("#data_cairan_"+id).load("<?= site_url('master/master_data/list_data_cairan/') ?>"+id);
 		}
 	});
+	
+	$(document).on("click", "#kembali", function() {
+		location.reload();
+	});
 </script>
