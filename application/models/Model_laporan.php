@@ -100,14 +100,14 @@ class Model_laporan extends CI_Model {
             }
 
             if($start != '-' && $end == '-') {
-                $this->db->where("penjualan_barang.tanggal_nota >=", $start." 00:00:00");
-                $this->db->where("penjualan_barang.tanggal_nota <=", $start." 23:59:00");
+                $this->db->where("penjualan_barang.tgl_transaksi >=", $start." 00:00:00");
+                $this->db->where("penjualan_barang.tgl_transaksi <=", $start." 23:59:00");
             } elseif($end != '-' && $start == '-') {
-                $this->db->where("penjualan_barang.tanggal_nota >=", $end." 00:00:00");
-                $this->db->where("penjualan_barang.tanggal_nota <=", $end." 23:59:00");
+                $this->db->where("penjualan_barang.tgl_transaksi >=", $end." 00:00:00");
+                $this->db->where("penjualan_barang.tgl_transaksi <=", $end." 23:59:00");
             } elseif($end != '-' && $start != '-') {
-                $this->db->where("penjualan_barang.tanggal_nota >=", $start." 00:00:00");
-                $this->db->where("penjualan_barang.tanggal_nota <=", $end." 23:59:00");
+                $this->db->where("penjualan_barang.tgl_transaksi >=", $start." 00:00:00");
+                $this->db->where("penjualan_barang.tgl_transaksi <=", $end." 23:59:00");
             }
 
             $i = 0; 
