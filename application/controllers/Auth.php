@@ -22,13 +22,38 @@ class Auth extends CI_Controller {
 			'username' => $username,
 			'password' => sha1(md5($password))
 			);
-		$cek_login = $this->m_login->cek_login($username,$password)->num_rows();
-		if($cek_login > 0){
+		$cek_u = $this->db->get_where("user", ['username' => $username])->num_rows();
+
+		$cek_p = $this->db->get_where("user", ['password' => $password])->num_rows();
+
+		$cek_login = $this->m_login->cek_login($username,$password);
+
+		if($cek_u == 0) {
+			$data = [
+				'status' => 'gagal',
+				'message' => 'Username anda salah',
+			];
+
+			$this->session->set_flashdata($data);
+			redirect(base_url());
+		}
+
+		if($cek_p == 0) {
+			$data = [
+				'status' => 'gagal',
+				'message' => 'Password anda salah',
+			];
+			$this->session->set_flashdata($data);
+			redirect(base_url());
+		}
+
+
+		if($cek_login->num_rows() > 0){
  
 			$data_session = array(
-				'nama_lengkap' => $nama_lengkap,
-				'id_toko' => $id_toko,
-				'id_level' => $id_level,			
+				'nama_lengkap' => $cek_login->row()->nama_lengkap,
+				'id_toko' => $cek_login->row()->id_toko,
+				'id_level' => $cek_login->row()->id_level,			
 				'status' => "login"
 				);
  
@@ -36,54 +61,15 @@ class Auth extends CI_Controller {
  
 			redirect(base_url("Dashboard"));
  
-		}else{
-			echo "Username atau password salah !";
+		} else {
+			$data = [
+				'status' => 'gagal',
+				'message' => 'Gagal login, periksa kembali Username dan Password anda',
+			];
+			$this->session->set_flashdata($data);
+			redirect(base_url());
 		}
 	}
-// =====================================================================================================
-
-	// 	$username = $this->input->post('username');
-	// 	$password = sha1(md5($this->input->post('password')));
-	// 	$cek_login = $this->m_login->cek_login($username, $password);
-	// 	echo $this->db->last_query();
-	// 	if($cek_login-> num_rows() < 0){
-	// 		print_r($id_level);exit;
-	// 		echo "Username dan password salah !";
-	// 		redirect(base_url('Auth'));
-	// 		return;
-	// 	}
-
-	// 	$data  			= $cek_login->row_array();
-	// 	$id 			= $data['id'];
-	// 	$username  		= $data['username'];
-	// 	$password  		= $data['password'];
-	// 	$nama_lengkap 	= $data['nama_lengkap'];
-	// 	$id_toko 		= $data['id_toko'];
-	// 	$id_level 		= $data['id_level'];
-	// 	// print_r($id_level);exit;
-
-	// 		$data_session = array(
-	// 			'username' 		=> $username,
-	// 			'nama_lengkap' 	=> $nama_lengkap,
-	// 			'id_toko' 		=> $id_toko,
-	// 			'id_level' 		=> $id_level,
-	// 			'status' 		=> "login"
-	// 			);
- 
-	// 		$this->session->set_userdata($data_session);
-	// 		//akses ke SUPER ADMIN
-	// 	if ($id_level == 3){
-	// 		redirect(base_url('Dashboard'));
-	// 		//ADMIN
-	// 	} else if ($id_level == 5){
-	// 		redirect(base_url('Dashboard'));
-	// 		//PENJAGA TOKO
-	// 	} else if ($id_level == 4){
-	// 		redirect(base_url('Dashboard'));
-	// 	} else {
-	// 		redirect(base_url('Auth'));
-	// 	}
-	// }
  
 	function logout(){
 		$this->session->sess_destroy();

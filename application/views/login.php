@@ -49,7 +49,13 @@
                                                                     <input type="password" required="" name="password" class="form-control" placeholder="Password">
                                                                 </div>
                                                                 <div class="mrg-top-20 text-right">
-
+                                                                    <span class="pull-left">
+                                                                        <?php
+                                                                            if($this->session->flashdata("status") == 'gagal') {
+                                                                                echo "<span style='color: red;'><i class='ei ei-unchecked'></i>".$this->session->flashdata('message')."</span>";
+                                                                            }
+                                                                        ?>
+                                                                    </span>
                                                                     <button type="submit" name="submit" value="login" class="btn btn-info">Login</button>
                                                                 </div>
                                                                 <p class="mrg-btm-15 font-size-9">*Kontak Admin jika lupa username dan password</p>
