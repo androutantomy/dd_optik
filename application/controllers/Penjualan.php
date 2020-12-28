@@ -20,9 +20,9 @@ class Penjualan extends CI_Controller {
 	function add($id = '0') 
 	{
 		if($this->session->userdata("id_level") != 3) {
-			$this->db->where("id_toko", $this->session->userdata("id_toko"));
+			$this->db->where("b.id_toko", $this->session->userdata("id_toko"));
 		}
-		$data['frame'] = $this->db->select("a.*, b.stok")->from("data_frame b")->join("master_frame a", "a.id = b.id_frame")->where("status", 2)->where("id_toko", 1)->where("b.stok >", 0)->get()->result();
+		$data['frame'] = $this->db->select("a.*, b.stok")->from("data_frame b")->join("master_frame a", "a.id = b.id_frame")->where("status", 2)->where("b.stok >", 0)->get()->result();
 		if($this->session->userdata("id_level") != 3) {
 			$this->db->where("id_toko", $this->session->userdata("id_toko"));
 		}
@@ -145,6 +145,7 @@ class Penjualan extends CI_Controller {
 			'tipe_pembelian' => $this->input->post("tipe_pembelian"),
 			'is_bpjs' => $this->input->post("is_bpjs"),
 			'status' => $this->input->post("pesan_lensa") == "" ? 0 : 2,
+			'id_toko' => $this->session->userdata("id_level") != 3 ? $this->session->userdata("id_toko") : 0,
 
 		];
 

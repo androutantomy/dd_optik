@@ -17,8 +17,7 @@ class Model_penjualan extends CI_Model {
     {   
 
         if($this->session->userdata("id_level") != 3) {
-            $this->db->join("master_toko", "master_toko.id = penjualan.id_toko");
-            $this->db->where("master_toko.id", $this->session->userdata("id_toko"));
+            $this->db->where("penjualan.id_toko", $this->session->userdata("id_toko"));
         }
         $this->db->select("penjualan.*")->from("penjualan");
 
@@ -61,8 +60,7 @@ class Model_penjualan extends CI_Model {
         $column_searce = array("nama", "tgl_transaksi");
 
         if($this->session->userdata("id_level") != 3) {
-            $this->db->join("master_toko", "master_toko.id = penjualan_barang.id_toko");
-            $this->db->where("master_toko.id", $this->session->userdata("id_toko"));
+            $this->db->where("penjualan_barang.id_toko", $this->session->userdata("id_toko"));
         }
         $this->db->select("penjualan_barang.*")->from("penjualan_barang");
 

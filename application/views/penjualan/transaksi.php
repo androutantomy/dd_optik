@@ -245,7 +245,7 @@
 </div>
 <div class="form-group row">
 	<div class="col-md-12">
-		<button class="btn btn-sm btn-success pull-right" type="submit"><?= isset($penjualan) ? 'Update' : 'Buat' ?> Nota</button>
+		<button <?= isset($penjualan) ? $penjualan->id_toko != $this->session->userdata('id_toko') ? 'disabled' : '' : '' ?> class="btn btn-sm btn-success pull-right" type="submit"><?= isset($penjualan) ? 'Update' : 'Buat' ?> Nota</button>
 	</div>
 </div>
 </form>
