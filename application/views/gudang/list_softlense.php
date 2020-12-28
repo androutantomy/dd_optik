@@ -24,7 +24,7 @@
 
             "ajax": {
 
-                "url": "<?= site_url('master/master_data/ajax_list_cairan/').$id ?>",
+                "url": "<?= site_url('master/master_data/ajax_list_softlense/').$id ?>",
                 "type": "POST"
             },
 

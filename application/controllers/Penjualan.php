@@ -388,4 +388,13 @@ class Penjualan extends CI_Controller {
 		$this->load->view("penjualan/nota_barang", $data);
 	}
 
+	function cek_expired($id)
+	{
+		$cek = $this->db->get_where("data_cairan", ['id' => $id])->row();
+
+		$json = ['s' => true, 'm' => 'Expired pada '.date("d-m-Y", strtotime($cek->expired))];
+
+		echo json_encode($json);exit;
+	}
+
 }

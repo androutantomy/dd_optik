@@ -11,8 +11,10 @@
 					<thead>
 						<th width="5%">No</th>
 						<th width="40%">Merk Softlense</th>
-						<th>Harga Beli</th>
-						<th>Harga Jual</th>
+					        <?php if($this->session->userdata("id_level") == 3) { ?>
+					          <th>Harga Beli</th>
+					          <th>Harga Jual</th>
+					      <?php } ?>
 						<th width="10%">Aksi</th>
 					</thead>
 					<tbody>

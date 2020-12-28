@@ -26,7 +26,13 @@
 			<label for="form-1-1" class="control-label">Jumlah Stok</label>
 		</div>
 		<div class="col-md-3">
-			<input type="text" name="stok" class="form-control form-control-sm emptyy" id="stok" placeholder="Isikan jumlah stok">
+			<input type="text" name="stok" class="form-control form-control-sm emptyy input-sm" id="stok" placeholder="Isikan jumlah stok">
+		</div>
+		<div class="col-md-2 forCairan">
+			Tanggal Expired
+		</div>
+		<div class="col-md-3 forCairan">
+			<input type="date" name="expired" id="expired" class="form-control form-control-sm input-sm">
 		</div>
 		<div class="col-md-4 maxMin">
 			<select class="form-control emptyy" name="type" id="type">
@@ -40,7 +46,7 @@
 			</select>
 		</div>
 		<!-- <div class="col-md-2 maxMin">
-			<input type="hidden" name="id_update" id="id_update">
+
 			<input type="text" name="minus" class="form-control form-control-sm emptyy" id="minus" placeholder="Isikan nilai minus" >
 		</div>
 		<div class="col-md-2 maxMin">
@@ -50,6 +56,7 @@
 	<div class="form-group row">
 		<div class="col-md-2"></div>
 		<div class="col-md-2">
+			<input type="hidden" name="id_update" id="id_update">
 			<input type="text" name="sph" id="sph" class="form-control form-control-sm input-sm maxMin isKriptok" placeholder="SPH">
 		</div>
 		<div class="col-md-2">
@@ -66,6 +73,7 @@
 <script>
 	$(document).ready(function() {
 		$(".select2option").select2();
+		$(".forCairan").hide();
 
 		$(".maxMin").hide();
 		$("#message").html("");
@@ -125,7 +133,8 @@
 			$("#add").val(add);
 		} else if(type == "cairan") {
 			var idy = "<?= isset($data) && $type == 'cairan' ?  $data->id : ''; ?>";
-			var idx = "<?= isset($data) && $type == 'cairan' ?  $data->id_cairan : ''; ?>";			
+			var idx = "<?= isset($data) && $type == 'cairan' ?  $data->id_cairan : ''; ?>";	
+			var exp = "<?= isset($data) && $type == 'cairan' ?  date('d-m-Y', strtotime($data->expired)) : ''; ?>";			
 			setTimeout(function(){
 				$("#selectJenis").val(3);
 				$("#selectJenis").trigger("change");
@@ -140,6 +149,7 @@
 
 			$("#id_update").val(idy);
 			$("#stok").val(stok);
+			$("#expired").val(exp);
 		}
 
 	});
@@ -165,6 +175,7 @@
 					$(".maxMin").hide();
 					$("#message").html("");
 					$(".select2option").select2();
+					$(".forCairan").hide();
 				}
 			}, "json");
 		} else if($(this).val() == 2) {
@@ -183,6 +194,7 @@
 					$(".maxMin").hide();
 					$("#message").html("");
 					$(".select2option").select2();
+					$(".forCairan").show();
 				}
 			}, "json");
 		} else if($(this).val() == 4) {
@@ -192,6 +204,7 @@
 					$(".isKriptok").show();
 					$("#message").html("");
 					$(".select2option").select2();
+					$(".forCairan").show();
 				}
 			}, "json");
 		}

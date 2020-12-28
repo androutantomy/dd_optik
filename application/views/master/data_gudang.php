@@ -11,6 +11,7 @@
 					<li class="active"><a data-toggle="tab" id="btn_frame" href="#home">Frame</a></li>
 					<li><a data-toggle="tab" href="#menu1" id="btn_lensa">Lensa</a></li>
 					<li><a data-toggle="tab" href="#menu2" id="btn_cairan">Cairan</a></li>
+					<li><a data-toggle="tab" href="#menu3" id="btn_softlense">Softlense</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -25,6 +26,10 @@
 					<div id="menu2" class="tab-pane fade">
 						<h3>DATA CAIRAN</h3>
 						<div id="data_cairan"></div>
+					</div>
+					<div id="menu3" class="tab-pane fade">
+						<h3>DATA SOFTLENSE</h3>
+						<div id="data_softlense"></div>
 					</div>
 				</div>
 			</div>
@@ -51,8 +56,10 @@
                     	$("#data_frame").load("<?= site_url('master/master_data/list_data_frame') ?>");
                     } else if(type == "lensa") {
                     	$("#data_lensa").load("<?= site_url('master/master_data/list_data_lensa') ?>");
-                    } else {
+                    } else if(type == 'cairan') {
                     	$("#data_cairan").load("<?= site_url('master/master_data/list_data_cairan') ?>");
+                    } else {
+                    	$("#data_softlense").load("<?= site_url('master/master_data/list_data_softlense') ?>");
                     }                    
                 } else {
                 	alert(d.m);
@@ -80,6 +87,10 @@
 
 	$("#btn_cairan").on("click", function() {
 		$("#data_cairan").load("<?= site_url('master/master_data/list_data_cairan') ?>");
+	});
+
+	$("#btn_softlense").on("click", function() {
+		$("#data_softlense").load("<?= site_url('master/master_data/list_data_softlense') ?>");
 	});
 
 	$(document).on("click", "#kembali", function() {
