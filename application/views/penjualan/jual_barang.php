@@ -44,6 +44,9 @@
 			<label>Jumlah Barang</label>
 			<input type="text" value="<?= $pembelian != '' ? $pembelian->qty : ''; ?>" name="qty" id="qty" class="form-control form-control-sm input-sm inputan_user" placeholder="QTY Barang">
 		</div>
+		<div class="col-md-3"><br><br>
+			<label id="pesan_cairan"></label>
+		</div>
 	</div>
 	<div class="form-group row">
 		<div class="col-md-3"></div>
@@ -68,6 +71,7 @@
 	$("#add_penjualan").hide();
 	$("#add_jual_cairan").hide();
 	$("#isSoftlense").hide();
+	$("#pesan_cairan").text("");
 
 	$(document).ready(function() {
 		var jenis_brg = "<?= $pembelian != '' ? $pembelian->id_jenis : ''; ?>";
@@ -127,6 +131,7 @@
 
 		if(id == '1') {
 			$("#isSoftlense").hide();
+			$("#pesan_cairan").text("");
 			$.post("<?= site_url('penjualan/option_cairan') ?>", '', function(data) {
 				if(data.s == 'sukses') {
 					$("#select_option").html(data.option);
@@ -135,6 +140,7 @@
 			}, 'json');
 		} else {
 			$("#isSoftlense").show();
+			$("#pesan_cairan").text("");
 			$.post("<?= site_url('penjualan/option_softlense') ?>", '', function(data) {
 				if(data.s == 'sukses') {
 					$("#select_option").html(data.option);
@@ -142,6 +148,14 @@
 				};
 			}, 'json');
 		}
+	});
+
+	$(document).on('change', "#cairan, #softlense", function() {
+		$.post("<?= site_url('penjualan/cek_expired/') ?>"+$(this).val(), "", function(data) {
+			if(data.s == true) {
+				$("#pesan_cairan").text(data.m);
+			}
+		}, 'json');
 	});
 
 	$("#penjualan_barang").on('submit', (function(e) {

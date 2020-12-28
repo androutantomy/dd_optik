@@ -8,6 +8,7 @@ class Master_data extends CI_Controller {
     $this->load->model("model_frame");
     $this->load->model("model_lensa");
     $this->load->model("model_cairan");
+    $this->load->model("model_softlense");
 
   }
 
@@ -283,6 +284,7 @@ class Master_data extends CI_Controller {
         "status" => 1,
         "id_toko" => 0,
         "stok" => $status["stok"] > 0 ? $this->input->post("stok") + $status["stok"] : $this->input->post("stok"),
+        "expired" => date('Y-m-d', strtotime($this->input->post("expired"))),
       ];
     } else {
       $sph = $this->input->post("sph") != "" ? $this->input->post("sph") : "-";
@@ -299,6 +301,7 @@ class Master_data extends CI_Controller {
         "sph" => $this->input->post("sph") != "" ? $this->input->post("sph") : "-",
         "cyl" => $this->input->post("cyl") != "" ? $this->input->post("cyl") : "-",
         "addl" => $this->input->post("add") != "" ? $this->input->post("add") : "-",
+        "expired" => date('Y-m-d', strtotime($this->input->post("expired"))),
       ];
     }
 
@@ -373,7 +376,9 @@ class Master_data extends CI_Controller {
         "status" => 1,
         "id_toko" => 0,
         "stok" => $this->input->post("stok"),
+        "expired" => date('Y-m-d', strtotime($this->input->post("expired"))),
       ];
+
     }
 
     if($this->input->post("jenis") == 1) {
@@ -383,6 +388,7 @@ class Master_data extends CI_Controller {
     } else {
       $i = $this->db->where("id", $this->input->post("id_update"))->update("data_cairan", $data);
     }
+
 
     if($i) {
       $json = ['s' => 'sukses', 'm' => 'Berhasil update data'];
@@ -465,6 +471,13 @@ class Master_data extends CI_Controller {
     $this->load->view("gudang/list_cairan", $data);
   }
 
+  function list_data_softlense($id = "")
+  {
+    $data['id'] = $id;
+    $data['type'] = "softlense";
+    $this->load->view("gudang/list_softlense", $data);
+  }
+
   function ajax_list_frame($id = "-")
   {
     $list = $this->model_frame->get_datatables($id);
@@ -512,7 +525,7 @@ class Master_data extends CI_Controller {
       $row[] = $no;
       $row[] = $field->nama;
       $row[] = $field->stok;
-      if($field->type_lensa == 1) {
+      /*if($field->type_lensa == 1) {
         $type_lensa = "[ - ] ".$field->min_max;;
       } elseif($field->type_lensa == 2) {
         $type_lensa = "[ + ] ".$field->min_max;;
@@ -522,7 +535,7 @@ class Master_data extends CI_Controller {
         $type_lensa = "[ - ] Add ".$field->min_max;
       } else {
         $type_lensa = "[ + ] ".$field->min_max;
-      }
+      }*/
       // $row[] = $type_lensa;
       $row[] = $field->sph;
       $row[] = $field->cyl;
@@ -561,6 +574,7 @@ class Master_data extends CI_Controller {
       $row = array();
       $row[] = $no;
       $row[] = $field->nama;
+      $row[] = date('d-m-Y', strtotime($field->expired));
       $row[] = $field->stok;
       if($this->session->userdata("id_level") == 3) {
         $row[] = $field->harga_beli;
@@ -579,6 +593,43 @@ class Master_data extends CI_Controller {
       "draw" => $_POST['draw'],
       "recordsTotal" => $this->model_cairan->count_all($id),
       "recordsFiltered" => $this->model_cairan->count_filtered($id),
+      "data" => $data,
+    );
+
+    echo json_encode($output);
+  }
+
+
+  function ajax_list_softlense($id = "-")
+  {
+    $list = $this->model_softlense->get_datatables($id);
+    $data = array();
+    $no = $_POST['start'];
+    foreach ($list as $field) {
+
+      $no++;
+      $row = array();
+      $row[] = $no;
+      $row[] = $field->nama;
+      $row[] = date('d-m-Y', strtotime($field->expired));
+      $row[] = $field->stok;
+      if($this->session->userdata("id_level") == 3) {
+        $row[] = $field->harga_beli;
+        $row[] = $field->harga_jual;
+      } 
+      if($id == "-") {
+        $row[] = "<button class='btn btn-sm btn-warning tambah_data' id='".md5($field->id)."' type='cairan'>EDIT</button>
+        <button class='btn btn-sm btn-danger hapus' id='".md5($field->id)."' type='cairan'>HAPUS</button>";
+      } else {
+        $row[] = "";
+      }
+      $data[] = $row;
+    }
+
+    $output = array(
+      "draw" => $_POST['draw'],
+      "recordsTotal" => $this->model_softlense->count_all($id),
+      "recordsFiltered" => $this->model_softlense->count_filtered($id),
       "data" => $data,
     );
 
