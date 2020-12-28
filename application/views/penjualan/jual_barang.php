@@ -1,3 +1,6 @@
+
+<link href="<?php echo base_url('assets/select2/css/select2.min.css')?>" rel="stylesheet">
+<script src="<?php echo base_url('assets/select2/js/select2.full.min.js') ?>"></script>
 <div class="row col-md-12">
 	<button class="btn btn-sm btn-danger pull-right" onclick="location.reload()">Kembali</button>
 </div>
@@ -38,7 +41,15 @@
 		</div>
 		<div class="col-md-3" id="isSoftlense">
 			<label>SPH</label>
-			<input type="text" value="<?= $pembelian != '' ? $pembelian->sph : ''; ?>" name="sph" id="sph" class="form-control form-control-sm input-sm inputan_user" placeholder="SPH">
+			<select name="sph" id="sph" class="form-control input-sm select2option">
+				<?php for($i=10; $i>0; $i-=0.25) { $current = strlen($i)<= 1 ? '-'.$i.'.00' : '-'.$i; ?>
+					<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= $pembelian != '' ? $pembelian->sph == $current ? 'selected' : '' : '' ?>> <?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
+				<?php } ?>
+
+				<?php for($i=0; $i<10; $i+=0.25) { $current1 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
+					<option value="<?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?>" <?= $pembelian != '' ? $pembelian->sph == $current1 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?></option>
+				<?php } ?>
+			</select>
 		</div>
 		<div class="col-md-3">
 			<label>Jumlah Barang</label>
@@ -68,6 +79,7 @@
 </form>
 
 <script>
+	$(".select2option").select2();
 	$("#add_penjualan").hide();
 	$("#add_jual_cairan").hide();
 	$("#isSoftlense").hide();

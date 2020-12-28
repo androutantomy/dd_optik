@@ -83,7 +83,7 @@
 					<?php } ?>
 
 					<?php for($i=0; $i<10; $i+=0.25) { $current1 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-					<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->rsph == $current1 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+					<option value="<?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?>" <?= isset($penjualan) ? $penjualan->rsph == $current1 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?></option>
 				<?php } ?>
 			</select>
 		</td>
@@ -93,7 +93,7 @@
 				<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->rcyl == $current2 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
 			<?php } ?>
 			<?php for($i=0; $i<10; $i+=0.25) { $current3 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-			<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->rcyl == $current3 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+			<option value="<?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?>" <?= isset($penjualan) ? $penjualan->rcyl == $current3 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?></option>
 		<?php } ?>
 	</select>
 </td>
@@ -102,11 +102,11 @@
 </td>
 <td>
 	<select name="addr" id="addr" class="form-control input-sm select2option">
-		<?php for($i=10; $i>0; $i-=0.25) { $current4 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
+		<!-- <?php for($i=10; $i>0; $i-=0.25) { $current4 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
 		<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->radd == $current4 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
-	<?php } ?>
+	<?php } ?> -->
 	<?php for($i=0; $i<10; $i+=0.25) { $current5 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-	<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->radd == $current5 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+	<option value="<?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?>" <?= isset($penjualan) ? $penjualan->radd == $current5 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?></option>
 <?php } ?>
 </select>
 </td>
@@ -119,7 +119,7 @@
 			<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->lsph == $current6 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
 		<?php } ?>
 		<?php for($i=0; $i<10; $i+=0.25) { $current7 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-		<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->lsph == $current7 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+		<option value="<?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?>" <?= isset($penjualan) ? $penjualan->lsph == $current7 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?></option>
 	<?php } ?>
 </select>
 </td>
@@ -129,7 +129,7 @@
 		<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->lcyl == $current8 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
 	<?php } ?>
 	<?php for($i=0; $i<10; $i+=0.25) { $current9 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-	<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->lcyl == $current9 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+	<option value="<?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?>" <?= isset($penjualan) ? $penjualan->lcyl == $current9 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?></option>
 <?php } ?>
 </select>
 </td>
@@ -138,11 +138,11 @@
 </td>
 <td>
 	<select name="addl" id="addl" class="form-control input-sm select2option">
-		<?php for($i=10; $i>0; $i-=0.25) { $current10 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
+		<!-- <?php for($i=10; $i>0; $i-=0.25) { $current10 = strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>
 		<option value="<?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?>" <?= isset($penjualan) ? $penjualan->ladd == $current10 ? 'selected' : '' : '' ?> ><?= strlen($i) <= 1 ? '-'.$i.'.00' : '-'.$i; ?></option>
-	<?php } ?>
+	<?php } ?> -->
 	<?php for($i=0; $i<10; $i+=0.25) { $current11 = strlen($i) <= 1 ? $i.'.00' : $i; ?>
-	<option value="<?= strlen($i) <= 1 ? $i.'.00' : $i; ?>" <?= isset($penjualan) ? $penjualan->ladd == $current11 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? $i.'.00' : $i; ?></option>
+	<option value="<?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?>" <?= isset($penjualan) ? $penjualan->ladd == $current11 ? 'selected' : '' : '' ?>><?= strlen($i) <= 1 ? '+'.$i.'.00' : '+'.$i; ?></option>
 <?php } ?>
 </select>
 </td>
@@ -230,10 +230,10 @@
 </div>
 <div class="form-group row">
 	<div class="col-md-2">
-		<label>Selesai Tgl</label>
+		<!-- <label>Selesai Tgl</label> -->
 	</div>
 	<div class="col-md-3">
-		<input type="date" name="tgl_selesai" id="tgl_selesai" class="form-control input-sm" value="<?= isset($penjualan) ? $penjualan->tgl_selesai : '' ?>" required="required">
+		<!-- <input type="date" name="tgl_selesai" id="tgl_selesai" class="form-control input-sm" value="<?= isset($penjualan) ? $penjualan->tgl_selesai : '' ?>" required="required"> -->
 	</div>
 	<div class="col-md-2">
 		Sisa

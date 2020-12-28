@@ -48,7 +48,7 @@ class Penjualan extends CI_Controller {
 			$row[] = $no;
             $row[] = $field->nama;
             $row[] = date("d-m-Y", strtotime($field->tanggal_nota));
-			$row[] = date("d-m-Y", strtotime($field->tgl_selesai));
+			// $row[] = date("d-m-Y", strtotime($field->tgl_selesai));
 			if ($field->status == 1) {
 				$status = "Transaksi Baru";
 			} elseif($field->status == 2) {
@@ -143,7 +143,6 @@ class Penjualan extends CI_Controller {
 			'uang_muka' => $this->input->post("uang_muka") != "" ? $this->input->post("uang_muka") : 0,
 			'sisa' => str_replace(".", "", $this->input->post("sisa")) != "" ? str_replace(".", "", $this->input->post("sisa")) : 0,
 			'tipe_pembelian' => $this->input->post("tipe_pembelian"),
-			// 'tgl_selesai' => $this->input->post("tgl_selesai"),
 			'is_bpjs' => $this->input->post("is_bpjs"),
 			'status' => $this->input->post("pesan_lensa") == "" ? 0 : 2,
 

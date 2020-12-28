@@ -7,7 +7,7 @@
 			<h4 class="card-title">Transaksi Penjualan</h4>
 			<div class="card-body">
 				<button class="btn btn-sm btn-success" id="add_penjualan">Kacamata</button>
-				<button class="btn btn-sm btn-success" id="add_jual_cairan">Penjualan Cairan</button>
+				<button class="btn btn-sm btn-success" id="add_jual_cairan">Cairan & Softlense</button>
 
 				<div id="transaksi_penjualan">
 
@@ -24,7 +24,7 @@
 									<th></th>
 									<th>Nama Pelanggan</th>
 									<th>Tanggal Transaksi</th>
-									<th>Tanggal Selesai</th>
+									<!-- <th>Tanggal Selesai</th> -->
 									<th>Status Transaksi</th>
 									<th></th>
 								</thead>

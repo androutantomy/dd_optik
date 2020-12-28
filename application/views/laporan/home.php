@@ -36,7 +36,7 @@
 
 				<ul class="nav nav-tabs">
 					<li class="active"><a data-toggle="tab" id="btn_frame" href="#home">Kacamata</a></li>
-					<li><a data-toggle="tab" href="#menu1" id="btn_lensa">Cairan</a></li>
+					<li><a data-toggle="tab" href="#menu1" id="btn_lensa">Cairan & Softlense</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -69,6 +69,7 @@
 							<thead>
 								<th></th>
 								<th>Toko</th>
+								<th>Tipe Barang</th>
 								<th>Pelanggan</th>
 								<th>Barang</th>
 								<th>Tanggal Beli</th>
