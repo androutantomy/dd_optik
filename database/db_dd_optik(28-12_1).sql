@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2020 at 04:01 AM
+-- Generation Time: Dec 27, 2020 at 03:21 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -33,7 +33,6 @@ CREATE TABLE `data_cairan` (
   `status` int(11) NOT NULL COMMENT '1:gudang 2:toko',
   `id_toko` int(11) NOT NULL COMMENT '0:gudang',
   `stok` int(11) NOT NULL,
-  `expired` date NOT NULL,
   `tanggal_update` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -41,9 +40,9 @@ CREATE TABLE `data_cairan` (
 -- Dumping data for table `data_cairan`
 --
 
-INSERT INTO `data_cairan` (`id`, `id_cairan`, `status`, `id_toko`, `stok`, `expired`, `tanggal_update`) VALUES
-(2, 1, 1, 0, 2, '2021-01-09', '2020-11-19 11:23:01'),
-(8, 1, 2, 1, 4, '2020-12-28', '2020-11-21 12:37:40');
+INSERT INTO `data_cairan` (`id`, `id_cairan`, `status`, `id_toko`, `stok`, `tanggal_update`) VALUES
+(2, 1, 1, 0, 2, '2020-11-19 11:23:01'),
+(8, 1, 2, 1, 4, '2020-11-21 12:37:40');
 
 -- --------------------------------------------------------
 
@@ -121,7 +120,6 @@ CREATE TABLE `data_softlense` (
   `sph` varchar(10) NOT NULL,
   `cyl` varchar(10) NOT NULL,
   `addl` varchar(10) NOT NULL,
-  `expired` datetime DEFAULT NULL,
   `tanggal_update` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -129,9 +127,9 @@ CREATE TABLE `data_softlense` (
 -- Dumping data for table `data_softlense`
 --
 
-INSERT INTO `data_softlense` (`id`, `id_softlense`, `status`, `id_toko`, `stok`, `sph`, `cyl`, `addl`, `expired`, `tanggal_update`) VALUES
-(1, 2, 1, 0, 10, '', '', '', NULL, '2020-12-23 13:49:15'),
-(2, 2, 1, 0, 11, '1,3', '1,3', '1', NULL, '2020-12-23 13:53:28');
+INSERT INTO `data_softlense` (`id`, `id_softlense`, `status`, `id_toko`, `stok`, `sph`, `cyl`, `addl`, `tanggal_update`) VALUES
+(1, 2, 1, 0, 10, '', '', '', '2020-12-23 13:49:15'),
+(2, 2, 1, 0, 11, '1,3', '1,3', '1', '2020-12-23 13:53:28');
 
 -- --------------------------------------------------------
 
