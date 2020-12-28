@@ -1,0 +1,29 @@
+
+<table width="100%">
+	<tr>
+		<td><center>List Penjualan Kacamata</center></td>
+	</tr>
+</table>
+
+<table width="100%">
+	<thead>
+		<th></th>
+		<th>Toko</th>
+		<th>Pelanggan</th>
+		<th>Frame</th>
+		<th>Lensa</th>
+		<th>Tanggal Beli</th>
+		<th>Total Harga</th>
+	</thead>
+	<tbody>
+					<tr>
+				<td>1</td>
+				<td>Toko A</td>
+				<td>Biasa single</td>
+				<td></td>
+				<td></td>
+				<td>2020-12-15 15:50:57</td>
+				<td>Rp. 24,000</td>
+			</tr>
+			</tbody>
+</table>
