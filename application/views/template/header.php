@@ -75,13 +75,6 @@
                                 <span class="title">DASHBOARD</span>
                             </a>
                         </li>
-
-                        <li class="nav-item ">
-                            <a href="<?= site_url('pembelian') ?>">
-                                <span class="icon-holder"><i class="ei-office-cart"></i></span>
-                                <span class="title">PEMBELIAN</span>
-                            </a>
-                        </li>
                         
                         <li class="nav-item ">
                             <a href="<?= site_url('penjualan') ?>">
