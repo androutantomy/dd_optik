@@ -7,7 +7,7 @@
 		<div class="col-md-5">
 			<select class="form-control form-control-sm" id="tipe" name="tipe">
 				<option value="1">Dari Gudang</option>
-				<option value="2" <?= $this->session->userdata("id_level") != 3 ? "" : "selected"; ?>>Dari Toko</option>
+				<option value="2" <?= $this->session->userdata("id_level") != 3 ? "selected" : ""; ?>>Dari Toko</option>
 			</select>
 		</div>
 		<div class="col-md-5">
@@ -68,8 +68,13 @@
 
 	$("#jenis").on("change", function() {
 		var selected = $(this).val();
+		var toko_asal = "-";
 
-		$.post("<?= site_url('toko/list_barang/') ?>"+selected, "", function(d) {
+		if($("#tipe").val() == "2") {
+			var toko_asal = $("#toko_asal").val();
+		}
+
+		$.post("<?= site_url('toko/list_barang/') ?>"+selected+'/'+toko_asal, "", function(d) {
 			if(d.s == "sukses") {
 				$("#selected_jenis").html(d.option);
 			} else {
