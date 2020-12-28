@@ -10,7 +10,7 @@ class Laporan extends CI_Controller {
 			redirect(base_url('auth'));
 		}
 
-		$this->load->model("")
+		$this->load->model("");
 	}
 
 	public function index()
