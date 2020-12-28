@@ -1,5 +1,5 @@
 <form id="restok_toko">
-<button class="btn btn-sm btn-danger" id="kembali">Kembali</button><br>
+<button class="btn btn-sm btn-danger" id="kembali" type="button">Kembali</button><br>
 	<div class="form-group row" <?= $this->session->userdata("id_level") != 3 ? "hidden" : "";  ?>>
 		<div class="col-md-2">
 			<label>Pilih Tipe Transaksi</label>
@@ -73,6 +73,8 @@
 		if($("#tipe").val() == "2") {
 			var toko_asal = $("#toko_asal").val();
 		}
+
+		console.log(selected)
 
 		$.post("<?= site_url('toko/list_barang/') ?>"+selected+'/'+toko_asal, "", function(d) {
 			if(d.s == "sukses") {

@@ -177,8 +177,18 @@ class Toko extends CI_Controller {
             $option = form_dropdown("frame", $option_arr, '', array("class" => "form-control form-control-sm", "id" => "frame", "required" => "required"));
 
         } elseif($type == 2) {
-
-            $g = $this->db->select("master_lensa.nama, master_lensa.id as id_master_lensa, data_lensa.*")->join("master_lensa", "master_lensa.id = data_lensa.id_lensa")->get_where("data_lensa", array("status" => 1))->result();
+            if($this->session->userdata("id_level") != 3) {
+                $this->db->where("data_lensa.status", "2");
+                $this->db->where("data_lensa.id_toko", $this->session->userdata("id_toko"));
+            } else {
+                if($toko != '-') {
+                    $this->db->where("data_lensa.id_toko", $toko);
+                    $this->db->where("data_lensa.status", "2");
+                } else {
+                    $this->db->where("data_lensa.status", "1");
+                }
+            }
+            $g = $this->db->select("master_lensa.nama, master_lensa.id as id_master_lensa, data_lensa.*")->join("master_lensa", "master_lensa.id = data_lensa.id_lensa")->get("data_lensa")->result();
             foreach($g as $val) {
 
                 $option_arr[$val->id] = '[ '.$val->stok.' ] '.$val->nama;
