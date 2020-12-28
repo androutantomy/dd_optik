@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2020 at 06:04 AM
+-- Generation Time: Dec 28, 2020 at 04:01 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -344,6 +344,7 @@ CREATE TABLE `penjualan` (
   `uang_muka` varchar(15) NOT NULL,
   `sisa` varchar(15) NOT NULL,
   `tipe_pembelian` int(11) NOT NULL,
+  `tgl_selesai` date NOT NULL,
   `tanggal_nota` timestamp NOT NULL DEFAULT current_timestamp(),
   `is_bpjs` datetime DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1 COMMENT '1: selesai 2: menunngu lensa 3:lensa sampai\r\n',
@@ -354,11 +355,11 @@ CREATE TABLE `penjualan` (
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id`, `nama`, `alamat`, `telp`, `lsph`, `lcyl`, `laxis`, `ladd`, `rsph`, `rcyl`, `raxis`, `radd`, `pd_jauh`, `pd_dekat`, `id_frame`, `id_lensa`, `nama_frame`, `nama_lensa`, `keterangan`, `harga_keterangan`, `potongan_frame`, `potongan_lensa`, `harga_frame`, `harga_lensa`, `uang_muka`, `sisa`, `tipe_pembelian`, `tanggal_nota`, `is_bpjs`, `status`, `id_toko`) VALUES
-(1, 'Tomy ', 'Jl. kemiri cand', '094817383737', '2', '3', '2,3', '1,9', '2', '3', '2,4', '2', '2,2', '1', 3, 2, NULL, '', 'Dikurangin bagian atas', '10000', '0', '0', '12000', '12000', '34000', '0', 1, '2020-11-28 11:43:42', '0000-00-00 00:00:00', 0, 0),
-(2, 'Biasa single', 'yogyakarta', '6281227058001', '-1.00', '-2.00', '90', '2.00', '-0.75', '-1.00', '90', '2.00', '65', '63', 3, 2, NULL, '', '', '0', '0', '0', '12000', '12000', '12000', '', 1, '2020-12-15 08:35:44', '0000-00-00 00:00:00', 0, 0),
-(3, 'Biasa single', 'bjh', 'jghjgug', '-10', '-10', '', '-10', '-10', '-10', '', '-10', '65', '65', 3, 6, NULL, '', '', '0', '10000', '10000', '12000', '12000', '10000', '', 1, '2020-12-15 08:50:57', '0000-00-00 00:00:00', 0, 0),
-(14, 'Tomy UMKM', 'alamat toko a', '094817383737', '-10', '-10', '', '-10', '-10', '-10', '', '-10', '', '', 3, 15, NULL, '', '', '100000', '10000', '50000', '12000', '500000', '150000', '402000', 2, '2020-12-19 14:38:20', '0000-00-00 00:00:00', 0, 0);
+INSERT INTO `penjualan` (`id`, `nama`, `alamat`, `telp`, `lsph`, `lcyl`, `laxis`, `ladd`, `rsph`, `rcyl`, `raxis`, `radd`, `pd_jauh`, `pd_dekat`, `id_frame`, `id_lensa`, `nama_frame`, `nama_lensa`, `keterangan`, `harga_keterangan`, `potongan_frame`, `potongan_lensa`, `harga_frame`, `harga_lensa`, `uang_muka`, `sisa`, `tipe_pembelian`, `tgl_selesai`, `tanggal_nota`, `is_bpjs`, `status`, `id_toko`) VALUES
+(1, 'Tomy ', 'Jl. kemiri cand', '094817383737', '2', '3', '2,3', '1,9', '2', '3', '2,4', '2', '2,2', '1', 3, 2, NULL, '', 'Dikurangin bagian atas', '10000', '0', '0', '12000', '12000', '34000', '0', 1, '2020-12-03', '2020-11-28 11:43:42', '0000-00-00 00:00:00', 0, 0),
+(2, 'Biasa single', 'yogyakarta', '6281227058001', '-1.00', '-2.00', '90', '2.00', '-0.75', '-1.00', '90', '2.00', '65', '63', 3, 2, NULL, '', '', '0', '0', '0', '12000', '12000', '12000', '', 1, '2020-12-12', '2020-12-15 08:35:44', '0000-00-00 00:00:00', 0, 0),
+(3, 'Biasa single', 'bjh', 'jghjgug', '-10', '-10', '', '-10', '-10', '-10', '', '-10', '65', '65', 3, 6, NULL, '', '', '0', '10000', '10000', '12000', '12000', '10000', '', 1, '2020-12-18', '2020-12-15 08:50:57', '0000-00-00 00:00:00', 0, 0),
+(14, 'Tomy UMKM', 'alamat toko a', '094817383737', '-10', '-10', '', '-10', '-10', '-10', '', '-10', '', '', 3, 15, NULL, '', '', '100000', '10000', '50000', '12000', '500000', '150000', '402000', 2, '2020-12-18', '2020-12-19 14:38:20', '0000-00-00 00:00:00', 0, 0);
 
 -- --------------------------------------------------------
 
