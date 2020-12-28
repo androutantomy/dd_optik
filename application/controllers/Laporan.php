@@ -101,6 +101,7 @@ class Laporan extends CI_Controller {
 				$nama_toko = $this->db->get_where("master_toko", array("id" => $field->id_toko))->row()->nama_toko;
 			}
             $row[] = $nama_toko;
+            $row[] = $field->id_jenis == 1 ? "Cairan" : "Softlense";
             $row[] = $field->nama;
             $row[] = $field->nama_barang;
             $row[] = date("d-m-Y", strtotime($field->tgl_transaksi));

@@ -15,7 +15,7 @@
 					</ul>
 					<div class="tab-content" id="list_daftar_toko">
 						<?php $no = 0; foreach($toko as $val) { ?>
-							<div id="toko_<?= $val->id ?>" class="tab-pane fade in ">
+							<div id="toko_<?= $val->id ?>" class="isActtive tab-pane fade in ">
 								<h3>Data Barang <?= $val->nama_toko?></h3>
 								<div id="data_<?= md5($val->id) ?>"></div>
 								<ul class="nav nav-tabs">
@@ -25,15 +25,15 @@
 								</ul>
 
 								<div class="tab-content">
-									<div id="home_<?= md5($val->id) ?>" class="tab-pane fade in">
+									<div id="home_<?= md5($val->id) ?>" class="isActtive tab-pane fade in">
 										<h3>DATA FRAME</h3>
 										<div id="data_frame_<?= md5($val->id) ?>"></div>
 									</div>
-									<div id="menu1_<?= md5($val->id) ?>" class="tab-pane fade">
+									<div id="menu1_<?= md5($val->id) ?>" class="isActtive tab-pane fade">
 										<h3>DATA LENSA</h3>
 										<div id="data_lensa_<?= md5($val->id) ?>"></div>
 									</div>
-									<div id="menu2_<?= md5($val->id) ?>" class="tab-pane fade">
+									<div id="menu2_<?= md5($val->id) ?>" class="isActtive tab-pane fade">
 										<h3>DATA CAIRAN</h3>
 										<div id="data_cairan_<?= md5($val->id) ?>"></div>
 									</div>
@@ -52,6 +52,9 @@
 		$("#list_toko_data").load("<?= site_url('toko/restok_toko') ?>");
 	});
 
+	$(".daftar_toko").on("click", function(){		
+		$(".isActtive").removeClass("active");
+	});
 
 	$(document).on('click', '.btn_data_toko', function() {
 		var id = $(this).attr("id");
