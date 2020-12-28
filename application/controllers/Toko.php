@@ -199,9 +199,9 @@ class Toko extends CI_Controller {
     function simpan_data_restok_toko()
     {
         $tipe = $this->input->post("tipe");
-        echo "<pre>";
-        print_r($this->input->post());
-        exit;
+        // echo "<pre>";
+        // print_r($this->input->post());
+        // exit;
 
         if($this->input->post("jenis") == 1) {
             $status = $this->cek_frame($this->input->post("frame"), 1, "frame", $this->input->post("stok"), $tipe);
