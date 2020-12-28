@@ -657,6 +657,10 @@ class Master_data extends CI_Controller {
 
   function restok_toko($id_toko = '')
   {
+    
+    if($this->session->userdata("id_level") != 3) {
+      $this->db->where("id", $this->session->userdata("id_toko"));
+    }
     $data['toko'] = $this->db->get("master_toko")->result();
 
     $this->template->load("gudang/restok_toko", $data);

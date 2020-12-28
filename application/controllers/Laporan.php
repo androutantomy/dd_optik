@@ -36,6 +36,9 @@ class Laporan extends CI_Controller {
 		$data['start'] = $start;
 		$data['end'] = $end;
 
+		if($this->session->userdata("id_level") != 3) {
+			$this->db->where("id", $this->session->userdata("id_toko"));
+		}
 		$data['toko'] = $this->db->get("master_toko")->result();
 		$this->template->load("laporan/home", $data);
 	}

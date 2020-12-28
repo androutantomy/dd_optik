@@ -59,7 +59,7 @@
                     <div class="side-nav-logo">
                         <a href="">
                             <!-- <p class="mrg-btm-15 font-size-15">Konco.co</p> -->
-                            <!-- <div class="logo logo-dark" style="background-image: url('<?php echo base_url() ?>assets/images/logo/dd-logo.png')"></div> -->
+                            <div class="logo logo-dark" style="background-image: url('<?php echo base_url() ?>assets/images/logo/dd-logo.png')"></div>
                             <div class="logo logo-white" style="background-image: url('<?php echo base_url() ?>assets/images/logo/dd-logo.png')"></div>
                         </a><br><br>
                         <div class="mobile-toggle side-nav-toggle">
@@ -151,7 +151,7 @@
                         </li>
                         <?php } ?>
 
-                        <?php $array= array('5');?>
+                        <?php $array= array('5', '4');?>
                          <?php if (!in_array($this->session->userdata('id_level'), $array) ) { ?>
                         <li class="nav-item dropdown">
                             <a class='dropdown-toggle' href='javascript:void(0);'>
@@ -229,11 +229,10 @@
                             </a>
                             <ul class="dropdown-menu">
 
-                                <li role="separator" class="divider"></li>
+                                <!-- <li role="separator" class="divider"></li> -->
                                 <li>
                                     <?php echo anchor('Auth/logout', '<i class="ti-power-off pdd-right-10"></i>
                                     <span>Logout</span>') ?>
-                                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 
                                 </li>
                             </div>

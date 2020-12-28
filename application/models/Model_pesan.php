@@ -15,9 +15,14 @@ class Model_pesan extends CI_Model {
 
         private function _get_datatables_query()
         {   
-      
+            
             $this->db->select("pesan_lensa.*, penjualan.nama")->from($this->table)
             ->join("penjualan", "penjualan.id = pesan_lensa.id_pesanan");
+            
+            if($this->session->userdata("id_level") != 3) {
+                $this->db->join("master_toko", "master_toko.id = penjualan.id_toko");
+                $this->db->where("master_toko.id", $this->session->userdata("id_toko"));
+            }
             
             $i = 0; 
             foreach ($this->column_search as $item) // loop column 
