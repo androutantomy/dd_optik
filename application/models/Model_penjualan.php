@@ -16,7 +16,11 @@ class Model_penjualan extends CI_Model {
     private function _get_datatables_query($level='-')
     {   
 
-        $this->db->select("*")->from("penjualan");
+        if($this->session->userdata("id_level") != 3) {
+            $this->db->join("master_toko", "master_toko.id = penjualan.id_toko");
+            $this->db->where("master_toko.id", $this->session->userdata("id_toko"));
+        }
+        $this->db->select("penjualan.*")->from("penjualan");
 
         $i = 0; 
         foreach ($this->column_search as $item) 
@@ -56,7 +60,11 @@ class Model_penjualan extends CI_Model {
         $ordere = array("tgl_transaksi" => "desc");
         $column_searce = array("nama", "tgl_transaksi");
 
-        $this->db->select("*")->from("penjualan_barang");
+        if($this->session->userdata("id_level") != 3) {
+            $this->db->join("master_toko", "master_toko.id = penjualan_barang.id_toko");
+            $this->db->where("master_toko.id", $this->session->userdata("id_toko"));
+        }
+        $this->db->select("penjualan_barang.*")->from("penjualan_barang");
 
         $i = 0; 
         foreach ($column_searce as $item) 
