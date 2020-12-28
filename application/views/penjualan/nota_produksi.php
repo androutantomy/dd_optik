@@ -4,7 +4,7 @@
 <header>
 	<table width="50%" style="margin-left:auto; margin-right:auto; border-collapse: collapse;" style="font-size:11px;">
 		<tr>
-			<th valign="bottom" align='right' width='40%'><img src="<?= $data_toko != "" ? $data_toko->logo != "" ? $data_toko->nama_toko : base_url()."uploads/logo/_173431.png" : base_url()."uploads/logo/_173431.png" ?>" width="100px"></th>
+			<th valign="bottom" align='right' width='40%'><img src="<?= $data_toko != "" ? $data_toko->logo != "" ? $data_toko->logo : base_url()."uploads/logo/_173431.png" : base_url()."uploads/logo/_173431.png" ?>" width="100px"></th>
 			<th valign="top" align='right' width='60%' style="padding:0px 0px 0px 0px; line-height:5px">
 				<table border="0">
 					<h5><center><?= $data_toko != "" ? $data_toko->nama_toko : "Ruko Kalinangka"; ?><br><br><br><br><br> <?= $data_toko != "" ? $data_toko->alamat : "Jl. Osamaliki 43 E salatiga"; ?> <br><br><br><br><br><?= $data_toko != "" ? "Telp. ".$data_toko->telp : "Telp. 0823 2493 6595"; ?></center></h5>
@@ -101,14 +101,5 @@
 		<td width="50%"><?= $pembelian->keterangan; ?></td>
 		<td width="5%"></td>
 		<td></td>
-	</tr>
-</table>
-<table border="0" width="100%">
-	<tr>
-		<td width="20%">Selesai Tgl</td>
-		<td width="2%"> : </td>
-		<td><?= date("d-m-Y", strtotime($pembelian->tgl_selesai)); ?></td>
-		<td style="padding-top: 20px; ">&nbsp;
-		</td>
 	</tr>
 </table>

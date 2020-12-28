@@ -17,7 +17,7 @@
 <table width="100%" border="0">
 	<tr>
 		<td width="30%" style=" text-align: center;">
-			<img src="<?= $data_toko != "" ? $data_toko->logo != "" ? $data_toko->nama_toko : base_url()."uploads/logo/_173431.png" : base_url()."uploads/logo/_173431.png" ?>" width="60px">
+			<img src="<?= $data_toko != "" ? $data_toko->logo != "" ? $data_toko->logo : base_url()."uploads/logo/_173431.png" : base_url()."uploads/logo/_173431.png" ?>" width="60px">
 		</td>
 		<td width="40%" class="vl">
 			<h4><?= $data_toko != "" ? $data_toko->nama_toko : "Ruko Kalinangka"; ?></h4>

@@ -12,7 +12,7 @@
 </style>
 <table width="50%" style="margin-left:auto; margin-right:auto; border-collapse: collapse;" style="font-size:4px;">
 	<tr>
-		<td valign="bottom" align='right' width='40%'><img src="<?= $data_toko != "" ? $data_toko->logo != "" ? $data_toko->nama_toko : base_url()."uploads/logo/_173431.png" : base_url()."uploads/logo/_173431.png" ?>" width="60px"></td>
+		<td valign="bottom" align='right' width='40%'><img src="<?= $data_toko != "" ? $data_toko->logo != "" ? $data_toko->logo : base_url()."uploads/logo/_173431.png" : base_url()."uploads/logo/_173431.png" ?>" width="60px"></td>
 		<td valign="top" align='right' width='60%' style="padding:0px 0px 0px 0px; line-height:5px">
 			<table border="0">
 				<h5><center><?= $data_toko != "" ? $data_toko->nama_toko : "Ruko Kalinangka"; ?><br><br><br><br><br> <?= $data_toko != "" ? $data_toko->alamat : "Jl. Osamaliki 43 E salatiga"; ?> <br><br><br><br><br><?= $data_toko != "" ? "Telp. ".$data_toko->telp : "Telp. 0823 2493 6595"; ?></center></h5>
