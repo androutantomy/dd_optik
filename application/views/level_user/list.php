@@ -8,7 +8,7 @@
     <div class="card-block text-dark">
             <h4 class="card-title">Data Role User</h4>
             <div class="card-body">
-            <button data-toggle="modal" data-target="#modal-tambah" class="btn btn-sm btn-success">TAMBAH ROLE USER</button>
+            <!-- <button data-toggle="modal" data-target="#modal-tambah" class="btn btn-sm btn-success">TAMBAH ROLE USER</button> -->
             <div class="table-overflow">
                 <table class="table">
                     <thead>
@@ -25,7 +25,7 @@
                           <td><?= $row->nama_level?></td>
                           <td>
 								<button class="btn btn-sm btn-info edit" id="<?= md5($row->id) ?>" data-toggle="modal" data-target="#modal_edit" id="">Edit</button>
-                                <button class="btn btn-sm btn-danger hapus" id="<?= md5($row->id) ?>">Hapus</button>
+                                <!-- <button class="btn btn-sm btn-danger hapus" id="<?= md5($row->id) ?>">Hapus</button> -->
                           </td>
                           <!-- <td>" . anchor('Level_user/edit/' . $row->id, 'Edit', array('class' => 'btn btn-info')) . "</td>
                           <td>" . anchor('Level_user/Hapus/' . $row->id, '<i class="btn btn-danger swal-function">Hapus</i>') . "</td> -->

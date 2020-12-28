@@ -1,4 +1,5 @@
 <form id="restok_toko">
+<button class="btn btn-sm btn-danger" id="kembali">Kembali</button><br>
 	<div class="form-group row" <?= $this->session->userdata("id_level") != 3 ? "hidden" : "";  ?>>
 		<div class="col-md-2">
 			<label>Pilih Tipe Transaksi</label>
