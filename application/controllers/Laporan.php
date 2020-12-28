@@ -9,57 +9,52 @@ class Laporan extends CI_Controller {
 		if($this->session->userdata('status') == ''){
 			redirect(base_url('auth'));
 		}
-
-		$this->load->model("");
+		$this->load->model("model_laporan");
 	}
 
 	public function index()
 	{	
-		// print_r($this->input->get());exit;
-		if($this->input->get('tanggal_mulai') != '') {
-			$data['tanggal_mulai'] = $this->input->get('tanggal_mulai');
-			$mulai = new DateTime($this->input->get('tanggal_mulai'));
-			$selesai = new DateTime($this->input->get('tanggal_selesai'));
-			$diff = date_diff($mulai, $selesai);
-			$beda = $diff->format("%a");
-			if($beda > 8) {
-				?>
-				<script>
-					alert('Maaf, Maksimal jangka waktu 1 minggu');
-					location.href = "<?= site_url('laporan') ?>";
-				</script>
-				<?php
-			}
+		$id_toko = "-";
+		$start = "-";
+		$end = "-";
 
-
-			$data['jenis'] = $this->input->get('jenis');
-			if($this->input->get('jenis') == 1) {
-				$data['frame'] = $this->input->get('frame');
-			} elseif($this->input->get('jenis') == 1) {
-				$data['lensa'] = $this->input->get('lensa');
-			} elseif($this->input->get('jenis') == 1) {
-				$data['cairan'] = $this->input->get('cairan');
-			} else {
-				$data['lain'] = $this->input->get('lain');
-			}
-
+		if($this->input->get('toko') != '') {
+			$id_toko = $this->input->get("toko");
+		}
+		if($this->input->get('tgl_mulai') != '') {
+			$start = $this->input->get("tgl_mulai");
+		}
+		if($this->input->get('tgl_selesai') != '') {
+			$end = $this->input->get("tgl_selesai");
 		}
 
 		if($this->input->get("submit") == 'download') {
-			$this->download_pdf();
+			$this->download_excel($id_toko, $start, $end);
 		}
 
-		$this->template->load("laporan/home");
+		$data['id_toko'] = $id_toko;
+		$data['start'] = $start;
+		$data['end'] = $end;
+
+		$data['toko'] = $this->db->get("master_toko")->result();
+		$this->template->load("laporan/home", $data);
 	}
 
-	function download_excel()
+	function download_excel($id_toko, $start, $end)
 	{
-		$this->load->view("laporan/excel");
+		$data['listnya'] = $this->model_laporan->get_dataexcel($id_toko, $start, $end);
+		$this->load->view("laporan/excel", $data);
 	}
 
-	function list_data()
+	function download_excel_cairan($id_toko, $start, $end)
+	{
+		$data['listnya'] = $this->model_laporan->get_dataexcel_cairan($id_toko, $start, $end);
+		$this->load->view("laporan/excel_cairan", $data);
+	}
+
+	function list_data($id_toko="-", $start="-", $end="-")
 	{		
-        $list = $this->model_penjualan->get_datatables();
+        $list = $this->model_laporan->get_datatables($id_toko, $start, $end);
 		$data = array();
 		$no = $_POST['start'];
 		foreach ($list as $field) {
@@ -67,19 +62,56 @@ class Laporan extends CI_Controller {
            	$no++;
 			$row = array();
 			$row[] = $no;
+			$nama_toko = "";
+			if($field->id_toko != 0) {
+				$nama_toko = $this->db->get_where("master_toko", array("id" => $field->id_toko))->row()->nama_toko;
+			}
+            $row[] = $nama_toko;
             $row[] = $field->nama;
+            $row[] = $field->nama_frame;
+            $row[] = $field->nama_lensa;
             $row[] = date("d-m-Y", strtotime($field->tanggal_nota));
-			$row[] = date("d-m-Y", strtotime($field->tgl_selesai));
-            $row[] = "<button class='btn btn-sm btn-warning pelunasan' type='nota' id='". md5($field->id) ."'><i class='fa fa-money'></i> Pelunasan</button>
-            			<button class='btn btn-sm btn-warning nota' type='nota' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota</button>
-            			<button class='btn btn-sm btn-success nota_produksi' type='nota_produksi' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota Produksi</button>";
+			$row[] = "Rp. ".number_format($field->harga_keterangan+$field->harga_frame+$field->harga_lensa);
 			$data[] = $row;
 		}
 
 		$output = array(
 			"draw" => $_POST['draw'],
-			"recordsTotal" => $this->model_penjualan->count_all(),
-			"recordsFiltered" => $this->model_penjualan->count_filtered(),
+			"recordsTotal" => $this->model_laporan->count_all(),
+			"recordsFiltered" => $this->model_laporan->count_filtered($id_toko, $start, $end),
+			"data" => $data,
+        );
+        
+		echo json_encode($output);
+    
+	}
+
+	function list_data_cairan($id_toko="-", $start="-", $end="-")
+	{		
+        $list = $this->model_laporan->get_datatables2($id_toko, $start, $end);
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $field) {
+           	
+           	$no++;
+			$row = array();
+			$row[] = $no;
+			$nama_toko = "";
+			if($field->id_toko != 0) {
+				$nama_toko = $this->db->get_where("master_toko", array("id" => $field->id_toko))->row()->nama_toko;
+			}
+            $row[] = $nama_toko;
+            $row[] = $field->nama;
+            $row[] = $field->nama_barang;
+            $row[] = date("d-m-Y", strtotime($field->tgl_transaksi));
+			$row[] = "Rp. ".number_format($field->nominal);
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->model_laporan->count_all2(),
+			"recordsFiltered" => $this->model_laporan->count_filtered2($id_toko, $start, $end),
 			"data" => $data,
         );
         

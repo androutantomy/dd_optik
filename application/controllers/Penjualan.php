@@ -114,6 +114,8 @@ class Penjualan extends CI_Controller {
 
 	function simpan_data($id = '')
 	{
+		$nama_lensa = strstr($this->input->post("nama_lensa"), "] ");
+		$nama_frame = strstr($this->input->post("nama_frame"), "] ");
 		$data = [
 			'nama' => $this->input->post("nama"),
 			'alamat' => $this->input->post("alamat"),
@@ -130,6 +132,8 @@ class Penjualan extends CI_Controller {
 			'pd_dekat' => $this->input->post("pd_dekat"),
 			'id_frame' => $this->input->post("frame"),
 			'id_lensa' => $this->input->post("lensa"),
+			'nama_frame' => str_replace("] ", "", $nama_frame),
+			'nama_lensa' => str_replace("] ", "", $nama_lensa),
 			'keterangan' => $this->input->post("keterangan"),
 			'harga_keterangan' => $this->input->post("harga_keterangan") != "" ? $this->input->post("harga_keterangan") : 0,
 			'potongan_frame' => $this->input->post("harga_frame") != "" ? $this->input->post("harga_frame") : 0,

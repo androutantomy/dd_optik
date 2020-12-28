@@ -346,11 +346,14 @@
 		e.preventDefault(e);
 		var id = "<?= isset($penjualan) ? md5($penjualan->id) : ''; ?>";
 		$("#modal_loader").show();
+		var fd = new FormData(this);
+		fd.append('nama_lensa', $("#lensa option:selected").html());
+		fd.append('nama_frame', $("#frame option:selected").html());
 
 		$.ajax({
 			url: "<?= site_url() ?>Penjualan/simpan_data/"+id,
 			type: "POST",
-			data: new FormData(this),
+			data: fd,
 			contentType: false,
 			cache: false,
 			dataType: 'json',

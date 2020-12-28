@@ -8,44 +8,77 @@
 			<div class="card-body" id="data_gudang">
 				<form method="GET" action="<?= site_url('laporan') ?>">
 					<div class="form-group row">
-						<div class="col-md-2">
-							<select name="laporan" id="laporan" class="form-control form-control-sm">
-								<option value="1">Harian</option>
-								<option value="2">Mingguan</option>
-								<option value="3">Bulanan</option>
+						<div class="col-md-3">
+							<label>Toko</label>
+							<select class="form-control form-control-sm input-sm" name="toko" id="toko">
+								<option value="-">Pilih Toko</option>
+								<?php foreach($toko as $val) { ?>
+									<option value="<?= $val->id ?>"><?= $val->nama_toko ?></option>
+								<?php } ?>
 							</select>
 						</div>
 						<div class="col-md-3">
-							<input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control input-sm" placeholder="Isikan tanggal mulai">
+							<label>Tanggal Mulai</label>
+							<input type="date" name="tgl_mulai" id="tgl_mulai" value="<?= $start != '-' ? $start : ''; ?>" class="form-control form-control-sm input-sm" placeholder="Tanggal Mulai">
 						</div>
 						<div class="col-md-3">
-							<select class="form-control form-control-sm input-sm" name="jenis_laporan" id="jenis_laporan">
-								<option value="1">Rincian Keluar Masuk</option>
-								<option value="2">Rincian Stok</option>
-							</select>
+							<label>Tanggal Selesai</label>
+							<input type="date" name="tgl_selesai" id="tgl_selesai" value="<?= $end != '-' ? $end : ''; ?>" class="form-control form-control-sm input-sm" placeholder="Tanggal Selesai">
 						</div>
-						<div class="col-md-2">
-							<select class="form-control form-control-sm input-sm" name="jenis" id="jenis" required="required">
-								<option value="0">Pilih Jenis</option>
-								<option value="1">Frame</option>
-								<option value="2">Lensa</option>
-								<option value="3">Cairan</option>
-								<option value="4">Lain</option>
-							</select>
-						</div>
-						<div class="col-md-2" id="daftar_option">
-						</div>
-						<div class="col-md-12"><br><br></div>
+					</div>
+					<div class="form-group row">
 						<div class="col-md-12" style="margin-top: 5px;">
 							<button class="btn btn-sm btn-success pull-right" name="submit" value="tampilkan"><i class="ei-right-chevron-circle"></i> Tampilkan</button>
-							<button class="btn btn-sm btn-warning pull-right" name="submit" value="download"><i class="fa fa-file"> Download</i></button>
 						</div>
 					</div>
 				</form>
 				<br>
-				<table id="tabel_list_laporan" class="table-overflow table table-striped table-overflow">
-					
-				</table>
+
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" id="btn_frame" href="#home">Kacamata</a></li>
+					<li><a data-toggle="tab" href="#menu1" id="btn_lensa">Cairan</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<div id="home" class="tab-pane fade in active"><br>
+						<div class="form-group row">
+							<div class="col-md-12">
+								<a role="button" class="btn btn-sm btn-success pull-right" href="<?= site_url('laporan/download_excel/'.$id_toko.'/'.$start.'/'.$end) ?>" target="_blank">Download</a>
+							</div>
+						</div>
+						<table id="tabel_list_laporan" class="table-overflow table table-striped table-overflow">
+							<thead>
+								<th></th>
+								<th>Toko</th>
+								<th>Pelanggan</th>
+								<th>Frame</th>
+								<th>Lensa</th>
+								<th>Tanggal Beli</th>
+								<th>Total Harga</th>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<div id="menu1" class="tab-pane fade"><br>
+						<div class="form-group row">
+							<div class="col-md-12">
+								<a role="button" class="btn btn-sm btn-success pull-right" href="<?= site_url('laporan/download_excel_cairan/'.$id_toko.'/'.$start.'/'.$end) ?>" target="_blank">Download</a>
+							</div>
+						</div>
+						<table id="tabel_list_laporan_cairan" class="table-overflow table table-striped table-overflow" width="100%">
+							<thead>
+								<th></th>
+								<th>Toko</th>
+								<th>Pelanggan</th>
+								<th>Barang</th>
+								<th>Tanggal Beli</th>
+								<th>Total Harga</th>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -53,28 +86,52 @@
 
 <script>
 	$(document).ready(function() {
-		$(document).ready(function() {
-			table = $('#tabel_list_laporan').DataTable({
-				dom: 'Bfrtip',
-				buttons: [
-				'excelHtml5',
-				],
-				"processing": true, 
-				"serverSide": true, 
-				"order": [], 
+		var toko = "<?= $id_toko ?>";
+		var start = "<?= $start ?>";
+		var end = "<?= $end ?>";
+		table = $('#tabel_list_laporan').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+			'excelHtml5',
+			],
+			"processing": true, 
+			"serverSide": true, 
+			"order": [], 
 
-				"ajax": {
+			"ajax": {
 
-					"url": "<?= site_url('penjualan/list_data') ?>",
-					"type": "POST"
-				},
+				"url": "<?= site_url('laporan/list_data/') ?>"+toko+'/'+start+'/'+end,
+				"type": "POST"
+			},
 
-				"columnDefs": [{
-					"targets": [0], 
-					"orderable": false, 
-				}, ],
-			});
+			"columnDefs": [{
+				"targets": [0], 
+				"orderable": false, 
+			}, ],
 		});
+
+		table = $('#tabel_list_laporan_cairan').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+			'excelHtml5',
+			],
+			"processing": true, 
+			"serverSide": true, 
+			"order": [], 
+
+			"ajax": {
+
+				"url": "<?= site_url('laporan/list_data_cairan/') ?>"+toko+'/'+start+'/'+end,
+				"type": "POST"
+			},
+
+			"columnDefs": [{
+				"targets": [0], 
+				"orderable": false, 
+			}, ],
+		});
+
+
 		$("#laporan").on("change", function() {
 			var val = $(this).val();
 			if(val == 1) {
