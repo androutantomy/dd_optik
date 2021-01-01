@@ -73,13 +73,13 @@
 
                                     <?php if(count($listnya) > 0) { foreach($listnya as $val) { 
                                         if ($val->status == 1) {
-                                            $status = "Transaksi Baru";
+                                            $status = "Transaksi Selesai";
                                         } elseif($val->status == 2) {
                                             $status = "Proses pesan lensa";
                                         } elseif($val->status == 3) {
                                             $status = "Lensa pesanan sampai";
                                         } else {
-                                            $status = "Transaksi Selesai";
+                                            $status = "Transaksi Baru";
                                         }
                                         ?>
 
