@@ -29,8 +29,8 @@
                                   <td><?= $no+=1; ?></td>
                                   <td><?=$row->nama_lengkap ?></td>
                                   <td><?=$row->username ?></td>
-                                  <td><?=$row->id_level ?></td>
-                                  <td><?=$row->id_toko ?></td>
+                                  <td><?=$row->nama_level ?></td>
+                                  <td><?=$row->nama_toko ?></td>
                                   <td><img src="<?= $row->logo ?>" width="30"></td>
                                   <td><button id="<?= md5($row->id) ?>" data-toggle="modal" data-target="#modal_edit" class="btn btn-sm btn-info edit">Edit</button><td>
                                       <button class="btn btn-sm btn-danger hapus" id="<?= md5($row->id) ?>">Hapus</button>
