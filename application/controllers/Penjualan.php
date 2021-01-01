@@ -149,7 +149,6 @@ class Penjualan extends CI_Controller {
 
 		];
 
-		print_r($data);exit;
 		if($id == "") {
 			if($this->input->post("frame") != "" && $this->input->post("frame") != "0") {
 				$gF = $this->db->get_where("data_frame", array("id" => $this->input->post("frame")))->row()->stok;
