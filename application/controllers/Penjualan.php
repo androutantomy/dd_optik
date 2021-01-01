@@ -50,13 +50,13 @@ class Penjualan extends CI_Controller {
             $row[] = date("d-m-Y", strtotime($field->tanggal_nota));
 			// $row[] = date("d-m-Y", strtotime($field->tgl_selesai));
 			if ($field->status == 1) {
-				$status = "Transaksi Baru";
+				$status = "Transaksi Selesai";
 			} elseif($field->status == 2) {
 				$status = "Proses pesan lensa";
 			} elseif($field->status == 3) {
 				$status = "Lensa pesanan sampai";
 			} else {
-				$status = "Transaksi Selesai";
+				$status = "Transaksi Baru";
 			}
 			$row[] = $status;
 
@@ -149,6 +149,7 @@ class Penjualan extends CI_Controller {
 
 		];
 
+		print_r($data);exit;
 		if($id == "") {
 			if($this->input->post("frame") != "" && $this->input->post("frame") != "0") {
 				$gF = $this->db->get_where("data_frame", array("id" => $this->input->post("frame")))->row()->stok;
