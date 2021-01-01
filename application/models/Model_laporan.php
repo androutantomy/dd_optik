@@ -32,6 +32,8 @@ class Model_laporan extends CI_Model {
             $this->db->where("penjualan.tanggal_nota <=", $end." 23:59:00");
         }
 
+        $this->db->where("status", 1);
+
         $i = 0; 
             foreach ($this->column_search as $item) // loop column 
             {

@@ -80,10 +80,11 @@
 		var id = $(this).attr("id");
 		var conf = confirm("Apakah anda yakin ?");
 
-		if(conf == "true"){
+		if(conf == true){
 			$.post("<?= site_url('penjualan/transaksi_selesai/') ?>"+id, "", function(data) {
 				if(data.s == "sukses") {
 					alert(data.m);
+					location.reload();
 				} else {
 					alert(data.m);
 				}
