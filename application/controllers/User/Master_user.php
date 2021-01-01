@@ -10,11 +10,11 @@ class Master_user extends CI_Controller {
     }
 
     function index() {
-        $this->db->select("user.*, master_user_level.nama_level");
+        $this->db->select("user.*, master_user_level.nama_level, master_toko.nama_toko");
         $this->db->join('master_user_level','master_user_level.id = user.id_level', 'left');
-        $this->db->select("user.*, master_toko.nama_toko");
         $this->db->join('master_toko','master_toko.id = user.id_level', 'left');
         $data['user'] = $this->db->get('user')->result();
+        
         $data['toko'] = $this->db->get("master_toko")->result();
         $data['level'] = $this->db->get("master_user_level")->result();
         $this->template->load('master/list_user', $data);
@@ -30,7 +30,7 @@ class Master_user extends CI_Controller {
             'password' => sha1(md5($this->input->post("password")))
         );
 
-        if(!empty($_FILES["logo_edit"]["name"])){
+        if(!empty($_FILES["logo"]["name"])){
             $mkdir = "assets/images/foto_profil/";
 
             if(!is_dir($mkdir)){ 
@@ -70,7 +70,7 @@ class Master_user extends CI_Controller {
                 }
             }
         }
-        // print_r($data);exit;
+
         $i = $this->db->insert("user", $data);
 
         if($i) {
@@ -80,9 +80,7 @@ class Master_user extends CI_Controller {
         }
 
         echo json_encode($json);exit;
-        
-        // print_r($data);
-        // exit;
+    
     }
 
     function edit() {
