@@ -63,7 +63,7 @@ class Penjualan extends CI_Controller {
             $button = "<button class='btn btn-sm btn-warning pelunasan' type='nota' id='". md5($field->id) ."'><i class='fa fa-money'></i> Pelunasan</button>
             			<button class='btn btn-sm btn-warning nota' type='nota' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota</button>
             			<button class='btn btn-sm btn-success nota_produksi' type='nota_produksi' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Nota Produksi</button>";
-            if($field->status > 1 || $field->status == 0) {
+            if($field->status > 1 || $field->status == 0 && $field->sisa == 0) {
             	$button .= "<button class='btn btn-sm btn-success transaksi_selesai' id='". md5($field->id) ."'><i class='fa fa-pencil-square'></i> Selesai</button>";
             }
             $row[] = $button;

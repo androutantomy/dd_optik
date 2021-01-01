@@ -245,7 +245,7 @@
 </div>
 <div class="form-group row">
 	<div class="col-md-12">
-		<button <?= isset($penjualan) ? $penjualan->id_toko != $this->session->userdata('id_toko') ? 'disabled' : '' : '' ?> class="btn btn-sm btn-success pull-right" type="submit"><?= isset($penjualan) ? 'Update' : 'Buat' ?> Nota</button>
+		<button <?= isset($penjualan) ? $penjualan->id_toko != $this->session->userdata('id_toko') ? 'disabled' : '' : '' ?> class="btn btn-sm btn-success btn_submit_pembelian pull-right" type="submit"><?= isset($penjualan) ? 'Update' : 'Buat' ?> Nota</button>
 	</div>
 </div>
 </form>
@@ -256,6 +256,11 @@
 	$("#add_jual_cairan").hide();
 	$("#nama_lensa_").hide();
 	$("#ifOrderLensa").hide();
+
+	var id = "<?= $this->session->userdata('id_level') ?>";
+	if(id == "3") {
+		$(".btn_submit_pembelian").removeAttr("disabled");
+	}
 
 	$("#tipe_pembelian").on("change", function() {
 		if($(this).val() == 2) {
