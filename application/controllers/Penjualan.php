@@ -22,11 +22,17 @@ class Penjualan extends CI_Controller {
 		if($this->session->userdata("id_level") != 3) {
 			$this->db->where("b.id_toko", $this->session->userdata("id_toko"));
 		}
-		$data['frame'] = $this->db->select("b.*, a.nama, a.harga_beli, a.harga_jual")->from("data_frame b")->join("master_frame a", "a.id = b.id_frame")->where("status", 2)->where("b.stok >", 0)->get()->result();
+		if($id == '0') {
+			$this->db->where("b.stok >", 0);
+		}
+		$data['frame'] = $this->db->select("b.*, a.nama, a.harga_beli, a.harga_jual")->from("data_frame b")->join("master_frame a", "a.id = b.id_frame")->where("status", 2)->get()->result();
 		if($this->session->userdata("id_level") != 3) {
 			$this->db->where("id_toko", $this->session->userdata("id_toko"));
 		}
-		$data['lensa'] = $this->db->select("a.*, b.*, b.id AS id_data_lensa")->from("data_lensa b")->join("master_lensa a", "a.id = b.id_lensa")->where("b.stok >", 0)->get()->result();
+		if($id == '0') {
+			$this->db->where("b.stok >", 0);
+		}
+		$data['lensa'] = $this->db->select("a.*, b.*, b.id AS id_data_lensa")->from("data_lensa b")->join("master_lensa a", "a.id = b.id_lensa")->get()->result();
 		if($id != '0') {
 			$data['penjualan'] = $this->db->select("a.*")->get_where("penjualan a", array("md5(a.id)" => $id))->row();
 			$data['data_frame'] = $this->db->select("master_frame.nama AS nama_frame")->join("master_frame", "master_frame.id = data_frame.id_frame")->get_where("data_frame", array("id_frame" => $data['penjualan']->id_frame))->row();

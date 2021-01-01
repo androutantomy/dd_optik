@@ -152,7 +152,7 @@
 <div class="form-group row">
 	<div class="col-md-2">Frame</div>
 	<div class="col-md-5">
-		<select class="form-control input-sm selectx select2option" name="frame" id="frame">
+		<select class="form-control input-sm selectx select2option" <?= isset($penjualan) ? 'disabled' : ''; ?> name="frame" id="frame">
 			<option value="0">Pilih Frame</option>
 			<?php foreach($frame as $val) { ?>
 				<option value="<?= $val->id ?>" <?= isset($penjualan) ? $penjualan->id_frame == $val->id ? 'selected' : '' : '' ?> harga="<?= $val->harga_jual ?>">[ <?= $val->stok ?> ] <?= $val->nama ?></option>
@@ -164,13 +164,13 @@
 		<input type="text" readonly="" name="harga_frame_asli"  id="harga_frame_asli" value="<?= isset($penjualan) ? $penjualan->harga_frame : '' ?>" class="form-control input-sm">
 	</div>
 	<div class="col-md-2" style="text-align: right;">
-		<input type="text" name="harga_frame" style="text-align: right;" id="harga_frame" value="<?= isset($penjualan) ? $penjualan->potongan_frame : '' ?>" class="form-control potongan input-sm" value="0">
+		<input type="text" name="harga_frame"  <?= isset($penjualan) ? 'disabled' : ''; ?> style="text-align: right;" id="harga_frame" value="<?= isset($penjualan) ? $penjualan->potongan_frame : '' ?>" class="form-control potongan input-sm" value="0">
 	</div>
 </div>
 <div class="form-group row">
 	<div class="col-md-2">Lensa</div>
 	<div class="col-md-5">
-		<select class="form-control input-sm selectx select2option" name="lensa" id="lensa">
+		<select class="form-control input-sm selectx select2option" name="lensa" <?= isset($penjualan) ? 'disabled' : ''; ?> id="lensa">
 			<option value="0">Pilih Lensa</option>
 			<?php foreach($lensa as $val) { ?>
 				<option value="<?= $val->id_data_lensa ?>" harga="<?= $val->harga_jual ?>" <?= isset($penjualan) ? $penjualan->id_lensa == $val->id_data_lensa ? 'selected' : '' : '' ?>>[ <?= $val->stok ?> ] <?= $val->nama ?></option>
@@ -182,7 +182,7 @@
 		<input type="text" readonly name="harga_lensa_asli" value="<?= isset($penjualan) ? $penjualan->harga_lensa : '' ?>" id="harga_lensa_asli" class="form-control input-sm">
 	</div>
 	<div class="col-md-2" style="text-align: right;">
-		<input type="text" name="harga_lensa" style="text-align: right;" id="harga_lensa" value="<?= isset($penjualan) ? $penjualan->potongan_lensa : '' ?>" class="form-control potongan input-sm" value="0">
+		<input type="text" name="harga_lensa" <?= isset($penjualan) ? 'disabled' : ''; ?> style="text-align: right;" id="harga_lensa" value="<?= isset($penjualan) ? $penjualan->potongan_lensa : '' ?>" class="form-control potongan input-sm" value="0">
 	</div>
 </div>
 <div class="form-group row">
@@ -210,7 +210,7 @@
 		Jumlah
 	</div>
 	<div class="col-md-1">Rp.</div>
-	<div class="col-md-2" style="text-align: right;" id="total_asli">
+	<div class="col-md-2" style="text-align: right;"  id="total_asli">
 		<?= isset($penjualan) ? $penjualan->harga_frame+$penjualan->harga_lensa+$penjualan->harga_keterangan : '...............................' ?>
 	</div>
 	<div class="col-md-2" style="text-align: right;" id="total">
@@ -225,7 +225,7 @@
 	</div>
 	<div class="col-md-1">Rp. </div>
 	<div class="col-md-4">
-		<input type="text" style="text-align: right;" value="<?= isset($penjualan) ? $penjualan->uang_muka : '' ?>" name="uang_muka" id="uang_muka" class="form-control input-sm" value="0">
+		<input type="text" style="text-align: right;" name="uang_muka" id="uang_muka" class="form-control input-sm" value="0">
 	</div>
 </div>
 <div class="form-group row">
@@ -321,7 +321,13 @@
 			var potongan_frame = isNaN(parseInt($("#harga_frame").val())) ? 0 : parseInt($("#harga_frame").val());
 			var harga_keterangan = isNaN(parseInt($("#harga_keterangan").val())) ? 0 : parseInt($("#harga_keterangan").val());
 			var total_potongan = potongan_frame+potongan_lensa;
-			harga = harga_lensa+harga_frame-harga-total_potongan+harga_keterangan;
+			var is_penjualan = "<?= isset($penjualan) ? 'yes' : '' ?>";
+			if(is_penjualan == 'yes') {
+				var total_is_penjualan = parseInt("<?= isset($penjualan) ? $penjualan->sisa : 0 ?>");
+				harga = harga-total_is_penjualan;
+			} else {				
+				harga = harga_lensa+harga_frame-harga-total_potongan+harga_keterangan;
+			}
 		} else if(target == 'total_asli_') {			
 			harga = harga_lensa+harga_frame+harga_keterangan;
 		}
