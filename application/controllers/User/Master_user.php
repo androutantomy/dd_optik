@@ -21,7 +21,6 @@ class Master_user extends CI_Controller {
     }
 
     function add() {
-
         $data = array(
             'id_level' => $this->input->post("id_level"),
             'id_toko' => $this->input->post("id_toko"),
