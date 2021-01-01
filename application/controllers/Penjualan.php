@@ -151,12 +151,10 @@ class Penjualan extends CI_Controller {
 		];
 
 		if($id == '') {
-			$data = [				
-				'id_frame' => $this->input->post("frame"),
-				'id_lensa' => $this->input->post("lensa"),
-				'nama_frame' => str_replace("] ", "", $nama_frame),
-				'nama_lensa' => str_replace("] ", "", $nama_lensa),
-			];
+			$data['id_frame'] = $this->input->post("frame");
+			$data['id_lensa'] = $this->input->post("lensa");
+			$data['nama_frame'] = str_replace("] ", "", $nama_frame);
+			$data['nama_lensa'] = str_replace("] ", "", $nama_lensa);
 		}
 
 		if($id == "") {
