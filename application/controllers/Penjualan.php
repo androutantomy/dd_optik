@@ -136,10 +136,6 @@ class Penjualan extends CI_Controller {
 			'radd' => $this->input->post("addr"),
 			'pd_jauh' => $this->input->post("pd_jauh"),
 			'pd_dekat' => $this->input->post("pd_dekat"),
-			'id_frame' => $this->input->post("frame"),
-			'id_lensa' => $this->input->post("lensa"),
-			'nama_frame' => str_replace("] ", "", $nama_frame),
-			'nama_lensa' => str_replace("] ", "", $nama_lensa),
 			'keterangan' => $this->input->post("keterangan"),
 			'harga_keterangan' => $this->input->post("harga_keterangan") != "" ? $this->input->post("harga_keterangan") : 0,
 			'potongan_frame' => $this->input->post("harga_frame") != "" ? $this->input->post("harga_frame") : 0,
@@ -152,8 +148,16 @@ class Penjualan extends CI_Controller {
 			'is_bpjs' => $this->input->post("is_bpjs"),
 			'status' => $this->input->post("pesan_lensa") == "" ? 0 : 2,
 			'id_toko' => $this->session->userdata("id_level") != 3 ? $this->session->userdata("id_toko") : 0,
-
 		];
+
+		if($id == '') {
+			$data = [				
+				'id_frame' => $this->input->post("frame"),
+				'id_lensa' => $this->input->post("lensa"),
+				'nama_frame' => str_replace("] ", "", $nama_frame),
+				'nama_lensa' => str_replace("] ", "", $nama_lensa),
+			];
+		}
 
 		if($id == "") {
 			if($this->input->post("frame") != "" && $this->input->post("frame") != "0") {
