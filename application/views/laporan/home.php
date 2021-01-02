@@ -8,7 +8,7 @@
 			<div class="card-body" id="data_gudang">
 				<form method="GET" action="<?= site_url('laporan') ?>">
 					<div class="form-group row">
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<label>Toko</label>
 							<select class="form-control form-control-sm input-sm" name="toko" id="toko">
 								<option value="-">Pilih Toko</option>
@@ -17,22 +17,19 @@
 								<?php } ?>
 							</select>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<label>Tanggal Mulai</label>
 							<input type="date" name="tgl_mulai" id="tgl_mulai" value="<?= $start != '-' ? $start : ''; ?>" class="form-control form-control-sm input-sm" placeholder="Tanggal Mulai">
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<label>Tanggal Selesai</label>
 							<input type="date" name="tgl_selesai" id="tgl_selesai" value="<?= $end != '-' ? $end : ''; ?>" class="form-control form-control-sm input-sm" placeholder="Tanggal Selesai">
 						</div>
-					</div>
-					<div class="form-group row">
-						<div class="col-md-12" style="margin-top: 5px;">
-							<button class="btn btn-sm btn-success pull-right" name="submit" value="tampilkan"><i class="ei-right-chevron-circle"></i> Tampilkan</button>
+						<div class="col-md-3" style="margin-top: 5px;">
+							<button class="btn btn-sm btn-success pull-right" style="margin-top: 15px;" name="submit" value="tampilkan"><i class="ei-right-chevron-circle"></i> Tampilkan</button>
 						</div>
 					</div>
 				</form>
-				<br>
 
 				<ul class="nav nav-tabs">
 					<li class="active"><a data-toggle="tab" id="btn_frame" href="#home">Kacamata</a></li>
@@ -40,7 +37,7 @@
 				</ul>
 
 				<div class="tab-content">
-					<div id="home" class="tab-pane fade in active"><br>
+					<div id="home" class="tab-pane fade in active">
 						<div class="form-group row">
 							<div class="col-md-12">
 								<a role="button" class="btn btn-sm btn-success pull-right" href="<?= site_url('laporan/download_excel/'.$id_toko.'/'.$start.'/'.$end) ?>" target="_blank">Download</a>
@@ -59,7 +56,7 @@
 							<tbody></tbody>
 						</table>
 					</div>
-					<div id="menu1" class="tab-pane fade"><br>
+					<div id="menu1" class="tab-pane fade">
 						<div class="form-group row">
 							<div class="col-md-12">
 								<a role="button" class="btn btn-sm btn-success pull-right" href="<?= site_url('laporan/download_excel_cairan/'.$id_toko.'/'.$start.'/'.$end) ?>" target="_blank">Download</a>
