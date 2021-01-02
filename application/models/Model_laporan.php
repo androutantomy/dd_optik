@@ -21,6 +21,9 @@ class Model_laporan extends CI_Model {
             $this->db->where("id_toko", $id_toko);
         }
 
+        if($this->session->userdata("id_level") != 3) {
+            $this->db->where("penjualan.id_toko", $this->session->userdata("id_toko"));
+        }
         if($start != '-' && $end == '-') {
             $this->db->where("penjualan.tanggal_nota >=", $start." 00:00:00");
             $this->db->where("penjualan.tanggal_nota <=", $start." 23:59:00");
@@ -99,6 +102,9 @@ class Model_laporan extends CI_Model {
             $this->db->select("penjualan_barang.*,")->from("penjualan_barang");
             if($id_toko != "-") {
                 $this->db->where("id_toko", $id_toko);
+            }
+            if($this->session->userdata("id_level") != 3) {
+                $this->db->where("penjualan_barang.id_toko", $this->session->userdata("id_toko"));
             }
 
             if($start != '-' && $end == '-') {

@@ -12,7 +12,7 @@ class Master_user extends CI_Controller {
     function index() {
         $this->db->select("user.*, master_user_level.nama_level, master_toko.nama_toko");
         $this->db->join('master_user_level','master_user_level.id = user.id_level', 'left');
-        $this->db->join('master_toko','master_toko.id = user.id_level', 'left');
+        $this->db->join('master_toko','master_toko.id = user.id_toko', 'left');
         $data['user'] = $this->db->get('user')->result();
         
         $data['toko'] = $this->db->get("master_toko")->result();

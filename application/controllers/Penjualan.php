@@ -343,8 +343,6 @@ class Penjualan extends CI_Controller {
 			'id_toko' => $this->session->userdata("id_level") != 3 ? $this->session->userdata("id_toko") : 0,
 		];
 
-		// print_r($data);exit;
-
 		if($this->input->post("jenis") == 1) {
 			$g = $this->db->get_where("data_cairan", array("id" => $this->input->post("cairan")))->row();
 			$sisa = $g->stok-$this->input->post("qty");
